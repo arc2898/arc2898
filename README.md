@@ -1,9 +1,7 @@
 <div align="center">
 
-<!-- Animated gradient wave banner -->
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:6C63FF,100:00D2FF&height=200&section=header&text=ARC%20(arc2898)&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Student%20%C2%B7%20Builder%20%C2%B7%20Founder%20of%20FepTera&descAlignY=55&descSize=18" alt="header banner"/>
 
-<!-- Typing animation -->
 <a href="#">
   <img src="https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=600&size=24&duration=2500&pause=800&color=6C63FF&center=true&vCenter=true&width=600&lines=Still+exploring%2C+still+learning...;Building+a+Linux+distro+from+scratch;Founder+%26+Lead+of+FepTera;Mostly+Vibe+Coded+%E2%80%94+and+proud+of+it" alt="Typing SVG" />
 </a>
@@ -54,33 +52,8 @@ A lot of my projects are **vibe coded** — built fast, experimentally, leaning 
 
 </div>
 
-> ⚠️ This badge list is a general guess based on your project types (APK tooling, terminal tools, Linux distro, TypeScript repos) — not confirmed skills. Tell me which ones are actually right and which to drop.
-
 ---
 
-## 📊 GitHub Stats
-
-<div align="center">
-
-<img height="165" src="https://github-readme-stats.vercel.app/api?username=arc2898&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117&title_color=6C63FF&icon_color=00D2FF&text_color=c9d1d9" alt="arc2898's GitHub stats" />
-<img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=arc2898&layout=compact&theme=radical&hide_border=true&bg_color=0D1117&title_color=6C63FF&text_color=c9d1d9" alt="Top Languages" />
-
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=arc2898&theme=radical&hide_border=true&background=0D1117&ring=6C63FF&fire=00D2FF&currStreakLabel=6C63FF" alt="GitHub Streak" />
-
-</div>
-
----
-
-## 🐍 Contribution Snake
-
-<div align="center">
-
-<!-- Requires one-time GitHub Action setup — see notes below -->
-<img src="https://raw.githubusercontent.com/arc2898/arc2898/output/github-contribution-grid-snake-dark.svg" alt="GitHub contribution snake animation" />
-
-</div>
-
----
 
 ## 🌱 Currently
 
