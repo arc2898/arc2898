@@ -3,7 +3,7 @@
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:6C63FF,100:00D2FF&height=200&section=header&text=ARC%20(arc2898)&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Student%20%C2%B7%20Builder%20%C2%B7%20Founder%20of%20FepTera&descAlignY=55&descSize=18" alt="header banner"/>
 
 <a href="#">
-  <img src="https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=600&size=24&duration=2500&pause=800&color=6C63FF&center=true&vCenter=true&width=600&lines=Still+exploring%2C+still+learning...;Building+a+Linux+distro+from+scratch;Founder+%26+Lead+of+FepTera;Mostly+Vibe+Coded+%E2%80%94+and+proud+of+it" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=600&size=24&duration=2500&pause=800&color=6C63FF&center=true&vCenter=true&width=600&lines=Still+exploring%2C+still+learning...;Building+a+Linux+distro+from+scratch;Founder+%26+Lead+of+FepTera;" alt="Typing SVG" />
 </a>
 
 </div>
@@ -26,12 +26,6 @@
 ## 🏁 FepTera
 
 I founded and led **FepTera** — the name blends *Fe(mo)* + *(Pe)ta*, standing for a **new era**. It started as a team for hackathons, and while there's no fixed plan yet for what comes next, it might grow into something more down the line — maybe even a startup.
-
----
-
-## 🧪 A Note on How I Build
-
-A lot of my projects are **vibe coded** — built fast, experimentally, leaning on AI tools to move quickly and learn by doing. I'd rather be upfront about that than pretend otherwise. It's part of how I explore ideas as a student right now.
 
 ---
 
