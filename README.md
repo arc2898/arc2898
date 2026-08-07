@@ -29,7 +29,7 @@ I founded and led **FepTera** — the name blends *Fe(mo)* + *(Pe)ta*, standing 
 
 ---
 
-## 💻 Tech Stack (Matrix Rain Engine)
+## 💻 Tech Stack
 
 <div align="center">
 <img src="./matrix_tech.svg" alt="Matrix Tech Stack Rain" width="100%" />
