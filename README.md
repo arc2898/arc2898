@@ -50,3 +50,7 @@ Exploring ideas, building small tools, and figuring out what's next — one repo
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:00D2FF,100:6C63FF&height=100&section=footer" alt="footer wave"/>
 
 </div>
+
+## Repository maintenance
+
+Project links should point to maintained repositories and use concise descriptions. Keep profile changes focused on discoverability and do not add generated or private data.
