@@ -10,16 +10,16 @@
 
 ---
 
-## 🚀 What I'm Building
+##  What I'm Building
 
-- 🔧 **[web2apk](https://github.com/arc2898/web2apk)** — Convert any website into an Android APK in minutes, with a custom app name, icon, and URL.
-- 🖥️ **[termsnapshot](https://github.com/arc2898/termsnapshot)** — Record terminal sessions as shareable JSON, replay them anywhere with no vendor lock-in.
-- 🧩 **[terming](https://github.com/arc2898/terming)**, **[termimg](https://github.com/arc2898/termimg)**, **[clipsync](https://github.com/arc2898/clipsync)** — small tools around terminal workflows and clipboard syncing.
+-  **[web2apk](https://github.com/arc2898/web2apk)** — Convert any website into an Android APK in minutes, with a custom app name, icon, and URL.
+-  **[termsnapshot](https://github.com/arc2898/termsnapshot)** — Record terminal sessions as shareable JSON, replay them anywhere with no vendor lock-in.
+-  **[terming](https://github.com/arc2898/terming)**, **[termimg](https://github.com/arc2898/termimg)**, **[clipsync](https://github.com/arc2898/clipsync)** — small tools around terminal workflows and clipboard syncing.
 - 🐧 **My own Linux distro** — building a custom Linux distribution from the ground up.
-- 🤖 **A Linux AI assistant** — with both GUI and CLI interfaces.
-- 🗄️ **[OS-Vault](https://os-vault.neocities.org)** — a cloud storage website. Live at [os-vault.neocities.org](https://os-vault.neocities.org), with [v2](https://os-vault.neocities.org/v2/) still in active development.
-- 📱 **FepTera app suite** — a mobile app family: **FepTera Files**, **FepTera Video**, **FepTera Music**, **FepTera Gallery**.
-- 🌍 Working toward releasing more of these as **open source projects** over time.
+-  **A Linux AI assistant** — with both GUI and CLI interfaces.
+-  **[OS-Vault](https://os-vault.neocities.org)** — a cloud storage website. Live at [os-vault.neocities.org](https://os-vault.neocities.org), with [v2](https://os-vault.neocities.org/v2/) still in active development.
+-  **FepTera app suite** — a mobile app family: **FepTera Files**, **FepTera Video**, **FepTera Music**, **FepTera Gallery**.
+-  Working toward releasing more of these as **open source projects** over time.
 
 ---
 
