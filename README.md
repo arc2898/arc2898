@@ -1,16 +1,12 @@
-## Hi there 👋
-
-<!--
-**arc2898/arc2898** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+<br />
+<div align="center">
+  <a href="https://github.com/arc2898">
+    <img src="arc2898_logo.png" alt="Logo" width="500" height="500">
+  </a>
+  <h3 align="center">I am... ARC</h3>
+  <p align="center">
+    I was still presuming my engineering degree in Cyber Security
+    I was solo developer and also use AI to complete some work and for automation
+    Still learning and developing something to be great
+  </p>
+</div>
