@@ -73,3 +73,11 @@
 </p>
 </div>
 <h6 allign="left">randomly btw</h6>
+---
+<p>
+  I building <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white"> apps "FT-music" "FT-files" and upload its source as soon as possible
+</p>
+---
+<p>
+  I working on Linux Desktop AI assistant, sits on front of you, uses <img src="https://img.shields.io/badge/NVIDIA-GTX?style=for-the-badge&logo=nvidia&logoColor=white"> API key and it runs on online
+</p>
