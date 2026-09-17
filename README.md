@@ -1,15 +1,20 @@
-<br />
 <div align="center">
-  <a href="https://github.com/arc2898">
-    <img src="arc2898_logo.png" alt="Logo" width="400" height="400">
-  </a>
-  <h3 align="center">I  ARC</h3>
+  <table>
+    <tr>
+      <td width="40%" align="center" valign="middle">
+        <img src="arc2898_logo.png" alt="ARC Logo" width="300">
+      </td>
+      <td width="60%" align="left" valign="middle">
+        <h3 align="center">Hello, I am ARC</h3>
   <p align="center">
     I was still presuming my engineering degree in Cyber Security
     I was solo developer and also use AI to complete some work and for automation
     Still learning and developing something to be great
   </p>
-  <h2 align="left">The Stuff I Use Daily</h2>
+  </table>
+</div>
+
+<h2 align="left">The Stuff I Use Daily</h2>
 
 <h3>Languages</h3>
 
@@ -73,11 +78,11 @@
 </p>
 </div>
 <h6 allign="left">randomly btw</h6>
----
+
 <p>
-  I building <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white"> apps "FT-music" "FT-files" and upload its source as soon as possible
+  I building <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white"> apps "FT-music" it is in the directory of repository Android you can get it from here https://github.com/arc2898/Android/tree/main/FT-music/  and "FT-files" I upload its source as soon as possible
 </p>
----
+
 <p>
   I working on Linux Desktop AI assistant, sits on front of you, uses <img src="https://img.shields.io/badge/NVIDIA-GTX?style=for-the-badge&logo=nvidia&logoColor=white"> API key and it runs on online
 </p>
