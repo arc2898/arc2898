@@ -37,5 +37,6 @@ I build ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-bad
 
 I built a **[Universal Package Manager](https://github.com/arc2898/Universal-Package-Manager)** that works natively across all major operating systems, including macOS, Windows, and Linux (with Snap and Flatpak support).
 
-I'm currently developing an online **Linux Desktop AI Assistant** that sits seamlessly in front of you, utilizing an ![NVIDIA](https://img.shields.io/badge/NVIDIA-GTX?style=for-the-badge&logo=nvidia&logoColor=white) API key.
+I build a **[tview](https://github.com/arc2898/Linux/tview)** this is a terminal bassed video and image viewer, completely written in go lang. built for ***Linux***
 ---
+I'm currently developing an online **Linux Desktop AI Assistant** that sits seamlessly in front of you, utilizing an ![NVIDIA](https://img.shields.io/badge/NVIDIA-GTX?style=for-the-badge&logo=nvidia&logoColor=white) API key.
