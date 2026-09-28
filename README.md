@@ -40,3 +40,5 @@ I built a **[Universal Package Manager](https://github.com/arc2898/Universal-Pac
 I build a **[tview](https://github.com/arc2898/Linux/tview)** this is a terminal bassed video and image viewer, completely written in go lang. built for ***Linux***
 ---
 I'm currently developing an online **Linux Desktop AI Assistant** that sits seamlessly in front of you, utilizing an ![NVIDIA](https://img.shields.io/badge/NVIDIA-GTX?style=for-the-badge&logo=nvidia&logoColor=white) API key.
+
+[![GitHub Streak](https://streak-stats.demolab.com?user=arc2898&theme=tokyonight&hide_border=true)](https://git.io/streak-stats)
