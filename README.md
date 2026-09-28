@@ -33,12 +33,9 @@
 ###### Randomly BTW...
 
 ---
-I build ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white) apps like **[FT-music](https://github.com/arc2898/Android/tree/main/FT-music/)** and **FT-files** (source coming as soon as possible).
+I build some useful stuff, if you are music lover and android user you have FT-music, if you are a Linux user then you have a universal package manager, still a few more check my repositories.
 
-I built a **[Universal Package Manager](https://github.com/arc2898/Universal-Package-Manager)** that works natively across all major operating systems, including macOS, Windows, and Linux (with Snap and Flatpak support).
-
-I build a **[tview](https://github.com/arc2898/Linux/tview)** this is a terminal bassed video and image viewer, completely written in go lang. built for ***Linux***
 ---
-I'm currently developing an online **Linux Desktop AI Assistant** that sits seamlessly in front of you, utilizing an ![NVIDIA](https://img.shields.io/badge/NVIDIA-GTX?style=for-the-badge&logo=nvidia&logoColor=white) API key.
+I'm currently developing an online **Linux and windows Desktop AI Assistant** that sits seamlessly in front of you, utilizing an ![NVIDIA](https://img.shields.io/badge/NVIDIA-GTX?style=for-the-badge&logo=nvidia&logoColor=white) API key.
 
 [![GitHub Streak](https://streak-stats.demolab.com?user=arc2898&theme=tokyonight&hide_border=true)](https://git.io/streak-stats)
