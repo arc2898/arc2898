@@ -1,19 +1,4 @@
-<div align="center">
-  <table>
-    <tr>
-      <td width="35%" align="center" valign="middle">
-        <img src="arc2898_logo.png" alt="ARC Logo" width="280">
-      </td>
-      <td width="65%" align="left" valign="middle">
-        <b>arc@cyber-sec</b><br>
-        ---------------------------<br>
-        <b>Uptime:</b> Always Learning<br> 
-        <b>Role:</b> Solo Dev & Cyber Security (Student)<br>
-      </td>
-    </tr>
-  </table>
-</div>
-
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=F7F7F7&center=true&random=false&width=435&lines=Myself+arc;Presuming+Batchlors+degree;Free+time+coder;passionated+on+computers+)](https://git.io/typing-svg)
 <div align="center">
 
 ## The Stuff I Use Daily
@@ -39,3 +24,15 @@ I build some useful stuff, if you are music lover and android user you have FT-m
 I'm currently developing an online **Linux and windows Desktop AI Assistant** that sits seamlessly in front of you, utilizing an ![NVIDIA](https://img.shields.io/badge/NVIDIA-GTX?style=for-the-badge&logo=nvidia&logoColor=white) API key.
 
 [![GitHub Streak](https://streak-stats.demolab.com?user=arc2898&theme=tokyonight&hide_border=true)](https://git.io/streak-stats)
+ <h3> GitHub Profile Stats</h3>
+
+  <!-- https://github.com/anuraghazra/github-readme-stats -->
+
+  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="arc2898's Github Stats" src="https://denvercoder1-github-readme-stats.vercel.app/api/?username=arc2898&show_icons=true&include_all_commits=true&count_private=true&theme=react&hide_border=true&bg_color=1F222E&title_color=F85D7F&icon_color=F8D866" height="192px"/></a>
+  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="arc2898's Top Languages" src="https://denvercoder1-github-readme-stats.vercel.app/api/top-langs/?username=arc2898&langs_count=8&layout=compact&theme=react&hide_border=true&bg_color=1F222E&title_color=F85D7F&icon_color=F8D866&hide=Jupyter%20Notebook,Roff" height="192px"/></a>
+  <br/>
+
+  <b>Note:</b> Top languages is only a metric of the languages my public code consists of and doesn't reflect experience or skill level.
+  
+  <!-- https://github.com/ashutosh00710/github-readme-activity-graph -->
+
