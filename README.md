@@ -1,38 +1,84 @@
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=F7F7F7&center=true&random=false&width=435&lines=Myself+arc;Presuming+Batchlors+degree;Free+time+coder;passionated+on+computers+)](https://git.io/typing-svg)
-<div align="center">
-
-## The Stuff I Use Daily
-
-### Languages
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML) [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS) [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript) [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.java.com/) [![C](https://img.shields.io/badge/C-A8B9CC?style=for-the-badge&logo=c&logoColor=black)](https://en.cppreference.com/w/c) [![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)](https://isocpp.org/) [![C#](https://img.shields.io/badge/C%23-512BD4?style=for-the-badge&logo=csharp&logoColor=white)](https://dotnet.microsoft.com/en-us/languages/csharp) [![Zig](https://img.shields.io/badge/Zig-F7A41D?style=for-the-badge&logo=zig&logoColor=black)](https://ziglang.org/) [![Bash](https://img.shields.io/badge/Bash-121011?style=for-the-badge&logo=gnubash&logoColor=white)](https://www.gnu.org/software/bash/) [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/) [![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev/) [![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/) [![Ruby](https://img.shields.io/badge/Ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white)](https://www.ruby-lang.org/) [![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/) [![Swift](https://img.shields.io/badge/Swift-F05138?style=for-the-badge&logo=swift&logoColor=white)](https://www.swift.org/) [![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org/)
-
-### Tools & Technologies
-[![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://www.netlify.com/) [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/) [![Railway](https://img.shields.io/badge/Railway-000000?style=for-the-badge&logo=railway&logoColor=white)](https://railway.com/) [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/) [![Vim](https://img.shields.io/badge/Vim-019733?style=for-the-badge&logo=vim&logoColor=white)](https://www.vim.org/) [![Zed](https://img.shields.io/badge/Zed-084CCF?style=for-the-badge&logo=zedindustries&logoColor=white)](https://zed.dev/) [![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/) [![GTK](https://img.shields.io/badge/GTK-4A86CF?style=for-the-badge&logo=gtk&logoColor=white)](https://www.gtk.org/) [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/) [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/) [![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)](https://nginx.org/) [![Qt](https://img.shields.io/badge/Qt-41CD52?style=for-the-badge&logo=qt&logoColor=white)](https://www.qt.io/) [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/) [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/) [![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev/) ![JSON](https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white) ![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge&logo=powershell&logoColor=white) ![XAML](https://img.shields.io/badge/XAML-0C54C2?style=for-the-badge) ![XML](https://img.shields.io/badge/XML-FF6600?style=for-the-badge&logo=xml&logoColor=white) ![YAML](https://img.shields.io/badge/YAML-CB171E?style=for-the-badge&logo=yaml&logoColor=white)
-
-### Operating Systems
-![Debian](https://img.shields.io/badge/Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white) ![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?style=for-the-badge&logo=archlinux&logoColor=white) ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white) ![Fedora](https://img.shields.io/badge/Fedora-51A2DA?style=for-the-badge&logo=fedora&logoColor=white) ![Gentoo](https://img.shields.io/badge/Gentoo-54487A?style=for-the-badge&logo=gentoo&logoColor=white) ![openSUSE](https://img.shields.io/badge/openSUSE-73BA25?style=for-the-badge&logo=opensuse&logoColor=white) ![GNU/Linux](https://img.shields.io/badge/GNU/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black) ![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white) ![Void Linux](https://img.shields.io/badge/Void%20Linux-478061?style=for-the-badge&logo=voidlinux&logoColor=white) ![Windows](https://img.shields.io/badge/Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white)
-
+<div align="center" style="padding-top:18px;">
+  <div style="max-width: 960px; width: 100%; background: linear-gradient(135deg, rgba(8, 22, 24, 0.96), rgba(10, 23, 27, 0.92)); border: 1px solid rgba(72, 214, 206, 0.72); border-radius: 28px; box-shadow: 0 0 0 1px rgba(76, 223, 218, 0.14), inset 0 0 30px rgba(18, 255, 242, 0.05); padding: 26px 28px 20px; position: relative; overflow: hidden;">
+    <div style="position:absolute; inset:0; background: radial-gradient(circle at 12% 12%, rgba(33, 195, 190, 0.18), transparent 30%); pointer-events:none;"></div>
+    <div style="display:flex; align-items:flex-start; gap:18px; position:relative; z-index:1;">
+      <div style="width: 80px; height: 80px; min-width: 80px; border-radius: 50%; background: linear-gradient(135deg, rgba(4, 24, 28, 0.8), rgba(9, 38, 40, 0.92)); border: 4px solid rgba(32, 210, 214, 0.9); box-shadow: inset 0 0 18px rgba(70, 250, 255, 0.14), 0 0 18px rgba(32, 210, 214, 0.2); display:flex; align-items:center; justify-content:center; margin-top: 6px;">
+        <div style="width: 46px; height: 46px; background: linear-gradient(180deg, rgba(8, 217, 220, 0.12), rgba(8, 217, 220, 0.03)); border-radius: 14px; display:flex; align-items:center; justify-content:center; color: #d8fbff; font-size: 34px; font-weight: 700; font-family: Arial, sans-serif; transform: scaleY(1.08);">A</div>
+      </div>
+      <div style="flex:1; text-align:left;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom: 6px;">
+          <span style="font-size: 13px; color: rgba(199, 236, 242, 0.9); letter-spacing: 0.12em; font-weight: 600; font-family: monospace;">@arc2898</span>
+        </div>
+        <div style="font-size: 62px; font-weight: 800; letter-spacing: -0.07em; line-height: 0.9; color: #f0f6ff; margin: 4px 0 10px; font-family: Arial, Helvetica, sans-serif;">arc</div>
+        <div style="font-size: 13px; color: rgba(227, 240, 245, 0.9); margin-bottom: 18px; font-family: Arial, Helvetica, sans-serif;">A small solo developer, interested in building CLI and GUI applications or tools for Android, Windows, Linux. I also love to do low level stuff like making OS.</div>
+        <div style="display:flex; flex-wrap:wrap; gap: 10px;">
+          <span style="padding: 7px 16px; border-radius: 999px; border: 1px solid rgba(95, 228, 222, 0.6); color: #dffaf9; background: rgba(12, 32, 35, 0.28); font-size: 13px; font-weight: 600; font-family: Arial, sans-serif;">Dart</span>
+          <span style="padding: 7px 16px; border-radius: 999px; border: 1px solid rgba(95, 228, 222, 0.6); color: #dffaf9; background: rgba(12, 32, 35, 0.28); font-size: 13px; font-weight: 600; font-family: Arial, sans-serif;">Rust</span>
+          <span style="padding: 7px 16px; border-radius: 999px; border: 1px solid rgba(95, 228, 222, 0.6); color: #dffaf9; background: rgba(12, 32, 35, 0.28); font-size: 13px; font-weight: 600; font-family: Arial, sans-serif;">JavaScript</span>
+          <span style="padding: 7px 16px; border-radius: 999px; border: 1px solid rgba(95, 228, 222, 0.6); color: #dffaf9; background: rgba(12, 32, 35, 0.28); font-size: 13px; font-weight: 600; font-family: Arial, sans-serif;">Go</span>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute; right: 24px; bottom: 12px; color: rgba(134, 169, 174, 0.7); font-size: 11px; font-family: monospace; letter-spacing: 0.04em;">gitskins.com</div>
+  </div>
 </div>
-<br>
 
-###### Randomly BTW...
+<div align="center" style="margin-top: 28px;">
+  <div style="max-width: 960px; width: 100%; padding-top: 6px;">
+    <div style="border-bottom: 1px solid rgba(125, 143, 150, 0.2); padding-bottom: 12px; margin-bottom: 10px;">
+      <h2 style="margin: 0; font-size: 60px; line-height: 1; letter-spacing: -0.07em; color: #edf5ff; font-family: Arial, Helvetica, sans-serif;">arc</h2>
+    </div>
 
----
-I build some useful stuff, if you are music lover and android user you have FT-music, if you are a Linux user then you have a universal package manager, still a few more check my repositories.
+    <div style="text-align:center; margin: 18px 0 10px; color: #dfeaf2; font-size: 28px; font-weight: 700; font-family: Arial, Helvetica, sans-serif;">Frontend or full-stack engineer</div>
 
----
-I'm currently developing an online **Linux and windows Desktop AI Assistant** that sits seamlessly in front of you, utilizing an ![NVIDIA](https://img.shields.io/badge/NVIDIA-GTX?style=for-the-badge&logo=nvidia&logoColor=white) API key.
+    <div style="max-width: 720px; margin: 0 auto; text-align:left; color: rgba(218, 228, 234, 0.95); font-size: 18px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
+      A small solo developer, interested in building CLI and GUI applications or tools for Android, Windows, Linux. I also love to do low level stuff like making OS.
+    </div>
 
-[![GitHub Streak](https://streak-stats.demolab.com?user=arc2898&theme=tokyonight&hide_border=true)](https://git.io/streak-stats)
- <h3> GitHub Profile Stats</h3>
+    <div style="text-align:center; margin: 26px 0 18px;">
+      <span style="display:inline-block; color: rgba(99, 214, 233, 0.9); background: rgba(15, 27, 31, 0.65); border: 1px solid rgba(120, 172, 181, 0.28); border-radius: 999px; padding: 6px 18px; font-size: 14px; font-weight: 700; font-family: Arial, Helvetica, sans-serif;">Building at Feptera</span>
+    </div>
 
-  <!-- https://github.com/anuraghazra/github-readme-stats -->
+    <div style="display:grid; grid-template-columns: repeat(4, minmax(110px, 1fr)); gap: 16px; max-width: 420px; margin: 0 auto 26px; background: rgba(18, 24, 30, 0.46); border: 1px solid rgba(123, 144, 150, 0.18); border-radius: 12px; padding: 14px 16px; box-shadow: inset 0 0 18px rgba(15, 17, 18, 0.6);">
+      <div style="text-align:center;">
+        <div style="font-size: 28px; font-weight: 800; color: #f1f6ff; font-family: Arial, Helvetica, sans-serif;">0</div>
+        <div style="font-size: 12px; color: rgba(196, 206, 214, 0.8); font-family: Arial, Helvetica, sans-serif; margin-top: 5px;">Followers</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size: 28px; font-weight: 800; color: #f1f6ff; font-family: Arial, Helvetica, sans-serif;">6</div>
+        <div style="font-size: 12px; color: rgba(196, 206, 214, 0.8); font-family: Arial, Helvetica, sans-serif; margin-top: 5px;">Repositories</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size: 28px; font-weight: 800; color: #f1f6ff; font-family: Arial, Helvetica, sans-serif;">0</div>
+        <div style="font-size: 12px; color: rgba(196, 206, 214, 0.8); font-family: Arial, Helvetica, sans-serif; margin-top: 5px;">Stars</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size: 28px; font-weight: 800; color: #f1f6ff; font-family: Arial, Helvetica, sans-serif;">64</div>
+        <div style="font-size: 12px; color: rgba(196, 206, 214, 0.8); font-family: Arial, Helvetica, sans-serif; margin-top: 5px;">Contributions</div>
+      </div>
+    </div>
 
-  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="arc2898's Github Stats" src="https://denvercoder1-github-readme-stats.vercel.app/api/?username=arc2898&show_icons=true&include_all_commits=true&count_private=true&theme=react&hide_border=true&bg_color=1F222E&title_color=F85D7F&icon_color=F8D866" height="192px"/></a>
-  <a href="https://github.com/anuraghazra/github-readme-stats"><img alt="arc2898's Top Languages" src="https://denvercoder1-github-readme-stats.vercel.app/api/top-langs/?username=arc2898&langs_count=8&layout=compact&theme=react&hide_border=true&bg_color=1F222E&title_color=F85D7F&icon_color=F8D866&hide=Jupyter%20Notebook,Roff" height="192px"/></a>
-  <br/>
+    <div style="text-align:center; margin: 18px 0 4px; color: rgba(117, 214, 231, 0.92); font-size: 24px; font-weight: 700; font-family: Arial, Helvetica, sans-serif;">GitHub</div>
 
-  <b>Note:</b> Top languages is only a metric of the languages my public code consists of and doesn't reflect experience or skill level.
-  
-  <!-- https://github.com/ashutosh00710/github-readme-activity-graph -->
+    <div style="border-top: 1px solid rgba(125, 143, 150, 0.2); padding-top: 28px; margin-top: 12px;">
+      <h3 style="margin: 0 0 18px; font-size: 52px; line-height: 1; letter-spacing: -0.06em; color: #edf5ff; font-family: Arial, Helvetica, sans-serif;">Building in public</h3>
+    </div>
 
+    <div style="display:flex; align-items:stretch; justify-content:space-between; gap: 28px; background: rgba(17, 21, 27, 0.62); border: 1px solid rgba(121, 142, 149, 0.17); border-radius: 18px; padding: 22px 18px;">
+      <div style="flex: 1; min-width: 0; color: rgba(225, 234, 239, 0.96); font-size: 18px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
+        A small solo developer, interested in building CLI and GUI applications or tools for Android, Windows, Linux. I also love to do low level stuff like making OS.
+        <div style="margin-top: 22px; font-weight: 700; color: #eff7ff;">Focus: Dart · Rust · JavaScript</div>
+        <div style="margin-top: 16px; color: rgba(200, 214, 220, 0.82); font-size: 15px; line-height: 1.6;">Designed to make the work, momentum, and next conversion easy to find.</div>
+      </div>
+      <div style="width: 330px; min-width: 330px; border-radius: 16px; background: linear-gradient(180deg, rgba(7, 13, 20, 0.9), rgba(8, 24, 30, 0.88)); border: 1px solid rgba(125, 176, 188, 0.2); position: relative; overflow: hidden; display:flex; align-items:center; justify-content:center; height: 210px;">
+        <div style="position:absolute; inset:0; background: radial-gradient(circle at 50% 60%, rgba(17, 164, 178, 0.24), transparent 40%);"></div>
+        <div style="position:relative; width: 170px; height: 120px; display:flex; align-items:center; justify-content:center;">
+          <div style="position:absolute; width: 130px; height: 70px; border-left: 3px solid rgba(62, 224, 238, 0.9); border-bottom: 3px solid rgba(62, 224, 238, 0.9); transform: skewX(-26deg); border-radius: 0 0 0 12px; opacity: 0.9;"></div>
+          <div style="position:absolute; width: 130px; height: 70px; border-right: 3px solid rgba(62, 224, 238, 0.9); border-bottom: 3px solid rgba(62, 224, 238, 0.9); transform: skewX(26deg); border-radius: 0 0 12px 0; opacity: 0.9;"></div>
+          <div style="position:absolute; width: 110px; height: 52px; border: 3px solid rgba(62, 224, 238, 0.9); border-top: 0; border-radius: 0 0 18px 18px; opacity: 0.8;"></div>
+          <div style="position:absolute; width: 18px; height: 18px; background: rgba(44, 219, 224, 0.9); border-radius: 50%; bottom: 10px; left: 44px; box-shadow: 0 0 20px rgba(44, 219, 224, 0.9);"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
