@@ -10,6 +10,21 @@
 - JavaScript
 - Go
 
+### Featured Project
+
+#### [Universal Package Manager (UPM)](https://github.com/arc2898/Universal-Package-Manager)
+
+A Go CLI that brings common package-management operations behind one interface.
+
+- Hardened package-name validation and command invocation.
+- Fixed npm JSON parsing and updated Python package lookup for modern pip.
+- Corrected the installer path and per-user logging.
+- Made update behavior safer for unsupported global-update operations.
+- Added GitHub Actions checks for tests, static analysis, and builds on Linux, macOS, and Windows.
+
+Local verification: `go test ./...`, `go test -race ./...`, `go vet ./...`, Linux build, Windows/macOS cross-builds, mocked install/search/remove checks, and an isolated user-installer smoke test passed. Real package installations and system upgrades were intentionally not run.
+
+
 ### Languages
 <div>
 <img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /><img alt="CSS3" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
