@@ -25,6 +25,18 @@ A Go CLI that brings common package-management operations behind one interface.
 Local verification: `go test ./...`, `go test -race ./...`, `go vet ./...`, Linux build, Windows/macOS cross-builds, mocked install/search/remove checks, and an isolated user-installer smoke test passed. Real package installations and system upgrades were intentionally not run.
 
 
+#### [Self-Hosted Server Dashboard](https://github.com/arc2898/selfhost-dashboard)
+
+A private Node.js dashboard for system monitoring, file management, media streaming, and a browser terminal.
+
+- Hardened ZIP extraction, symlink-aware path validation, upload handling, and byte-range streaming.
+- Added same-origin WebSocket checks, terminal session/message limits, and admin-only process termination.
+- Added startup validation for the JWT signing secret and safer initial .env generation.
+- Added security regression tests and automated Node.js CI.
+
+**CI:** Passed on Ubuntu, macOS, and Windows. [View the verified run](https://github.com/arc2898/selfhost-dashboard/actions/runs/39719177822). Real deployment and destructive package/filesystem operations were not run against a live host.
+
+
 ### Languages
 <div>
 <img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /><img alt="CSS3" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
