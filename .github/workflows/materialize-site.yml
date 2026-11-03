@@ -1,0 +1,30 @@
+name: Materialize profile site
+on:
+  push:
+    branches: [main]
+    paths: [".site-payload.zip.b64"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate and extract site bundle
+        run: |
+          base64 --decode .site-payload.zip.b64 > /tmp/profile-site.zip
+          unzip -t /tmp/profile-site.zip
+          unzip -oq /tmp/profile-site.zip -d .
+          rm .site-payload.zip.b64
+      - name: Commit site files without changing the profile README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "build: add arc2898 profile site"
+            git push
+          fi
