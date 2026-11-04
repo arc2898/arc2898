@@ -22,6 +22,9 @@ let currentMode = readAppearanceMode();
 document.documentElement.dataset.mode = currentMode;
 let threeState = null;
 let glitchTimer = null;
+let themeChangeTimer = null;
+let themeChanging = false;
+let pendingTheme = null;
 const NAV = [["about","About"],["repos","Repos"],["stack","Stack"],["now","Now"],["done","Done"],["updates","Updates"],["visuals","Shots"]];
 const SCREENSHOTS = [
   ["Universal Package Manager","upm"],
@@ -235,17 +238,30 @@ function activeSection(){
   return found?.id || null;
 }
 function changeTheme(theme){
-  if(!THEMES.some(t=>t.id===theme)) return;
-  if(theme===currentTheme) return;
-  const anchor = activeSection();
-  const curtain = $("#transition-curtain");
-  if(curtain) curtain.classList.add("active");
-  setTimeout(()=>{
-    renderTheme(theme,anchor);
-    const nextCurtain=$("#transition-curtain");
-    if(nextCurtain){nextCurtain.classList.remove("active");}
-    flashGlitch();
-  },180);
+  if(!THEMES.some(t=>t.id===theme)||theme===currentTheme)return;
+  if(themeChanging){pendingTheme=theme;return;}
+  themeChanging=true;
+  const anchor=activeSection();
+  const curtain=$("#transition-curtain");
+  if(curtain)curtain.classList.add("active");
+  clearTimeout(themeChangeTimer);
+  themeChangeTimer=setTimeout(()=>{
+    try{
+      renderTheme(theme,anchor);
+      flashGlitch();
+    }catch(error){
+      console.error("Theme switch failed; restoring the current layout.",error);
+      renderTheme(currentTheme,anchor);
+    }finally{
+      themeChangeTimer=setTimeout(()=>{
+        const overlay=$("#transition-curtain");
+        if(overlay)overlay.classList.remove("active");
+        themeChanging=false;
+        const next=pendingTheme;pendingTheme=null;
+        if(next&&next!==currentTheme)changeTheme(next);
+      },360);
+    }
+  },100);
 }
 function bindThemeControls(){
   const select=$("#theme-select");
@@ -407,7 +423,7 @@ function flashGlitch(){
   const selectors=[".hero h1",".section-heading h2",".repo-name",".done-card h3",".bio-title",".brand > span:last-child",".shot-card b",".hud-overline"];
   const candidates=[...new Set(selectors.flatMap(selector=> $(selector)))];
   for(let i=candidates.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[candidates[i],candidates[j]]=[candidates[j],candidates[i]];}
-  candidates.slice(0,Math.min(7,candidates.length)).forEach(target=>{
+  candidates.slice(0,Math.min(3,candidates.length)).forEach(target=>{
     target.dataset.glitch=target.textContent.trim().replace(/\s+/g," ").slice(0,90);
     target.classList.remove("glitch-target");void target.offsetWidth;target.classList.add("glitch-target");
     setTimeout(()=>{target.classList.remove("glitch-target");delete target.dataset.glitch;},520);
@@ -418,7 +434,7 @@ function flashGlitch(){
 }
 function scheduleGlitches(){
   clearTimeout(glitchTimer);
-  const delay=2600+Math.random()*5600;
+  const delay=12000+Math.random()*14000;
   glitchTimer=setTimeout(()=>{if(Math.random()>.06)flashGlitch();scheduleGlitches();},delay);
 }
 function bindGlobalMotion(){
@@ -435,11 +451,14 @@ function bindGlobalMotion(){
 function setSceneTheme(theme){
   const wrap=$("#scene-wrap"),fallback=$(".scene-fallback");
   if(!wrap)return;
-  const active=["liquid","glass","tinted","future"].includes(theme);
-  wrap.style.opacity=theme==="liquid"?"1":theme==="glass"?".7":theme==="future"?".45":theme==="tinted"?".2":"0";
+  const active=theme==="liquid";
+  wrap.style.opacity=active?"1":"0";
   wrap.dataset.scene=theme;
-  if(fallback)fallback.style.opacity=theme==="liquid"?"1":theme==="glass"?".5":theme==="tinted"?".3":"0";
+  if(fallback)fallback.style.opacity=theme==="liquid"?"1":theme==="glass"||theme==="tinted"||theme==="future"?".38":"0";
   if(threeState){
+    threeState.active=active&&!document.hidden;
+    if(threeState.active&&threeState.frameId===null)threeState.frameId=requestAnimationFrame(threeState.tick);
+    if(!threeState.active&&threeState.frameId!==null){cancelAnimationFrame(threeState.frameId);threeState.frameId=null;}
     const map={
       liquid:["#55d8d3","#887cff"],
       glass:["#ed8ddd","#71dfe0"],
@@ -454,12 +473,12 @@ function setSceneTheme(theme){
   }
 }
 async function initThree(){
-  const canvas=$("#liquid-scene");if(!canvas||!window.WebGLRenderingContext||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const canvas=$("#liquid-scene");if(!canvas||!window.WebGLRenderingContext||window.matchMedia("(prefers-reduced-motion: reduce)").matches||!window.matchMedia("(min-width: 761px)").matches)return;
   try{
     const THREE=await import("https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js");
     const {RoomEnvironment}=await import("https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/environments/RoomEnvironment.js");
-    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:"low-power"});
-    renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false,powerPreference:"low-power"});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,1.1));
     renderer.setSize(innerWidth,innerHeight,false);
     renderer.outputColorSpace=THREE.SRGBColorSpace;
     renderer.toneMapping=THREE.ACESFilmicToneMapping;
@@ -507,7 +526,7 @@ async function initThree(){
     const ambient=new THREE.AmbientLight(0x9fcfff,1.15);scene.add(ambient);
     const key=new THREE.PointLight(0x83f2e8,30,22);key.position.set(2.7,2.8,4);scene.add(key);
     const rim=new THREE.PointLight(0xa18aff,24,20);rim.position.set(-3,-2,2);scene.add(rim);
-    const knotGeometry=new THREE.IcosahedronGeometry(1.24,7);
+    const knotGeometry=new THREE.IcosahedronGeometry(1.24,5);
     const knotMaterial=new THREE.MeshPhysicalMaterial({color:0x70e4dd,metalness:.04,roughness:.035,transmission:.96,thickness:1.8,ior:1.42,clearcoat:1,clearcoatRoughness:.015,iridescence:1,iridescenceIOR:1.38,iridescenceThicknessRange:[120,720],envMapIntensity:1.55,transparent:true,opacity:.96});
     knotMaterial.onBeforeCompile=shader=>{
       shader.uniforms.uFluidTime=uniforms.uTime;
@@ -522,25 +541,27 @@ async function initThree(){
     const beadB=new THREE.Mesh(beadGeometry,beadMaterial);beadB.scale.setScalar(.62);beadB.position.set(3.5,-1.05,.28);scene.add(beadB);
     const beadC=new THREE.Mesh(beadGeometry,beadMaterial);beadC.scale.setScalar(.42);beadC.position.set(.95,-1.55,.42);scene.add(beadC);
     const ringMaterial=new THREE.MeshPhysicalMaterial({color:0x87e8e7,metalness:.16,roughness:.09,transmission:.6,clearcoat:1,iridescence:1,transparent:true,opacity:.48});
-    const ring=new THREE.Mesh(new THREE.TorusGeometry(1.85,.018,12,180),ringMaterial);ring.position.set(2.15,.15,-.35);ring.rotation.set(1.15,.2,.35);scene.add(ring);
-    const ring2=new THREE.Mesh(new THREE.TorusGeometry(2.12,.009,8,180),new THREE.MeshBasicMaterial({color:0xc0b4ff,transparent:true,opacity:.6}));ring2.position.copy(ring.position);ring2.rotation.set(.75,-.5,.7);scene.add(ring2);
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(1.85,.018,8,96),ringMaterial);ring.position.set(2.15,.15,-.35);ring.rotation.set(1.15,.2,.35);scene.add(ring);
+    const ring2=new THREE.Mesh(new THREE.TorusGeometry(2.12,.009,6,96),new THREE.MeshBasicMaterial({color:0xc0b4ff,transparent:true,opacity:.6}));ring2.position.copy(ring.position);ring2.rotation.set(.75,-.5,.7);scene.add(ring2);
     const shardMat=new THREE.MeshPhysicalMaterial({color:0x8ceee4,metalness:.12,roughness:.04,transmission:.84,thickness:.7,clearcoat:1,iridescence:1,transparent:true,opacity:.58});
     const shard=new THREE.Mesh(new THREE.OctahedronGeometry(.5,0),shardMat);shard.position.set(-2.9,-1.3,.15);scene.add(shard);
-    threeState={THREE,renderer,scene,camera,uniforms,knot,knotMaterial,ring,ring2,shard};
-    setSceneTheme(currentTheme);
-    function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();uniforms.uResolution.value.set(innerWidth,innerHeight);}
+    threeState={THREE,renderer,scene,camera,uniforms,knot,knotMaterial,ring,ring2,shard,active:false,frameId:null,lastFrame:0,tick:null};
+    function resize(){renderer.setPixelRatio(Math.min(devicePixelRatio,1.1));renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();uniforms.uResolution.value.set(innerWidth,innerHeight);}
     window.addEventListener("resize",resize,{passive:true});
-    function animate(t){
-      requestAnimationFrame(animate);
-      if(document.hidden)return;
+    threeState.tick=function(t){
+      if(!threeState||!threeState.active||document.hidden){threeState.frameId=null;return;}
+      threeState.frameId=requestAnimationFrame(threeState.tick);
+      if(t-threeState.lastFrame<33)return;
+      threeState.lastFrame=t;
       uniforms.uTime.value=t*.001;
       knot.rotation.x=t*.00012+.4;knot.rotation.y=t*.00025;knot.rotation.z=Math.sin(t*.00016)*.3;
       knot.position.y=.15+Math.sin(t*.0005)*.18;
       ring.rotation.z=t*.00012;ring2.rotation.x=t*.00018;
       shard.rotation.x=t*.00035;shard.rotation.y=t*.00025;shard.position.y=-1.3+Math.sin(t*.0006)*.2;
       renderer.render(scene,camera);
-    }
-    requestAnimationFrame(animate);
+    };
+    document.addEventListener("visibilitychange",()=>setSceneTheme(currentTheme));
+    setSceneTheme(currentTheme);
   }catch(error){console.info("Three.js scene unavailable; CSS atmosphere remains active.",error);}
 }
 renderTheme(currentTheme);
