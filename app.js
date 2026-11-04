@@ -273,7 +273,7 @@ function bindThemeControls(){
     const choices=THEMES.filter(t=>t.id!==currentTheme);
     changeTheme(choices[Math.floor(Math.random()*choices.length)].id);
   });
-  $(".main-nav a").forEach(a=>a.addEventListener("click",()=>a.classList.add("clicked")));
+  $$(".main-nav a").forEach(a=>a.addEventListener("click",()=>a.classList.add("clicked")));
 }
 function bindRepoControls(){
   const search=$("#repo-search"),sort=$("#repo-sort"),language=$("#repo-language");
@@ -421,7 +421,7 @@ function flashGlitch(){
   const layer=$("#glitch-layer");
   if(layer){layer.classList.remove("active");void layer.offsetWidth;layer.classList.add("active");}
   const selectors=[".hero h1",".section-heading h2",".repo-name",".done-card h3",".bio-title",".brand > span:last-child",".shot-card b",".hud-overline"];
-  const candidates=[...new Set(selectors.flatMap(selector=> $(selector)))];
+  const candidates=[...new Set(selectors.flatMap(selector=> $$(selector)))];
   for(let i=candidates.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[candidates[i],candidates[j]]=[candidates[j],candidates[i]];}
   candidates.slice(0,Math.min(3,candidates.length)).forEach(target=>{
     target.dataset.glitch=target.textContent.trim().replace(/\s+/g," ").slice(0,90);
