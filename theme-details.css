@@ -157,3 +157,174 @@ html[data-theme="retro"] .scanline,html[data-theme="oldweb"] .scanline{display:n
  .burst-site .paper-section{padding:20px 14px}.burst-site .paper-section:before{right:10px;width:65px}
  .pixel-site .hero h1{font-size:27px}.pixel-site .pixel-status{font-size:6px}
 }
+
+/* Campus '04 — a new period style: dial-up homepage meets the February 2004 campus profile */
+.campus-site{
+ --bg:#e9edf3;--paper:#f7f9fc;--ink:#24354b;--muted:#62748a;--line:#c7d3e2;
+ --accent:#3b5998;--accent2:#6683b5;--hot:#a84646;--panel:#fff;--blur:0px;
+ --shadow:0 1px 3px #142b4518;--lift:0 3px 10px #142b451a;--radius:2px;
+ --mono:"IBM Plex Mono",monospace;--sans:Arial,Helvetica,sans-serif;--display:Georgia,"Times New Roman",serif;--grid:transparent;
+ background:#e9edf3;color:#24354b;font-family:Arial,Helvetica,sans-serif;
+}
+.campus-site .campus-browser{
+ height:27px;display:flex;align-items:center;justify-content:space-between;gap:14px;
+ padding:0 max(14px,calc((100vw - 1220px)/2));background:linear-gradient(#f6f7f8,#d4d9df);
+ border:1px solid #fff;color:#405064;font:10px Arial,sans-serif;
+}
+.campus-site .campus-browser span:first-child{font-weight:bold}
+.campus-site .campus-browser span:nth-child(2){color:#536b91;font-weight:bold;letter-spacing:.07em}
+.campus-site .campus-masthead{
+ position:relative;top:auto;min-height:52px;padding:7px max(24px,calc((100vw - 1220px)/2));
+ background:#3b5998;color:white;border:0;border-bottom:4px solid #263f73;backdrop-filter:none;
+ display:flex;gap:17px;box-shadow:0 1px 2px #142b4533;
+}
+.campus-site .campus-masthead .brand{gap:7px;color:white;font:700 19px Georgia,serif;letter-spacing:-.04em}
+.campus-site .campus-masthead .brand-mark{width:24px;height:24px;border-radius:0;background:#fff;color:#3b5998;box-shadow:none;font:700 15px Georgia,serif}
+.campus-site .campus-masthead .brand small{display:none}
+.campus-site .campus-network-label{color:#d8e3f4;font:9px Arial;white-space:nowrap;letter-spacing:.04em}
+.campus-site .campus-masthead .main-nav{gap:13px;color:#fff;font:11px Arial,sans-serif;letter-spacing:0;text-transform:none}
+.campus-site .campus-masthead .main-nav a{padding:6px 0;color:#eef4ff}
+.campus-site .campus-masthead .main-nav a span{display:none}
+.campus-site .campus-masthead .main-nav a:after{background:#fff}
+.campus-site .campus-masthead .head-tools{gap:5px}
+.campus-site .campus-masthead .clock-readout,.campus-site .campus-masthead .theme-select,.campus-site .campus-masthead .shuffle-btn{
+ padding:6px 8px;border:1px solid #a8bbd9;border-radius:2px;background:#f6f8fb;color:#344c70;
+ font:10px Arial,sans-serif;backdrop-filter:none;box-shadow:inset 0 1px #fff;
+}
+.campus-site .campus-masthead .theme-select{max-width:120px}
+.campus-site .campus-masthead .shuffle-btn{border-color:#d9e1ec}
+.campus-site .campus-masthead .shuffle-btn:hover{background:#e3ebf7;color:#233d68;transform:none}
+.campus-site .campus-address{
+ display:flex;align-items:center;gap:8px;width:min(1220px,calc(100% - 48px));margin:0 auto;
+ padding:5px 8px;background:#e0e5ec;border:1px solid #c5cbd3;border-top:0;color:#4c5b6c;font:10px Arial,sans-serif;
+}
+.campus-site .campus-address code{flex:1;padding:4px 7px;background:#fff;border:1px inset #c4cbd4;color:#31558b;font:11px "IBM Plex Mono",monospace}
+.campus-site .campus-address b{padding:3px 9px;border:2px outset #fff;background:#e7e9ec;color:#34465b;font-size:10px}
+.campus-site .campus-hero{
+ width:min(1220px,calc(100% - 48px));min-height:0;display:block;margin:18px auto 15px;padding:13px 15px 10px;
+ border:1px solid #b8c7d9;background:#fff;box-shadow:0 1px 3px #1c36501a;animation:campus-page-in .45s ease both;
+}
+@keyframes campus-page-in{from{opacity:.2;transform:translateY(10px)}to{opacity:1;transform:none}}
+.campus-site .campus-era-line{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 0 9px;margin-bottom:12px;
+ border-bottom:1px solid #d4deeb;color:#647a99;font:9px "IBM Plex Mono",monospace;letter-spacing:.08em;
+}
+.campus-site .campus-era-line span:last-child{color:#8a98aa}
+.campus-site .campus-profile-grid{display:grid;grid-template-columns:162px minmax(0,1fr) 190px;gap:14px;align-items:start}
+.campus-site .campus-profile-side,.campus-site .campus-profile-main,.campus-site .campus-network-side{
+ min-width:0;padding:11px;background:#fff;border:1px solid #cbd7e6;
+}
+.campus-site .campus-profile-side{background:#f7f9fc}
+.campus-site .campus-avatar-frame{padding:4px;background:white;border:1px solid #cbd7e6}
+.campus-site .campus-avatar-frame img{display:block;width:100%;height:144px;object-fit:cover;background:#e7edf5}
+.campus-site .campus-side-name{display:block;margin:9px 0 4px;color:#2d4e82;font:bold 15px Georgia,serif}
+.campus-site .campus-online{display:flex;align-items:center;gap:6px;color:#63768f;font:10px Arial,sans-serif}
+.campus-site .campus-online i{width:7px;height:7px;border-radius:50%;background:#6ca56d;box-shadow:0 0 0 2px #6ca56d22}
+.campus-site .campus-profile-side hr{border:0;border-top:1px solid #d6dfeb;margin:11px 0 7px}
+.campus-site .campus-profile-side>a{display:block;padding:5px 2px;border-bottom:1px solid #e4eaf2;color:#315c9a;text-decoration:underline;font:11px Arial,sans-serif}
+.campus-site .campus-profile-side>a:hover,.campus-site .campus-side-box a:hover{color:#9a3e3e;background:#f2f5fa}
+.campus-site .campus-side-foot{margin-top:12px;color:#8190a3;font:8px "IBM Plex Mono",monospace}
+.campus-site .campus-profile-main{padding:13px 16px 12px}
+.campus-site .campus-profile-kicker{color:#77869a;font:9px "IBM Plex Mono",monospace;letter-spacing:.1em}
+.campus-site .campus-profile-kicker span{color:#b5c2d3}
+.campus-site .campus-profile-main h1{margin:10px 0 7px;color:#294f88;font:normal clamp(39px,5vw,58px)/.98 Georgia,"Times New Roman",serif;letter-spacing:-.045em}
+.campus-site .campus-profile-main h1 span{color:#8397b3}
+.campus-site .campus-profile-main .hero-copy{max-width:620px;margin:10px 0 14px;color:#4f6074;font:13px/1.58 Arial,sans-serif}
+.campus-site .campus-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:13px 0;padding:10px 0;border-block:1px dotted #c8d5e5}
+.campus-site .campus-facts div{display:flex;flex-direction:column;gap:5px;min-width:0}
+.campus-site .campus-facts b{color:#8090a4;font:8px "IBM Plex Mono",monospace;letter-spacing:.08em}
+.campus-site .campus-facts span{color:#344d6c;font:11px Arial,sans-serif}
+.campus-site .campus-profile-main .hero-actions{gap:7px;margin-top:13px}
+.campus-site .campus-profile-main .action{padding:7px 10px;border:1px solid #9db0cc;border-radius:2px;background:#eef2f7;color:#315282;font:11px Arial,sans-serif;letter-spacing:0;text-transform:none;box-shadow:inset 0 1px #fff}
+.campus-site .campus-profile-main .action.primary{background:#3b5998;color:white;border-color:#294779;font-weight:bold}
+.campus-site .campus-profile-main .action:hover{transform:translateY(-1px);box-shadow:0 2px 5px #18385b2b}
+.campus-site .campus-profile-note{margin-top:13px;padding:8px 10px;background:#f5f7fa;border-left:3px solid #9fb2ce;color:#6f7e91;font:10px/1.5 Arial,sans-serif}
+.campus-site .campus-side-box{margin-bottom:10px;border:1px solid #cbd7e6;background:#f7f9fc}
+.campus-site .campus-side-box>b{display:block;padding:6px 8px;background:#e7edf5;border-bottom:1px solid #cbd7e6;color:#405a7f;font:bold 10px Arial,sans-serif}
+.campus-site .campus-side-box>a,.campus-site .campus-side-box>span{display:block;padding:6px 8px;border-bottom:1px solid #e5ebf2;color:#315c9a;font:10px Arial,sans-serif}
+.campus-site .campus-side-box>span{color:#596b83}
+.campus-site .campus-footer-rule{display:flex;justify-content:space-between;gap:10px;margin-top:12px;padding-top:8px;border-top:1px solid #d7e0eb;color:#8795a7;font:8px "IBM Plex Mono",monospace;letter-spacing:.06em}
+.campus-site .ticker,.campus-site .campus-ticker{padding:7px 0;border-block:1px solid #c5d1e0;background:#e4eaf2;color:#536985;font:9px "IBM Plex Mono",monospace;letter-spacing:.08em}
+.campus-site .ticker .marquee{animation-duration:46s}
+.campus-site .content-flow{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0 18px;padding-top:4px;padding-bottom:40px;align-items:start}
+.campus-site .profile-section{min-width:0;padding:13px 0 15px;scroll-margin-top:18px}
+.campus-site #about{grid-column:span 8}
+.campus-site #stack{grid-column:span 4}
+.campus-site #repos{grid-column:span 12}
+.campus-site #now{grid-column:span 7}
+.campus-site #done{grid-column:span 5}
+.campus-site #updates{grid-column:span 5}
+.campus-site #visuals{grid-column:span 7}
+.campus-site .campus-module{padding:0;border:1px solid #bdcadd;background:#fff;box-shadow:0 1px 3px #243c5814}
+.campus-site .campus-module-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;background:#e7edf5;border-bottom:1px solid #c6d2e1;color:#405981}
+.campus-site .campus-module-head b{font:bold 10px Arial,sans-serif;letter-spacing:.03em}
+.campus-site .campus-module-head span{color:#8897aa;font:8px "IBM Plex Mono",monospace;letter-spacing:.08em}
+.campus-site .campus-module-body{padding:13px}
+.campus-site .section-heading{align-items:start;display:block;margin-bottom:15px;padding-bottom:9px;border-bottom:1px dotted #d1dce9}
+.campus-site .section-kicker{color:#7990ae;font:8px "IBM Plex Mono",monospace;letter-spacing:.08em}
+.campus-site .section-heading h2{margin:5px 0 3px;color:#294f88;font:normal 27px/1.05 Georgia,serif;letter-spacing:-.03em}
+.campus-site .section-heading p{max-width:none;color:#748399;font:11px/1.5 Arial,sans-serif}
+.campus-site .about-layout{grid-template-columns:minmax(0,1.5fr) minmax(125px,.8fr);gap:10px}
+.campus-site .about-bio{grid-template-columns:60px 1fr;gap:12px;padding:12px;border-radius:0;background:#fff;border:1px solid #d4deea;box-shadow:none}
+.campus-site .avatar{width:60px;height:60px;border-radius:0;box-shadow:none;border:1px solid #ccd7e5}
+.campus-site .bio-title{color:#31568d;font:bold 15px Georgia,serif;letter-spacing:0}
+.campus-site .bio-text{color:#53657b;font:11px/1.6 Arial,sans-serif}
+.campus-site .bio-focus{gap:4px;margin-top:10px}
+.campus-site .tag{padding:4px 6px;border:1px solid #ccd8e6;border-radius:0;color:#4e6689;background:#f5f8fb;font:9px Arial,sans-serif}
+.campus-site .social-row{gap:5px;margin-top:12px}
+.campus-site .social-link{padding:5px 7px;border:1px solid #c6d3e3;border-radius:0;color:#315c9a;font:10px Arial,sans-serif;text-decoration:underline}
+.campus-site .social-link:hover{background:#e7edf5;color:#1f4478;transform:none}
+.campus-site .stats-grid{gap:6px}
+.campus-site .stat-tile{min-height:72px;padding:10px;border:1px solid #d3deea;border-radius:0;box-shadow:none;background:#f8fafc}
+.campus-site .stat-tile strong{color:#31568d;font:bold 24px Georgia,serif;letter-spacing:0}
+.campus-site .stat-tile span{color:#8391a3;font:8px Arial,sans-serif;letter-spacing:.05em}
+.campus-site .repo-toolbar{gap:6px;margin-bottom:9px}
+.campus-site .repo-search,.campus-site .repo-filter{min-height:30px;padding:6px 8px;border:1px solid #bdcadb;border-radius:0;background:#fff;color:#324d73;font:11px Arial,sans-serif;box-shadow:inset 0 1px 2px #243c580a}
+.campus-site .repo-card{padding:12px;border:1px solid #cbd7e6;border-radius:0;background:#fff;box-shadow:none}
+.campus-site .repo-card h3,.campus-site .repo-card h3 a{color:#315c9a;font:bold 14px Georgia,serif;text-decoration:underline}
+.campus-site .repo-card p{color:#596b81;font:11px/1.5 Arial,sans-serif}
+.campus-site .repo-card .tag{font:9px Arial,sans-serif}
+.campus-site .stack-grid{gap:6px}
+.campus-site .stack-card{padding:9px;border:1px solid #d1dce8;border-radius:0;background:#f8fafc;box-shadow:none}
+.campus-site .stack-card strong{color:#31568d;font:bold 16px Georgia,serif}
+.campus-site .feed-panel,.campus-site .done-card,.campus-site .update-card{padding:12px;border:1px solid #d0dae7;border-radius:0;background:#fff;box-shadow:none}
+.campus-site .feed-panel{margin-bottom:7px}
+.campus-site .panel-title{color:#365782;font:bold 13px Georgia,serif}
+.campus-site .activity-item,.campus-site .milestone-item{border-color:#e0e7f0}
+.campus-site .shot-card{display:grid;grid-template-columns:108px minmax(0,1fr);grid-template-rows:auto 1fr;align-items:center;gap:4px 10px;padding:8px;border:1px solid #c9d5e3;border-radius:0;background:#fff;box-shadow:none}
+.campus-site .shot-preview{grid-column:1;grid-row:1 / span 2;height:76px;border:1px solid #c2cede;border-radius:0;background:#edf2f7;color:#637996;font:8px "IBM Plex Mono",monospace}
+.campus-site .shot-card b{grid-column:2;grid-row:1;align-self:end;margin:0;color:#315c9a;font:bold 12px Georgia,serif}
+.campus-site .shot-card small{grid-column:2;grid-row:2;align-self:start;margin:3px 0 0;color:#8290a2;font:8px "IBM Plex Mono",monospace}
+.campus-site .site-footer{padding:15px 0 26px;border-color:#c9d5e3;color:#8390a0;font:8px "IBM Plex Mono",monospace}
+.campus-site .footer-links a{color:#315c9a;text-decoration:underline}
+.campus-site .cursor-spark,.campus-site .scanline{display:none}
+@media(max-width:900px){
+ .campus-site .campus-profile-grid{grid-template-columns:140px minmax(0,1fr)}
+ .campus-site .campus-network-side{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+ .campus-site .campus-network-side .campus-side-box{margin:0}
+ .campus-site .campus-masthead{flex-wrap:wrap}
+ .campus-site .campus-network-label{display:none}
+}
+@media(max-width:680px){
+ .campus-site .campus-browser span:nth-child(2){display:none}
+ .campus-site .campus-browser{font-size:9px}
+ .campus-site .campus-profile-grid{grid-template-columns:1fr}
+ .campus-site .campus-profile-side{display:grid;grid-template-columns:75px 1fr;column-gap:10px;align-items:center}
+ .campus-site .campus-avatar-frame{grid-row:span 4}
+ .campus-site .campus-avatar-frame img{height:75px}
+ .campus-site .campus-profile-side hr,.campus-site .campus-side-foot{display:none}
+ .campus-site .campus-profile-side>a{display:inline-block;border:0;padding:3px 5px}
+ .campus-site .campus-profile-main{padding:12px}
+ .campus-site .campus-network-side{grid-column:auto}
+ .campus-site .content-flow{display:block}
+ .campus-site .profile-section{padding:10px 0}
+ .campus-site .campus-facts{grid-template-columns:1fr}
+ .campus-site .about-layout{grid-template-columns:1fr}
+ .campus-site .repo-grid{grid-template-columns:1fr}
+ .campus-site .gallery-grid{grid-template-columns:1fr}
+ .campus-site .campus-address{width:calc(100% - 20px)}
+ .campus-site .campus-address code{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+ .campus-site .campus-hero{animation:none}
+}
