@@ -14,9 +14,14 @@ const $ = (s, root=document) => root.querySelector(s);
 const $$ = (s, root=document) => [...root.querySelectorAll(s)];
 const db = {profile:null,repos:[],events:[],snapshots:[],loadedAt:null};
 let currentTheme = THEMES[Math.floor(Math.random()*THEMES.length)].id;
+function readAppearanceMode(){
+  try{return localStorage.getItem("arc2898-appearance")==="light"?"light":"dark";}
+  catch{return "dark";}
+}
+let currentMode = readAppearanceMode();
+document.documentElement.dataset.mode = currentMode;
 let threeState = null;
 let glitchTimer = null;
-let spark = null;
 const NAV = [["about","About"],["repos","Repos"],["stack","Stack"],["now","Now"],["done","Done"],["updates","Updates"],["visuals","Shots"]];
 const SCREENSHOTS = [
   ["Universal Package Manager","upm"],
@@ -57,8 +62,26 @@ const since = value => {
 function themeOptions(){
   return THEMES.map(t=>'<option value="'+t.id+'" '+(t.id===currentTheme?'selected':'')+'>'+t.label+'</option>').join("");
 }
+function modeControl(){
+  const light = currentMode==="light";
+  return '<button class="mode-toggle" id="mode-toggle" type="button" aria-label="Switch to '+(light?'dark':'light')+' appearance" aria-pressed="'+light+'"><span class="mode-symbol">'+(light?'◐':'☼')+'</span><span>'+(light?'Dark':'Light')+'</span></button>';
+}
+function setAppearanceMode(mode){
+  currentMode = mode==="light"?"light":"dark";
+  document.documentElement.dataset.mode=currentMode;
+  const meta=$('meta[name="theme-color"]');
+  if(meta)meta.content=currentMode==="light"?"#f4f6fa":"#080d14";
+  try{localStorage.setItem("arc2898-appearance",currentMode);}catch{}
+  const button=$("#mode-toggle");
+  if(button){
+    const light=currentMode==="light";
+    button.innerHTML='<span class="mode-symbol">'+(light?'◐':'☼')+'</span><span>'+(light?'Dark':'Light')+'</span>';
+    button.setAttribute("aria-label","Switch to "+(light?"dark":"light")+" appearance");
+    button.setAttribute("aria-pressed",String(light));
+  }
+}
 function controlPanel(){
-  return '<div class="head-tools"><span class="clock-readout" id="clock">--:--:--</span><select class="theme-select" id="theme-select" aria-label="Change the complete visual theme">'+themeOptions()+'</select><button class="shuffle-btn" id="shuffle-theme" type="button" title="Choose another random theme">↻ Shuffle</button></div>';
+  return '<div class="head-tools"><span class="clock-readout" id="clock">--:--:--</span><select class="theme-select" id="theme-select" aria-label="Change the complete visual theme">'+themeOptions()+'</select>'+modeControl()+'<button class="shuffle-btn" id="shuffle-theme" type="button" title="Choose another random theme">↻ Shuffle</button></div>';
 }
 function header(theme){
   const brand = '<a class="brand" href="#top" aria-label="arc home"><span class="brand-mark">a.</span><span>arc2898</span><small>/ profile system</small></a>';
@@ -68,6 +91,20 @@ function header(theme){
   }
   const extras = theme==="burst" ? '<span class="head-sticker">INDEPENDENT / EST. 2026</span>' : theme==="pixel" ? '<span class="pixel-online">● ONLINE</span>' : theme==="future" ? '<span class="telemetry-light">SYS / ACTIVE</span>' : theme==="skeuo" ? '<span class="screw-head">✣</span>' : "";
   return '<header class="masthead '+theme+'-masthead">'+brand+extras+nav+controlPanel()+'</header>';
+}
+function signatureBand(theme){
+  const mark = String.raw`                 +++++++++
+                +++++++++++
+               +++++++++++++
+                       ++++++
+             ....       ++++++
+            ......       ++++++
+           ...... ---++++ ++++++
+          .....- -----+-   ++++++
+         -....- -----.      -+++++
+        ......               ---+++
+.....                   --+++`;
+  return '<aside class="signature-band signature-'+theme+'" aria-label="Arc ASCII signature"><pre class="ascii-mark">'+esc(mark)+'</pre><div class="signature-caption"><b>ARC / 2898</b><span>INDEPENDENT BUILD · SYSTEMS · OPEN SOURCE</span><small>PERSONAL SIGNATURE / FIG. 01</small></div></aside>';
 }
 function actionLinks(){
   return '<div class="hero-actions"><a class="action primary" href="#repos">Explore the work <span>↘</span></a><a class="action" href="https://github.com/arc2898" target="_blank" rel="noreferrer">Open GitHub ↗</a></div>';
@@ -102,7 +139,9 @@ function hero(theme){
     return '<section class="hero campus-hero" id="top"><div class="campus-era-line"><span>THE CAMPUS NETWORK / MEMBER PROFILE</span><span>THEFACEBOOK LAUNCH ERA · 04 FEB 2004</span></div><div class="campus-profile-grid"><aside class="campus-profile-side"><div class="campus-avatar-frame"><img id="campus-avatar" src="https://avatars.githubusercontent.com/u/329584786?v=4" alt="arc profile"></div><b class="campus-side-name">arc2898</b><span class="campus-online"><i></i> online now</span><hr><a href="#about">View profile</a><a href="#repos">My projects</a><a href="#visuals">Photo / screenshots</a><a href="mailto:rc002898@gmail.com">Send a message</a><div class="campus-side-foot">MEMBER ID: 02898</div></aside><div class="campus-profile-main"><div class="campus-profile-kicker">PERSONAL PROFILE <span>·</span> INDEPENDENT DEVELOPER</div><h1>arc<span>2898</span></h1><p class="hero-copy">Building useful software, exploring operating systems, and learning by making things. A small collection of tools, interface experiments, and systems work.</p><div class="campus-facts"><div><b>INTERESTS</b><span>Systems · CLI · GUI · OS</span></div><div><b>WORKING WITH</b><span>Go · Rust · Dart · JavaScript</span></div><div><b>STATUS</b><span>Building / experimenting</span></div></div>'+actionLinks()+'<div class="campus-profile-note">A personal corner of the early social web. No feed algorithm — just projects, notes, and links.</div></div><aside class="campus-network-side"><div class="campus-side-box"><b>QUICK LINKS</b><a href="https://github.com/arc2898" target="_blank" rel="noreferrer">GitHub profile ↗</a><a href="https://x.com/arc3338" target="_blank" rel="noreferrer">X / @arc3338 ↗</a><a href="https://tryhackme.com/p/shikarin1113" target="_blank" rel="noreferrer">TryHackMe ↗</a></div><div class="campus-side-box campus-side-status"><b>WHAT I’M INTO</b><span>Cross-platform tools</span><span>Linux and Windows</span><span>Low-level engineering</span><span>Useful interfaces</span></div></aside></div><div class="campus-footer-rule"><span>WELCOME TO MY PAGE</span><span>LAST UPDATED: WEEKLY</span></div></section>';
   }
   if(theme==="future"){
-    return '<section class="hero hud-hero" id="top"><div class="hud-copy">'+tag+'<div class="hud-overline">IDENTITY / ARC-2898 / NODE 01</div>'+title+copy+actionLinks()+'<div class="hero-meta"><span><i class="tick-dot"></i> PROFILE UPLINK</span><span>LATENCY <b>LIVE</b></span><span>DATA SOURCE <b>GITHUB API</b></span></div></div><div class="hud-radar"><div class="radar-rings"><i></i><i></i><i></i><b>ARC</b></div><span class="radar-coordinate">X: 28.98　Y: 01.00</span><span class="radar-mark">SIGNAL FOUND</span></div></section>';
+    const digits=Array.from({length:24},(_,i)=>'<span class="digit" style="--delay:'+((i%8)*.12+Math.floor(i/8)*.16).toFixed(2)+'s">'+(Math.random()>.5?'1':'0')+'</span>').join("");
+    const actions=actionLinks().replace("Explore the work",'<span class="btn-shine">Explore the work</span>');
+    return '<section class="hero future-hero" id="top"><div class="future-copy"><div class="hud-overline">IDENTITY / ARC-2898 / NODE 01</div><div class="eyebrow">SIGNAL DETECTED · HUMAN BUILDER · MACHINE INTERFACES</div><h1>BUILDING<br>WHAT’S <em>NEXT.</em></h1><p class="hero-copy">Software, systems and interfaces from the edge of curiosity. Exploring the space between useful tools and strange new ideas.</p>'+actions+'<div class="future-readouts"><span><i></i> PROFILE UPLINK <b>STABLE</b></span><span>PUBLIC NODES <b id="future-repo-count">—</b></span><span>DATA STREAM <b>LIVE</b></span></div><div class="future-coordinate">NODE 28.98 / SECTOR 01 / EARTH-LOCAL</div></div><div class="future-viewport"><div class="future-viewport-head"><span>NEURAL DISPLAY / 03</span><b><i></i> LIVE</b></div><div class="ai-matrix-loader" role="img" aria-label="Animated matrix data stream">'+digits+'<i class="glow"></i></div><div class="future-terminal"><span>ROOT@ARC2898:~$</span><b>./build --future</b><small>COMPILING POSSIBILITY... <i>OK</i></small></div><div class="future-viewport-foot"><span>ENCRYPTION / AES-256</span><span>LATENCY / 0.08 MS</span></div></div><div class="future-scan-stamp">FUTURE SYSTEMS / 2049</div></section>';
   }
   return '<section class="hero liquid-hero" id="top"><div>'+tag+title+copy+actionLinks()+'<div class="hero-meta"><span><i class="tick-dot"></i> PUBLIC PROFILE / ACTIVE</span><span>BUILT WITH CURIOSITY</span></div></div>'+art+'</section>';
 }
@@ -171,7 +210,8 @@ function ticker(theme){
 function renderTheme(theme, restoreId){
   currentTheme = theme;
   document.documentElement.dataset.theme = theme;
-  $("#app").innerHTML = '<div class="site-shell '+theme+'-site">'+header(theme)+hero(theme)+ticker(theme)+'<main class="wrap content-flow">'+
+  document.documentElement.dataset.mode = currentMode;
+  $("#app").innerHTML = '<div class="site-shell '+theme+'-site">'+header(theme)+hero(theme)+signatureBand(theme)+ticker(theme)+'<main class="wrap content-flow">'+
     wrapSection(theme,"about","01","About","The person and interests behind the projects.",aboutBody())+
     wrapSection(theme,"repos","02","Repositories","Public repositories and their live GitHub metadata. Private projects stay private.",reposBody())+
     wrapSection(theme,"stack","03","Tech stack","Languages discovered from public repository metadata; presence, not proficiency.",stackBody())+
@@ -210,12 +250,14 @@ function changeTheme(theme){
 function bindThemeControls(){
   const select=$("#theme-select");
   if(select)select.addEventListener("change",()=>changeTheme(select.value));
+  const mode=$("#mode-toggle");
+  if(mode)mode.addEventListener("click",()=>setAppearanceMode(currentMode==="dark"?"light":"dark"));
   const shuffle=$("#shuffle-theme");
   if(shuffle)shuffle.addEventListener("click",()=>{
     const choices=THEMES.filter(t=>t.id!==currentTheme);
     changeTheme(choices[Math.floor(Math.random()*choices.length)].id);
   });
-  $$(".main-nav a").forEach(a=>a.addEventListener("click",()=>a.classList.add("clicked")));
+  $(".main-nav a").forEach(a=>a.addEventListener("click",()=>a.classList.add("clicked")));
 }
 function bindRepoControls(){
   const search=$("#repo-search"),sort=$("#repo-sort"),language=$("#repo-language");
@@ -233,6 +275,8 @@ function bindReveal(){
 }
 function paintData(){
   if(!db.profile && !db.repos.length)return;
+  const futureCount=$("#future-repo-count");
+  if(futureCount)futureCount.textContent=fmt(db.repos.length);
   const p=db.profile||{};
   const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
   set("profile-name",(p.name||"arc")+" / @arc2898");
@@ -358,31 +402,30 @@ function updateClock(){
   node.textContent=now.toLocaleTimeString("en-GB",{hour12:false});
 }
 function flashGlitch(){
-  const layer=$("#glitch-layer");if(!layer)return;
-  layer.classList.remove("active");void layer.offsetWidth;layer.classList.add("active");
-  const headings=$$(".hero h1");
-  if(headings.length){const target=headings[0];target.classList.remove("flash-mark");void target.offsetWidth;target.classList.add("flash-mark");}
-  setTimeout(()=>layer.classList.remove("active"),330);
+  const layer=$("#glitch-layer");
+  if(layer){layer.classList.remove("active");void layer.offsetWidth;layer.classList.add("active");}
+  const selectors=[".hero h1",".section-heading h2",".repo-name",".done-card h3",".bio-title",".brand > span:last-child",".shot-card b",".hud-overline"];
+  const candidates=[...new Set(selectors.flatMap(selector=> $(selector)))];
+  for(let i=candidates.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[candidates[i],candidates[j]]=[candidates[j],candidates[i]];}
+  candidates.slice(0,Math.min(7,candidates.length)).forEach(target=>{
+    target.dataset.glitch=target.textContent.trim().replace(/\s+/g," ").slice(0,90);
+    target.classList.remove("glitch-target");void target.offsetWidth;target.classList.add("glitch-target");
+    setTimeout(()=>{target.classList.remove("glitch-target");delete target.dataset.glitch;},520);
+  });
+  const heading=$(".hero h1");
+  if(heading){heading.classList.remove("flash-mark");void heading.offsetWidth;heading.classList.add("flash-mark");}
+  setTimeout(()=>{if(layer)layer.classList.remove("active");},430);
 }
 function scheduleGlitches(){
   clearTimeout(glitchTimer);
-  const delay=6500+Math.random()*11500;
-  glitchTimer=setTimeout(()=>{if(Math.random()>.18)flashGlitch();scheduleGlitches();},delay);
+  const delay=2600+Math.random()*5600;
+  glitchTimer=setTimeout(()=>{if(Math.random()>.06)flashGlitch();scheduleGlitches();},delay);
 }
 function bindGlobalMotion(){
-  spark=document.createElement("div");spark.className="cursor-spark";document.body.appendChild(spark);
-  let lastRipple=0;
-  window.addEventListener("pointermove",event=>{
-    spark.style.left=event.clientX+"px";spark.style.top=event.clientY+"px";spark.classList.add("visible");
-    if(threeState){threeState.pointer.x=(event.clientX/innerWidth)*2-1;threeState.pointer.y=-(event.clientY/innerHeight)*2+1;}
-    if(Date.now()-lastRipple>850 && (currentTheme==="liquid"||currentTheme==="glass")){
-      lastRipple=Date.now();const ring=document.createElement("i");ring.className="ripple";ring.style.left=event.clientX+"px";ring.style.top=event.clientY+"px";document.body.appendChild(ring);setTimeout(()=>ring.remove(),800);
-    }
-  },{passive:true});
-  window.addEventListener("pointerout",()=>spark.classList.remove("visible"));
   window.addEventListener("scroll",()=>{
     const span=document.documentElement.scrollHeight-innerHeight;
-    $("#scroll-progress").style.width=(span>0?Math.min(100,scrollY/span*100):0)+"%";
+    const progress=$("#scroll-progress");
+    if(progress)progress.style.width=(span>0?Math.min(100,scrollY/span*100):0)+"%";
   },{passive:true});
   window.addEventListener("keydown",event=>{
     if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="k"){event.preventDefault();$("#theme-select")?.focus();}
@@ -429,7 +472,7 @@ async function initThree(){
     pmrem.dispose();
     const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,100);camera.position.set(0,0,8.5);
     const uniforms={
-      uTime:{value:0},uPointer:{value:new THREE.Vector2(0,0)},uResolution:{value:new THREE.Vector2(innerWidth,innerHeight)},
+      uTime:{value:0},uResolution:{value:new THREE.Vector2(innerWidth,innerHeight)},
       uColorA:{value:new THREE.Color("#55d8d3")},uColorB:{value:new THREE.Color("#887cff")}
     };
     const planeMaterial=new THREE.ShaderMaterial({
@@ -437,13 +480,13 @@ async function initThree(){
       vertexShader:"varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}",
       fragmentShader:[
         "precision highp float;",
-        "uniform float uTime; uniform vec2 uPointer; uniform vec2 uResolution; uniform vec3 uColorA; uniform vec3 uColorB; varying vec2 vUv;",
+        "uniform float uTime; uniform vec2 uResolution; uniform vec3 uColorA; uniform vec3 uColorB; varying vec2 vUv;",
         "float blob(vec2 p,vec2 c,float s){return s/(dot(p-c,p-c)+0.018);}",
         "float noise(vec2 p){return sin(p.x*3.2+uTime*.27)*cos(p.y*3.6-uTime*.21);}",
         "void main(){",
         "vec2 uv=vUv; vec2 p=(uv-.5)*vec2(uResolution.x/uResolution.y,1.0);",
         "vec2 drift=vec2(sin(uTime*.19),cos(uTime*.15))*.15;",
-        "float f=blob(p,vec2(-.42,.13)+drift,.018)+blob(p,vec2(.37,-.1)-drift,.016)+blob(p,vec2(.03,.43)+drift.yx,.012)+blob(p,uPointer*.32,.012);",
+        "float f=blob(p,vec2(-.42,.13)+drift,.018)+blob(p,vec2(.37,-.1)-drift,.016)+blob(p,vec2(.03,.43)+drift.yx,.012);",
         "float n=noise(p*2.0)*.055;",
         "float liquid=smoothstep(1.08,1.9,f+n);",
         "float edge=1.0-smoothstep(.08,.5,abs(f-1.45));",
@@ -483,8 +526,7 @@ async function initThree(){
     const ring2=new THREE.Mesh(new THREE.TorusGeometry(2.12,.009,8,180),new THREE.MeshBasicMaterial({color:0xc0b4ff,transparent:true,opacity:.6}));ring2.position.copy(ring.position);ring2.rotation.set(.75,-.5,.7);scene.add(ring2);
     const shardMat=new THREE.MeshPhysicalMaterial({color:0x8ceee4,metalness:.12,roughness:.04,transmission:.84,thickness:.7,clearcoat:1,iridescence:1,transparent:true,opacity:.58});
     const shard=new THREE.Mesh(new THREE.OctahedronGeometry(.5,0),shardMat);shard.position.set(-2.9,-1.3,.15);scene.add(shard);
-    const pointer={x:0,y:0};
-    threeState={THREE,renderer,scene,camera,uniforms,knot,knotMaterial,ring,ring2,shard,pointer};
+    threeState={THREE,renderer,scene,camera,uniforms,knot,knotMaterial,ring,ring2,shard};
     setSceneTheme(currentTheme);
     function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();uniforms.uResolution.value.set(innerWidth,innerHeight);}
     window.addEventListener("resize",resize,{passive:true});
@@ -492,7 +534,6 @@ async function initThree(){
       requestAnimationFrame(animate);
       if(document.hidden)return;
       uniforms.uTime.value=t*.001;
-      uniforms.uPointer.value.set(pointer.x,pointer.y);
       knot.rotation.x=t*.00012+.4;knot.rotation.y=t*.00025;knot.rotation.z=Math.sin(t*.00016)*.3;
       knot.position.y=.15+Math.sin(t*.0005)*.18;
       ring.rotation.z=t*.00012;ring2.rotation.x=t*.00018;
