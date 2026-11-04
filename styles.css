@@ -167,3 +167,21 @@ html[data-theme="oldweb"] .scene-wrap,html[data-theme="oldweb"] .scene-fallback,
 .mode-toggle:hover{transform:translateY(-2px);border-color:var(--accent2)}
 .mode-toggle:focus-visible,.theme-select:focus-visible,.shuffle-btn:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
 .mode-symbol{font-size:14px;line-height:1}
+
+/* Keep transitions predictable and reduce paint-heavy motion on constrained devices */
+.transition-curtain{will-change:transform;backface-visibility:hidden}
+.glitch-layer{contain:strict}
+.glitch-layer.active{will-change:transform,clip-path}
+.site-shell{isolation:isolate}
+.scene-wrap canvas{contain:strict}
+@media(max-width:760px){
+ .scene-wrap,.scene-fallback{display:none!important}
+ .surface,.masthead,.theme-select,.shuffle-btn,.clock-readout,.mode-toggle{backdrop-filter:none!important}
+ .reveal{transition:opacity .28s ease,transform .28s ease}
+ .profile-section{content-visibility:auto;contain-intrinsic-size:650px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+ .reveal{opacity:1!important;transform:none!important}
+ .scene-wrap,.scene-fallback,.glitch-layer,.transition-curtain{display:none!important}
+}
