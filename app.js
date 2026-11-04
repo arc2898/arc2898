@@ -425,6 +425,7 @@ async function initThree(){
     const environmentScene=new RoomEnvironment();
     scene.environment=pmrem.fromScene(environmentScene,.04).texture;
     environmentScene.dispose();
+    pmrem.dispose();
     const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,100);camera.position.set(0,0,8.5);
     const uniforms={
       uTime:{value:0},uPointer:{value:new THREE.Vector2(0,0)},uResolution:{value:new THREE.Vector2(innerWidth,innerHeight)},
@@ -466,8 +467,8 @@ async function initThree(){
     const knotMaterial=new THREE.MeshPhysicalMaterial({color:0x70e4dd,metalness:.04,roughness:.035,transmission:.96,thickness:1.8,ior:1.42,clearcoat:1,clearcoatRoughness:.015,iridescence:1,iridescenceIOR:1.38,iridescenceThicknessRange:[120,720],envMapIntensity:1.55,transparent:true,opacity:.96});
     knotMaterial.onBeforeCompile=shader=>{
       shader.uniforms.uFluidTime=uniforms.uTime;
-      shader.vertexShader=shader.vertexShader.replace("#include <common>","#include <common>\\nuniform float uFluidTime;");
-      shader.vertexShader=shader.vertexShader.replace("#include <begin_vertex>","#include <begin_vertex>\\nfloat swell=sin(position.x*3.1+uFluidTime*.62)*sin(position.y*2.7-uFluidTime*.47)*.48+cos(position.z*3.4+uFluidTime*.36)*.24;\\ntransformed+=objectNormal*swell*.14;");
+      shader.vertexShader=shader.vertexShader.replace("#include <common>","#include <common>\nuniform float uFluidTime;");
+      shader.vertexShader=shader.vertexShader.replace("#include <begin_vertex>","#include <begin_vertex>\nfloat swell=sin(position.x*3.1+uFluidTime*.62)*sin(position.y*2.7-uFluidTime*.47)*.48+cos(position.z*3.4+uFluidTime*.36)*.24;\ntransformed+=objectNormal*swell*.14;");
     };
     knotMaterial.customProgramCacheKey=()=>"arc-liquid-sculpture-v2";
     const knot=new THREE.Mesh(knotGeometry,knotMaterial);knot.position.set(2.15,.15,.2);knot.scale.setScalar(1.08);scene.add(knot);
