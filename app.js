@@ -6,9 +6,8 @@ const THEMES = [
   {id:"tinted",label:"Tinted glass"},
   {id:"glass",label:"Glassmorphism"},
   {id:"burst",label:"Neo burst"},
-  {id:"retro",label:"Retro"},
+  {id:"campus",label:"Campus ’04"},
   {id:"pixel",label:"Pixel"},
-  {id:"oldweb",label:"90s web / old internet"},
   {id:"future",label:"Futuristic"}
 ];
 const $ = (s, root=document) => root.querySelector(s);
@@ -64,8 +63,8 @@ function controlPanel(){
 function header(theme){
   const brand = '<a class="brand" href="#top" aria-label="arc home"><span class="brand-mark">a.</span><span>arc2898</span><small>/ profile system</small></a>';
   const nav = '<nav class="main-nav" aria-label="Main navigation">'+NAV.map((x,i)=>'<a href="#'+x[0]+'"><span>'+String(i+1).padStart(2,"0")+'</span> '+x[1]+'</a>').join("")+'</nav>';
-  if(theme==="retro" || theme==="oldweb"){
-    return '<div class="browser-chrome"><span class="browser-lights"><i></i><i></i><i></i></span><b>'+ (theme==="retro"?"Netscape-ish Navigator 4.0":"PERSONAL HOME PAGE") +'</b><span>FILE　EDIT　VIEW　GO　BOOKMARKS　HELP</span></div><header class="masthead">'+brand+nav+controlPanel()+'</header><div class="browser-address"><span>Location:</span><code>https://arc2898.github.io/arc2898/</code><span class="address-go">GO</span></div>';
+  if(theme==="campus"){
+    return '<div class="campus-browser"><span>arc2898 / personal profile</span><span>THE CAMPUS WEB · FEBRUARY 2004</span><span>FILE　EDIT　VIEW　FAVORITES　HELP</span></div><header class="masthead campus-masthead">'+brand+'<span class="campus-network-label">MEMBER DIRECTORY / 0002898</span>'+nav+controlPanel()+'</header><div class="campus-address"><span>Location:</span><code>https://campus.example/member/arc2898</code><b>GO</b></div>';
   }
   const extras = theme==="burst" ? '<span class="head-sticker">INDEPENDENT / EST. 2026</span>' : theme==="pixel" ? '<span class="pixel-online">● ONLINE</span>' : theme==="future" ? '<span class="telemetry-light">SYS / ACTIVE</span>' : theme==="skeuo" ? '<span class="screw-head">✣</span>' : "";
   return '<header class="masthead '+theme+'-masthead">'+brand+extras+nav+controlPanel()+'</header>';
@@ -99,11 +98,8 @@ function hero(theme){
   if(theme==="pixel"){
     return '<section class="hero pixel-hero" id="top"><div class="pixel-hero-copy"><div class="pixel-status">PLAYER 01　/　STATUS: BUILDING</div>'+tag+'<h1>HELLO,<br>I’M <em>ARC.</em></h1>'+copy+actionLinks()+'</div><div class="pixel-world"><div class="pixel-sun"></div><div class="pixel-mountain"></div><div class="pixel-sprite"><i></i><i></i><i></i><i></i></div><span class="pixel-world-label">WORLD 2898 · LEVEL 01</span></div><div class="pixel-bottom-line">▰▰▰▱▱ EXPERIENCE POINTS　　NEXT LEVEL: KEEP BUILDING</div></section>';
   }
-  if(theme==="retro"){
-    return '<section class="hero retro-hero" id="top"><div class="retro-banner"><span>★ ★ ★ WELCOME TO MY HOMEPAGE ★ ★ ★</span></div><center><div class="retro-welcome">HELLO, INTERNET!</div><h1>Welcome to <em>arc’s</em> corner of the web!</h1><p class="hero-copy">A solo developer’s personal homepage. I build command-line tools, graphical apps and systems experiments. Please explore, stay curious, and enjoy the hyperlinks.</p>'+actionLinks()+'<div class="retro-under-construction">🚧 ALWAYS UNDER CONSTRUCTION 🚧</div></center></section>';
-  }
-  if(theme==="oldweb"){
-    return '<section class="hero oldweb-hero" id="top"><center><div class="oldweb-welcome">~*~ WELCOME TO MY PERSONAL WEB PAGE ~*~</div><h1>arc<span>2898</span></h1><p class="hero-copy">Hello visitor! I’m arc. This little corner of the web is where I keep my projects, experiments, notes and things I have been working on.</p><div class="oldweb-visitor">YOU ARE VISITOR № <b id="visitor-count">0002898</b></div>'+actionLinks()+'<p><blink>✦ BEST VIEWED WITH CURIOSITY ✦</blink></p></center></section>';
+  if(theme==="campus"){
+    return '<section class="hero campus-hero" id="top"><div class="campus-era-line"><span>THE CAMPUS NETWORK / MEMBER PROFILE</span><span>ERA STUDY · 04 FEB 2004</span></div><div class="campus-profile-grid"><aside class="campus-profile-side"><div class="campus-avatar-frame"><img id="avatar" src="https://avatars.githubusercontent.com/u/329584786?v=4" alt="arc profile"></div><b class="campus-side-name">arc2898</b><span class="campus-online"><i></i> online now</span><hr><a href="#about">View profile</a><a href="#repos">My projects</a><a href="#visuals">Photo / screenshots</a><a href="mailto:rc002898@gmail.com">Send a message</a><div class="campus-side-foot">MEMBER ID: 02898</div></aside><div class="campus-profile-main"><div class="campus-profile-kicker">PERSONAL PROFILE <span>·</span> INDEPENDENT DEVELOPER</div><h1>arc<span>2898</span></h1><p class="hero-copy">Building useful software, exploring operating systems, and learning by making things. A small collection of tools, interface experiments, and systems work.</p><div class="campus-facts"><div><b>INTERESTS</b><span>Systems · CLI · GUI · OS</span></div><div><b>WORKING WITH</b><span>Go · Rust · Dart · JavaScript</span></div><div><b>STATUS</b><span>Building / experimenting</span></div></div>'+actionLinks()+'<div class="campus-profile-note">A personal corner of the early social web. No feed algorithm — just projects, notes, and links.</div></div><aside class="campus-network-side"><div class="campus-side-box"><b>QUICK LINKS</b><a href="https://github.com/arc2898" target="_blank" rel="noreferrer">GitHub profile ↗</a><a href="https://x.com/arc3338" target="_blank" rel="noreferrer">X / @arc3338 ↗</a><a href="https://tryhackme.com/p/shikarin1113" target="_blank" rel="noreferrer">TryHackMe ↗</a></div><div class="campus-side-box campus-side-status"><b>WHAT I’M INTO</b><span>Cross-platform tools</span><span>Linux and Windows</span><span>Low-level engineering</span><span>Useful interfaces</span></div></aside></div><div class="campus-footer-rule"><span>WELCOME TO MY PAGE</span><span>LAST UPDATED: WEEKLY</span></div></section>';
   }
   if(theme==="future"){
     return '<section class="hero hud-hero" id="top"><div class="hud-copy">'+tag+'<div class="hud-overline">IDENTITY / ARC-2898 / NODE 01</div>'+title+copy+actionLinks()+'<div class="hero-meta"><span><i class="tick-dot"></i> PROFILE UPLINK</span><span>LATENCY <b>LIVE</b></span><span>DATA SOURCE <b>GITHUB API</b></span></div></div><div class="hud-radar"><div class="radar-rings"><i></i><i></i><i></i><b>ARC</b></div><span class="radar-coordinate">X: 28.98　Y: 01.00</span><span class="radar-mark">SIGNAL FOUND</span></div></section>';
