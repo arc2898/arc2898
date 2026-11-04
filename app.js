@@ -113,7 +113,7 @@ function wrapSection(theme,id,num,title,desc,body){
   const intro = sectionIntro(num,title,desc);
   if(theme==="burst") return '<section id="'+id+'" class="profile-section reveal"><div class="paper-section"><div class="paper-index">'+num+' / INDEX</div>'+intro+body+'</div></section>';
   if(theme==="pixel") return '<section id="'+id+'" class="profile-section reveal"><div class="pixel-window"><div class="pixel-window-bar"><b>'+title.toUpperCase()+'</b><span>□　×</span></div>'+intro+body+'<div class="pixel-window-foot">END OF BLOCK // '+num+'</div></div></section>';
-  if(theme==="retro" || theme==="oldweb") return '<section id="'+id+'" class="profile-section reveal"><fieldset class="retro-fieldset"><legend> '+num+' — '+title+' </legend>'+intro+body+'</fieldset></section>';
+  if(theme==="campus") return '<section id="'+id+'" class="profile-section reveal campus-module"><div class="campus-module-head"><b>'+num+' / '+title.toUpperCase()+'</b><span>MEMBER DIRECTORY</span></div><div class="campus-module-body">'+intro+body+'</div></section>';
   if(theme==="future") return '<section id="'+id+'" class="profile-section reveal"><div class="hud-frame"><div class="hud-frame-label">MODULE '+num+' / '+title.toUpperCase()+'</div><div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>'+intro+body+'</div></section>';
   if(theme==="skeuo") return '<section id="'+id+'" class="profile-section reveal"><div class="metal-panel"><div class="metal-panel-top"><span>✣　MODULE '+num+'</span><span>● READY</span></div>'+intro+body+'</div></section>';
   if(theme==="minimal") return '<section id="'+id+'" class="profile-section reveal"><div class="minimal-section-number">'+num+'</div>'+intro+body+'</section>';
@@ -140,15 +140,30 @@ function doneBody(theme){
 function updatesBody(){
   return '<div class="updates-grid" id="updates-grid"><div class="data-empty">The first public snapshot will appear after the weekly refresh.</div></div><p class="hero-tag" style="margin-top:17px">WEEKLY SNAPSHOTS · PUBLIC METADATA ONLY · NO FABRICATED TRAFFIC FIGURES</p>';
 }
-function galleryBody(){
-  return '<div class="gallery-grid" id="gallery-grid">'+SCREENSHOTS.map((s,i)=>'<article class="surface shot-card"><div class="shot-preview" id="shot-'+s[1]+'"><span>FRAME '+String(i+1).padStart(2,"0")+' / AWAITING IMAGE</span></div><b>'+s[0]+'</b><small>assets/screenshots/'+s[1]+'.webp</small></article>').join("")+'</div>';
+function galleryBody(theme){
+  const orders = {
+    liquid:["winisland","upm","selfhost-dashboard","termimg","android","windows","sharexf","refind-gui"],
+    minimal:["upm","selfhost-dashboard","winisland","termimg","refind-gui","sharexf","android","windows"],
+    neo:["android","upm","windows","winisland","sharexf","selfhost-dashboard","termimg","refind-gui"],
+    skeuo:["termimg","refind-gui","windows","android","selfhost-dashboard","upm","winisland","sharexf"],
+    tinted:["winisland","android","upm","sharexf","selfhost-dashboard","windows","refind-gui","termimg"],
+    glass:["selfhost-dashboard","winisland","upm","android","termimg","sharexf","windows","refind-gui"],
+    burst:["android","winisland","termimg","upm","windows","refind-gui","selfhost-dashboard","sharexf"],
+    campus:["upm","selfhost-dashboard","winisland","android","windows","termimg","refind-gui","sharexf"],
+    pixel:["termimg","winisland","upm","android","refind-gui","windows","sharexf","selfhost-dashboard"],
+    future:["selfhost-dashboard","upm","refind-gui","winisland","termimg","sharexf","android","windows"]
+  };
+  const lookup = new Map(SCREENSHOTS.map(s=>[s[1],s]));
+  const selected = (orders[theme]||SCREENSHOTS.map(s=>s[1])).map(id=>lookup.get(id)).filter(Boolean);
+  return '<div class="gallery-grid gallery-'+theme+'" id="gallery-grid">'+selected.map((s,i)=>'<article class="surface shot-card" data-shot="'+s[1]+'"><div class="shot-preview" id="shot-'+s[1]+'"><span>0'+(i+1)+' · IMAGE SLOT</span></div><b>'+s[0]+'</b><small>assets/screenshots/'+s[1]+'.webp</small></article>').join("")+'</div>';
 }
+
 function footer(){
   return '<footer class="site-footer"><span>© '+new Date().getFullYear()+' ARC2898 / BUILT WITH CURIOSITY</span><span id="footer-status"><i class="tick-dot"></i> CONNECTING TO PUBLIC DATA</span><span class="footer-links"><a href="https://github.com/arc2898" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="#top">BACK TO TOP ↑</a></span></footer>';
 }
 function ticker(theme){
   const txt = "BUILDING TOOLS　✳　EXPLORING SYSTEMS　✳　OPEN SOURCE　✳　LOW LEVEL CURIOSITY　✳　CLI / GUI / OS　✳　";
-  if(theme==="retro" || theme==="oldweb") return '<div class="ticker"><div class="marquee"><span>*** WELCOME *** TAKE A LOOK AROUND *** BEST VIEWED WITH CURIOSITY ***</span></div></div>';
+  if(theme==="campus") return '<div class="ticker campus-ticker"><div class="marquee"><span>✦ WELCOME TO THE CAMPUS WEB ✦ PERSONAL PAGES · PROJECTS · LINKS · NOTES · UPDATED WEEKLY ✦</span></div></div>';
   if(theme==="pixel") return '<div class="ticker"><div class="marquee"><span>▰▰▱▱　PLAYER 01　✦　QUEST: BUILD SOMETHING USEFUL　✦　SAVE POINT: GITHUB　　</span></div></div>';
   if(theme==="future") return '<div class="ticker"><div class="marquee"><span>SYS.STATUS: NOMINAL　/　SIGNAL: ACTIVE　/　DATA: PUBLIC　/　'+txt+'</span></div></div>';
   return '<div class="ticker"><div class="ticker-track">'+(txt+txt+txt)+'</div></div>';
@@ -163,7 +178,7 @@ function renderTheme(theme, restoreId){
     wrapSection(theme,"now","04","What is going on","Recent public GitHub events and the current areas of focus.",nowBody())+
     wrapSection(theme,"done","05","What was done","Selected engineering work and project milestones.",doneBody(theme))+
     wrapSection(theme,"updates","06","Updates","Weekly snapshots plus the latest visible changes.",updatesBody())+
-    wrapSection(theme,"visuals","07","Project screenshots","Eight individual frames ready for screenshots, added one by one.",galleryBody())+
+    wrapSection(theme,"visuals","07","Project screenshots","Eight individual frames ready for screenshots, added one by one.",galleryBody(theme))+
     '</main>'+footer()+'</div>';
   bindThemeControls();
   bindRepoControls();
@@ -214,7 +229,7 @@ function bindReveal(){
   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
     if(entry.isIntersecting){entry.target.classList.add("in-view");observer.unobserve(entry.target);}
   }),{threshold:.1});
-  nodes.forEach((node,i)=>{node.classList.toggle(i%2?"from-right":"from-left",currentTheme!=="retro"&&currentTheme!=="oldweb"&&currentTheme!=="pixel");observer.observe(node);});
+  nodes.forEach((node,i)=>{node.classList.toggle(i%2?"from-right":"from-left",currentTheme!=="campus"&&currentTheme!=="pixel");observer.observe(node);});
 }
 function paintData(){
   if(!db.profile && !db.repos.length)return;
