@@ -153,3 +153,6 @@ html[data-theme="oldweb"] .scene-wrap,html[data-theme="oldweb"] .scene-fallback,
  .skeuo-site .shot-card:nth-child(n){grid-column:span 1}
  .pixel-site .shot-card:nth-child(n){grid-column:span 1}
 }
+
+/* Let the new editorial display face breathe instead of forcing a heavy geometric weight */
+.hero h1,.section-heading h2{font-weight:400}
