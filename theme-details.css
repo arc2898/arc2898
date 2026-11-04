@@ -635,3 +635,16 @@ html[data-mode="light"] .future-site .future-copy .hero-copy{color:#526a80}
 html[data-mode="light"] .future-site .future-viewport{background:radial-gradient(ellipse at 50% 42%,#0b3944,#061923 58%,#04101a)}
 html[data-mode="light"] .future-site .hud-frame{background:#eaf2f8;color:#18354c}
 html[data-mode="light"] .future-site .profile-section{border-color:#a8cad8}
+
+/* Actual text-level glitch treatment; limited to a few nodes per event */
+.glitch-target{position:relative;isolation:isolate;animation:text-jitter .42s steps(2,end) 1}
+.glitch-target::before,.glitch-target::after{
+ content:attr(data-glitch);position:absolute;inset:0;overflow:hidden;pointer-events:none;
+ clip-path:inset(0 0 0 0);opacity:.85
+}
+.glitch-target::before{color:#ff3d83;transform:translateX(-2px);mix-blend-mode:screen;animation:text-slice-a .38s steps(2,end) 1}
+.glitch-target::after{color:#26e6ff;transform:translateX(2px);mix-blend-mode:screen;animation:text-slice-b .34s steps(2,end) 1}
+@keyframes text-jitter{0%,100%{transform:translateX(0)}25%{transform:translateX(1px)}50%{transform:translateX(-1px)}}
+@keyframes text-slice-a{0%{clip-path:inset(5% 0 75% 0)}35%{clip-path:inset(42% 0 30% 0)}70%{clip-path:inset(80% 0 4% 0)}100%{clip-path:inset(0)}}
+@keyframes text-slice-b{0%{clip-path:inset(70% 0 0 0)}40%{clip-path:inset(12% 0 65% 0)}75%{clip-path:inset(48% 0 35% 0)}100%{clip-path:inset(0)}}
+@media(prefers-reduced-motion:reduce){.glitch-target::before,.glitch-target::after{display:none}}
