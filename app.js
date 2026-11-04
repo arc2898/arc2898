@@ -393,6 +393,7 @@ function setSceneTheme(theme){
   if(!wrap)return;
   const active=["liquid","glass","tinted","future"].includes(theme);
   wrap.style.opacity=theme==="liquid"?"1":theme==="glass"?".7":theme==="future"?".45":theme==="tinted"?".2":"0";
+  wrap.dataset.scene=theme;
   if(fallback)fallback.style.opacity=theme==="liquid"?"1":theme==="glass"?".5":theme==="tinted"?".3":"0";
   if(threeState){
     const map={
@@ -412,11 +413,18 @@ async function initThree(){
   const canvas=$("#liquid-scene");if(!canvas||!window.WebGLRenderingContext||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   try{
     const THREE=await import("https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js");
+    const {RoomEnvironment}=await import("https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/environments/RoomEnvironment.js");
     const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:"low-power"});
     renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));
     renderer.setSize(innerWidth,innerHeight,false);
     renderer.outputColorSpace=THREE.SRGBColorSpace;
+    renderer.toneMapping=THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure=1.08;
     const scene=new THREE.Scene();
+    const pmrem=new THREE.PMREMGenerator(renderer);
+    const environmentScene=new RoomEnvironment();
+    scene.environment=pmrem.fromScene(environmentScene,.04).texture;
+    environmentScene.dispose();
     const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,100);camera.position.set(0,0,8.5);
     const uniforms={
       uTime:{value:0},uPointer:{value:new THREE.Vector2(0,0)},uResolution:{value:new THREE.Vector2(innerWidth,innerHeight)},
@@ -454,9 +462,20 @@ async function initThree(){
     const ambient=new THREE.AmbientLight(0x9fcfff,1.15);scene.add(ambient);
     const key=new THREE.PointLight(0x83f2e8,30,22);key.position.set(2.7,2.8,4);scene.add(key);
     const rim=new THREE.PointLight(0xa18aff,24,20);rim.position.set(-3,-2,2);scene.add(rim);
-    const knotGeometry=new THREE.TorusKnotGeometry(1.05,.27,220,32,2,5);
-    const knotMaterial=new THREE.MeshPhysicalMaterial({color:0x55d8d3,metalness:.12,roughness:.06,transmission:.68,thickness:1.1,ior:1.32,clearcoat:1,clearcoatRoughness:.03,iridescence:1,iridescenceIOR:1.35,iridescenceThicknessRange:[100,650],transparent:true,opacity:.88});
-    const knot=new THREE.Mesh(knotGeometry,knotMaterial);knot.position.set(2.15,.15,.2);knot.scale.setScalar(1.05);scene.add(knot);
+    const knotGeometry=new THREE.IcosahedronGeometry(1.24,7);
+    const knotMaterial=new THREE.MeshPhysicalMaterial({color:0x70e4dd,metalness:.04,roughness:.035,transmission:.96,thickness:1.8,ior:1.42,clearcoat:1,clearcoatRoughness:.015,iridescence:1,iridescenceIOR:1.38,iridescenceThicknessRange:[120,720],envMapIntensity:1.55,transparent:true,opacity:.96});
+    knotMaterial.onBeforeCompile=shader=>{
+      shader.uniforms.uFluidTime=uniforms.uTime;
+      shader.vertexShader=shader.vertexShader.replace("#include <common>","#include <common>\\nuniform float uFluidTime;");
+      shader.vertexShader=shader.vertexShader.replace("#include <begin_vertex>","#include <begin_vertex>\\nfloat swell=sin(position.x*3.1+uFluidTime*.62)*sin(position.y*2.7-uFluidTime*.47)*.48+cos(position.z*3.4+uFluidTime*.36)*.24;\\ntransformed+=objectNormal*swell*.14;");
+    };
+    knotMaterial.customProgramCacheKey=()=>"arc-liquid-sculpture-v2";
+    const knot=new THREE.Mesh(knotGeometry,knotMaterial);knot.position.set(2.15,.15,.2);knot.scale.setScalar(1.08);scene.add(knot);
+    const beadGeometry=new THREE.SphereGeometry(.34,48,32);
+    const beadMaterial=new THREE.MeshPhysicalMaterial({color:0xb7a8ff,metalness:.02,roughness:.025,transmission:.94,thickness:1.1,ior:1.38,clearcoat:1,iridescence:1,envMapIntensity:1.35});
+    const beadA=new THREE.Mesh(beadGeometry,beadMaterial);beadA.position.set(.55,1.72,.35);scene.add(beadA);
+    const beadB=new THREE.Mesh(beadGeometry,beadMaterial);beadB.scale.setScalar(.62);beadB.position.set(3.5,-1.05,.28);scene.add(beadB);
+    const beadC=new THREE.Mesh(beadGeometry,beadMaterial);beadC.scale.setScalar(.42);beadC.position.set(.95,-1.55,.42);scene.add(beadC);
     const ringMaterial=new THREE.MeshPhysicalMaterial({color:0x87e8e7,metalness:.16,roughness:.09,transmission:.6,clearcoat:1,iridescence:1,transparent:true,opacity:.48});
     const ring=new THREE.Mesh(new THREE.TorusGeometry(1.85,.018,12,180),ringMaterial);ring.position.set(2.15,.15,-.35);ring.rotation.set(1.15,.2,.35);scene.add(ring);
     const ring2=new THREE.Mesh(new THREE.TorusGeometry(2.12,.009,8,180),new THREE.MeshBasicMaterial({color:0xc0b4ff,transparent:true,opacity:.6}));ring2.position.copy(ring.position);ring2.rotation.set(.75,-.5,.7);scene.add(ring2);
