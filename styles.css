@@ -156,3 +156,14 @@ html[data-theme="oldweb"] .scene-wrap,html[data-theme="oldweb"] .scene-fallback,
 
 /* Let the new editorial display face breathe instead of forcing a heavy geometric weight */
 .hero h1,.section-heading h2{font-weight:400}
+
+/* Appearance switch */
+.mode-toggle{
+ display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;
+ padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:var(--panel);
+ color:var(--ink);font:10px var(--mono);letter-spacing:.04em;white-space:nowrap;
+ backdrop-filter:blur(18px);transition:background .2s,border-color .2s,transform .2s;
+}
+.mode-toggle:hover{transform:translateY(-2px);border-color:var(--accent2)}
+.mode-toggle:focus-visible,.theme-select:focus-visible,.shuffle-btn:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
+.mode-symbol{font-size:14px;line-height:1}
