@@ -228,6 +228,7 @@ function renderTheme(theme, restoreId){
   bindReveal();
   paintData();
   setSceneTheme(theme);
+  if(theme==="liquid"&&!threeState)initThree();
   updateClock();
   if(restoreId){setTimeout(()=>{const el=document.getElementById(restoreId);if(el)el.scrollIntoView({behavior:"instant",block:"start"});},40);}
   else window.scrollTo({top:0,behavior:"instant"});
@@ -569,4 +570,3 @@ bindGlobalMotion();
 scheduleGlitches();
 setInterval(updateClock,1000);
 loadProfile();
-initThree();
