@@ -616,7 +616,7 @@ html[data-mode="dark"] .future-site .future-coordinate{color:#5bd8f6}
  20%,80%{transform:translateY(0) rotateX(0);opacity:.85}
  100%{transform:translateY(46px) rotateX(-90deg);opacity:0}
 }
-@keyframes matrix-flicker{0%,19%,21%,100%{filter:brightness(1);opacity:.82}20%{filter:brightness(.25);opacity:.2}}
+@keyframes matrix-flicker{0%,19%,21%,100%{opacity:.82}20%{opacity:.2}}
 @keyframes matrix-pulse{0%,100%{opacity:.28}50%{opacity:.78}}
 .future-site .future-terminal{display:flex;flex-direction:column;gap:7px;min-width:205px;padding:10px 13px;border:1px solid #3dd8b34a;background:#031119e8;color:#00ff88;font:9px var(--mono);letter-spacing:.06em}
 .future-site .future-terminal b{color:#c0eaff;font-weight:500}

@@ -185,3 +185,8 @@ html[data-theme="oldweb"] .scene-wrap,html[data-theme="oldweb"] .scene-fallback,
  .reveal{opacity:1!important;transform:none!important}
  .scene-wrap,.scene-fallback,.glitch-layer,.transition-curtain{display:none!important}
 }
+
+/* Performance: animate progress with transforms and pause off-screen work. */
+.scroll-progress{width:100%;transform:scaleX(0);transform-origin:left;will-change:transform}
+.page-hidden *, .page-hidden *::before, .page-hidden *::after{animation-play-state:paused!important}
+@media(hover:none){.repo-card:hover,.action:hover,.social-link:hover,.shuffle-btn:hover{transform:none;box-shadow:none}}
