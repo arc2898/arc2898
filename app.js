@@ -6,27 +6,18 @@ const THEMES = [
   {id:"tinted",label:"Tinted glass"},
   {id:"glass",label:"Glassmorphism"},
   {id:"burst",label:"Neo burst"},
-  {id:"campus",label:"Campus ’04"},
+  {id:"retro",label:"Retro"},
   {id:"pixel",label:"Pixel"},
+  {id:"oldweb",label:"90s web / old internet"},
   {id:"future",label:"Futuristic"}
 ];
 const $ = (s, root=document) => root.querySelector(s);
 const $$ = (s, root=document) => [...root.querySelectorAll(s)];
 const db = {profile:null,repos:[],events:[],snapshots:[],loadedAt:null};
 let currentTheme = THEMES[Math.floor(Math.random()*THEMES.length)].id;
-function readAppearanceMode(){
-  try{return localStorage.getItem("arc2898-appearance")==="light"?"light":"dark";}
-  catch{return "dark";}
-}
-let currentMode = readAppearanceMode();
-document.documentElement.dataset.mode = currentMode;
 let threeState = null;
 let glitchTimer = null;
-let themeChangeTimer = null;
-let themeChanging = false;
-let pendingTheme = null;
-let revealObserver = null;
-let scrollFrame = 0;
+let spark = null;
 const NAV = [["about","About"],["repos","Repos"],["stack","Stack"],["now","Now"],["done","Done"],["updates","Updates"],["visuals","Shots"]];
 const SCREENSHOTS = [
   ["Universal Package Manager","upm"],
@@ -67,49 +58,17 @@ const since = value => {
 function themeOptions(){
   return THEMES.map(t=>'<option value="'+t.id+'" '+(t.id===currentTheme?'selected':'')+'>'+t.label+'</option>').join("");
 }
-function modeControl(){
-  const light = currentMode==="light";
-  return '<button class="mode-toggle" id="mode-toggle" type="button" aria-label="Switch to '+(light?'dark':'light')+' appearance" aria-pressed="'+light+'"><span class="mode-symbol">'+(light?'◐':'☼')+'</span><span>'+(light?'Dark':'Light')+'</span></button>';
-}
-function setAppearanceMode(mode){
-  currentMode = mode==="light"?"light":"dark";
-  document.documentElement.dataset.mode=currentMode;
-  const meta=$('meta[name="theme-color"]');
-  if(meta)meta.content=currentMode==="light"?"#f4f6fa":"#080d14";
-  try{localStorage.setItem("arc2898-appearance",currentMode);}catch{}
-  const button=$("#mode-toggle");
-  if(button){
-    const light=currentMode==="light";
-    button.innerHTML='<span class="mode-symbol">'+(light?'◐':'☼')+'</span><span>'+(light?'Dark':'Light')+'</span>';
-    button.setAttribute("aria-label","Switch to "+(light?"dark":"light")+" appearance");
-    button.setAttribute("aria-pressed",String(light));
-  }
-}
 function controlPanel(){
-  return '<div class="head-tools"><span class="clock-readout" id="clock">--:--:--</span><select class="theme-select" id="theme-select" aria-label="Change the complete visual theme">'+themeOptions()+'</select>'+modeControl()+'<button class="shuffle-btn" id="shuffle-theme" type="button" title="Choose another random theme">↻ Shuffle</button></div>';
+  return '<div class="head-tools"><span class="clock-readout" id="clock">--:--:--</span><select class="theme-select" id="theme-select" aria-label="Change the complete visual theme">'+themeOptions()+'</select><button class="shuffle-btn" id="shuffle-theme" type="button" title="Choose another random theme">↻ Shuffle</button></div>';
 }
 function header(theme){
   const brand = '<a class="brand" href="#top" aria-label="arc home"><span class="brand-mark">a.</span><span>arc2898</span><small>/ profile system</small></a>';
   const nav = '<nav class="main-nav" aria-label="Main navigation">'+NAV.map((x,i)=>'<a href="#'+x[0]+'"><span>'+String(i+1).padStart(2,"0")+'</span> '+x[1]+'</a>').join("")+'</nav>';
-  if(theme==="campus"){
-    return '<div class="campus-browser"><span>arc2898 / personal profile</span><span>THE CAMPUS WEB · THEFACEBOOK ERA / FEBRUARY 2004</span><span>FILE　EDIT　VIEW　FAVORITES　HELP</span></div><header class="masthead campus-masthead">'+brand+'<span class="campus-network-label">MEMBER DIRECTORY / 0002898</span>'+nav+controlPanel()+'</header><div class="campus-address"><span>Location:</span><code>https://campus.example/member/arc2898</code><b>GO</b></div>';
+  if(theme==="retro" || theme==="oldweb"){
+    return '<div class="browser-chrome"><span class="browser-lights"><i></i><i></i><i></i></span><b>'+ (theme==="retro"?"Netscape-ish Navigator 4.0":"PERSONAL HOME PAGE") +'</b><span>FILE　EDIT　VIEW　GO　BOOKMARKS　HELP</span></div><header class="masthead">'+brand+nav+controlPanel()+'</header><div class="browser-address"><span>Location:</span><code>https://arc2898.github.io/arc2898/</code><span class="address-go">GO</span></div>';
   }
   const extras = theme==="burst" ? '<span class="head-sticker">INDEPENDENT / EST. 2026</span>' : theme==="pixel" ? '<span class="pixel-online">● ONLINE</span>' : theme==="future" ? '<span class="telemetry-light">SYS / ACTIVE</span>' : theme==="skeuo" ? '<span class="screw-head">✣</span>' : "";
   return '<header class="masthead '+theme+'-masthead">'+brand+extras+nav+controlPanel()+'</header>';
-}
-function signatureBand(theme){
-  const mark = String.raw`                 +++++++++
-                +++++++++++
-               +++++++++++++
-                       ++++++
-             ....       ++++++
-            ......       ++++++
-           ...... ---++++ ++++++
-          .....- -----+-   ++++++
-         -....- -----.      -+++++
-        ......               ---+++
-.....                   --+++`;
-  return '<aside class="signature-band signature-'+theme+'" aria-label="Arc ASCII signature"><pre class="ascii-mark">'+esc(mark)+'</pre><div class="signature-caption"><b>ARC / 2898</b><span>INDEPENDENT BUILD · SYSTEMS · OPEN SOURCE</span><small>PERSONAL SIGNATURE / FIG. 01</small></div></aside>';
 }
 function actionLinks(){
   return '<div class="hero-actions"><a class="action primary" href="#repos">Explore the work <span>↘</span></a><a class="action" href="https://github.com/arc2898" target="_blank" rel="noreferrer">Open GitHub ↗</a></div>';
@@ -140,13 +99,14 @@ function hero(theme){
   if(theme==="pixel"){
     return '<section class="hero pixel-hero" id="top"><div class="pixel-hero-copy"><div class="pixel-status">PLAYER 01　/　STATUS: BUILDING</div>'+tag+'<h1>HELLO,<br>I’M <em>ARC.</em></h1>'+copy+actionLinks()+'</div><div class="pixel-world"><div class="pixel-sun"></div><div class="pixel-mountain"></div><div class="pixel-sprite"><i></i><i></i><i></i><i></i></div><span class="pixel-world-label">WORLD 2898 · LEVEL 01</span></div><div class="pixel-bottom-line">▰▰▰▱▱ EXPERIENCE POINTS　　NEXT LEVEL: KEEP BUILDING</div></section>';
   }
-  if(theme==="campus"){
-    return '<section class="hero campus-hero" id="top"><div class="campus-era-line"><span>THE CAMPUS NETWORK / MEMBER PROFILE</span><span>THEFACEBOOK LAUNCH ERA · 04 FEB 2004</span></div><div class="campus-profile-grid"><aside class="campus-profile-side"><div class="campus-avatar-frame"><img id="campus-avatar" src="https://avatars.githubusercontent.com/u/329584786?v=4" alt="arc profile"></div><b class="campus-side-name">arc2898</b><span class="campus-online"><i></i> online now</span><hr><a href="#about">View profile</a><a href="#repos">My projects</a><a href="#visuals">Photo / screenshots</a><a href="mailto:rc002898@gmail.com">Send a message</a><div class="campus-side-foot">MEMBER ID: 02898</div></aside><div class="campus-profile-main"><div class="campus-profile-kicker">PERSONAL PROFILE <span>·</span> INDEPENDENT DEVELOPER</div><h1>arc<span>2898</span></h1><p class="hero-copy">Building useful software, exploring operating systems, and learning by making things. A small collection of tools, interface experiments, and systems work.</p><div class="campus-facts"><div><b>INTERESTS</b><span>Systems · CLI · GUI · OS</span></div><div><b>WORKING WITH</b><span>Go · Rust · Dart · JavaScript</span></div><div><b>STATUS</b><span>Building / experimenting</span></div></div>'+actionLinks()+'<div class="campus-profile-note">A personal corner of the early social web. No feed algorithm — just projects, notes, and links.</div></div><aside class="campus-network-side"><div class="campus-side-box"><b>QUICK LINKS</b><a href="https://github.com/arc2898" target="_blank" rel="noreferrer">GitHub profile ↗</a><a href="https://x.com/arc3338" target="_blank" rel="noreferrer">X / @arc3338 ↗</a><a href="https://tryhackme.com/p/shikarin1113" target="_blank" rel="noreferrer">TryHackMe ↗</a></div><div class="campus-side-box campus-side-status"><b>WHAT I’M INTO</b><span>Cross-platform tools</span><span>Linux and Windows</span><span>Low-level engineering</span><span>Useful interfaces</span></div></aside></div><div class="campus-footer-rule"><span>WELCOME TO MY PAGE</span><span>LAST UPDATED: WEEKLY</span></div></section>';
+  if(theme==="retro"){
+    return '<section class="hero retro-hero" id="top"><div class="retro-banner"><span>★ ★ ★ WELCOME TO MY HOMEPAGE ★ ★ ★</span></div><center><div class="retro-welcome">HELLO, INTERNET!</div><h1>Welcome to <em>arc’s</em> corner of the web!</h1><p class="hero-copy">A solo developer’s personal homepage. I build command-line tools, graphical apps and systems experiments. Please explore, stay curious, and enjoy the hyperlinks.</p>'+actionLinks()+'<div class="retro-under-construction">🚧 ALWAYS UNDER CONSTRUCTION 🚧</div></center></section>';
+  }
+  if(theme==="oldweb"){
+    return '<section class="hero oldweb-hero" id="top"><center><div class="oldweb-welcome">~*~ WELCOME TO MY PERSONAL WEB PAGE ~*~</div><h1>arc<span>2898</span></h1><p class="hero-copy">Hello visitor! I’m arc. This little corner of the web is where I keep my projects, experiments, notes and things I have been working on.</p><div class="oldweb-visitor">YOU ARE VISITOR № <b id="visitor-count">0002898</b></div>'+actionLinks()+'<p><blink>✦ BEST VIEWED WITH CURIOSITY ✦</blink></p></center></section>';
   }
   if(theme==="future"){
-    const digits=Array.from({length:24},(_,i)=>'<span class="digit" style="--delay:'+((i%8)*.12+Math.floor(i/8)*.16).toFixed(2)+'s">'+(Math.random()>.5?'1':'0')+'</span>').join("");
-    const actions=actionLinks().replace("Explore the work",'<span class="btn-shine">Explore the work</span>');
-    return '<section class="hero future-hero" id="top"><div class="future-copy"><div class="hud-overline">IDENTITY / ARC-2898 / NODE 01</div><div class="eyebrow">SIGNAL DETECTED · HUMAN BUILDER · MACHINE INTERFACES</div><h1>BUILDING<br>WHAT’S <em>NEXT.</em></h1><p class="hero-copy">Software, systems and interfaces from the edge of curiosity. Exploring the space between useful tools and strange new ideas.</p>'+actions+'<div class="future-readouts"><span><i></i> PROFILE UPLINK <b>STABLE</b></span><span>PUBLIC NODES <b id="future-repo-count">—</b></span><span>DATA STREAM <b>LIVE</b></span></div><div class="future-coordinate">NODE 28.98 / SECTOR 01 / EARTH-LOCAL</div></div><div class="future-viewport"><div class="future-viewport-head"><span>NEURAL DISPLAY / 03</span><b><i></i> LIVE</b></div><div class="ai-matrix-loader" role="img" aria-label="Animated matrix data stream">'+digits+'<i class="glow"></i></div><div class="future-terminal"><span>ROOT@ARC2898:~$</span><b>./build --future</b><small>COMPILING POSSIBILITY... <i>OK</i></small></div><div class="future-viewport-foot"><span>ENCRYPTION / AES-256</span><span>LATENCY / 0.08 MS</span></div></div><div class="future-scan-stamp">FUTURE SYSTEMS / 2049</div></section>';
+    return '<section class="hero hud-hero" id="top"><div class="hud-copy">'+tag+'<div class="hud-overline">IDENTITY / ARC-2898 / NODE 01</div>'+title+copy+actionLinks()+'<div class="hero-meta"><span><i class="tick-dot"></i> PROFILE UPLINK</span><span>LATENCY <b>LIVE</b></span><span>DATA SOURCE <b>GITHUB API</b></span></div></div><div class="hud-radar"><div class="radar-rings"><i></i><i></i><i></i><b>ARC</b></div><span class="radar-coordinate">X: 28.98　Y: 01.00</span><span class="radar-mark">SIGNAL FOUND</span></div></section>';
   }
   return '<section class="hero liquid-hero" id="top"><div>'+tag+title+copy+actionLinks()+'<div class="hero-meta"><span><i class="tick-dot"></i> PUBLIC PROFILE / ACTIVE</span><span>BUILT WITH CURIOSITY</span></div></div>'+art+'</section>';
 }
@@ -157,7 +117,7 @@ function wrapSection(theme,id,num,title,desc,body){
   const intro = sectionIntro(num,title,desc);
   if(theme==="burst") return '<section id="'+id+'" class="profile-section reveal"><div class="paper-section"><div class="paper-index">'+num+' / INDEX</div>'+intro+body+'</div></section>';
   if(theme==="pixel") return '<section id="'+id+'" class="profile-section reveal"><div class="pixel-window"><div class="pixel-window-bar"><b>'+title.toUpperCase()+'</b><span>□　×</span></div>'+intro+body+'<div class="pixel-window-foot">END OF BLOCK // '+num+'</div></div></section>';
-  if(theme==="campus") return '<section id="'+id+'" class="profile-section reveal campus-module"><div class="campus-module-head"><b>'+num+' / '+title.toUpperCase()+'</b><span>MEMBER DIRECTORY</span></div><div class="campus-module-body">'+intro+body+'</div></section>';
+  if(theme==="retro" || theme==="oldweb") return '<section id="'+id+'" class="profile-section reveal"><fieldset class="retro-fieldset"><legend> '+num+' — '+title+' </legend>'+intro+body+'</fieldset></section>';
   if(theme==="future") return '<section id="'+id+'" class="profile-section reveal"><div class="hud-frame"><div class="hud-frame-label">MODULE '+num+' / '+title.toUpperCase()+'</div><div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>'+intro+body+'</div></section>';
   if(theme==="skeuo") return '<section id="'+id+'" class="profile-section reveal"><div class="metal-panel"><div class="metal-panel-top"><span>✣　MODULE '+num+'</span><span>● READY</span></div>'+intro+body+'</div></section>';
   if(theme==="minimal") return '<section id="'+id+'" class="profile-section reveal"><div class="minimal-section-number">'+num+'</div>'+intro+body+'</section>';
@@ -184,30 +144,15 @@ function doneBody(theme){
 function updatesBody(){
   return '<div class="updates-grid" id="updates-grid"><div class="data-empty">The first public snapshot will appear after the weekly refresh.</div></div><p class="hero-tag" style="margin-top:17px">WEEKLY SNAPSHOTS · PUBLIC METADATA ONLY · NO FABRICATED TRAFFIC FIGURES</p>';
 }
-function galleryBody(theme){
-  const orders = {
-    liquid:["winisland","upm","selfhost-dashboard","termimg","android","windows","sharexf","refind-gui"],
-    minimal:["upm","selfhost-dashboard","winisland","termimg","refind-gui","sharexf","android","windows"],
-    neo:["android","upm","windows","winisland","sharexf","selfhost-dashboard","termimg","refind-gui"],
-    skeuo:["termimg","refind-gui","windows","android","selfhost-dashboard","upm","winisland","sharexf"],
-    tinted:["winisland","android","upm","sharexf","selfhost-dashboard","windows","refind-gui","termimg"],
-    glass:["selfhost-dashboard","winisland","upm","android","termimg","sharexf","windows","refind-gui"],
-    burst:["android","winisland","termimg","upm","windows","refind-gui","selfhost-dashboard","sharexf"],
-    campus:["upm","selfhost-dashboard","winisland","android","windows","termimg","refind-gui","sharexf"],
-    pixel:["termimg","winisland","upm","android","refind-gui","windows","sharexf","selfhost-dashboard"],
-    future:["selfhost-dashboard","upm","refind-gui","winisland","termimg","sharexf","android","windows"]
-  };
-  const lookup = new Map(SCREENSHOTS.map(s=>[s[1],s]));
-  const selected = (orders[theme]||SCREENSHOTS.map(s=>s[1])).map(id=>lookup.get(id)).filter(Boolean);
-  return '<div class="gallery-grid gallery-'+theme+'" id="gallery-grid">'+selected.map((s,i)=>'<article class="surface shot-card" data-shot="'+s[1]+'"><div class="shot-preview" id="shot-'+s[1]+'"><span>0'+(i+1)+' · IMAGE SLOT</span></div><b>'+s[0]+'</b><small>assets/screenshots/'+s[1]+'.webp</small></article>').join("")+'</div>';
+function galleryBody(){
+  return '<div class="gallery-grid" id="gallery-grid">'+SCREENSHOTS.map((s,i)=>'<article class="surface shot-card"><div class="shot-preview" id="shot-'+s[1]+'"><span>FRAME '+String(i+1).padStart(2,"0")+' / AWAITING IMAGE</span></div><b>'+s[0]+'</b><small>assets/screenshots/'+s[1]+'.webp</small></article>').join("")+'</div>';
 }
-
 function footer(){
   return '<footer class="site-footer"><span>© '+new Date().getFullYear()+' ARC2898 / BUILT WITH CURIOSITY</span><span id="footer-status"><i class="tick-dot"></i> CONNECTING TO PUBLIC DATA</span><span class="footer-links"><a href="https://github.com/arc2898" target="_blank" rel="noreferrer">GITHUB ↗</a><a href="#top">BACK TO TOP ↑</a></span></footer>';
 }
 function ticker(theme){
   const txt = "BUILDING TOOLS　✳　EXPLORING SYSTEMS　✳　OPEN SOURCE　✳　LOW LEVEL CURIOSITY　✳　CLI / GUI / OS　✳　";
-  if(theme==="campus") return '<div class="ticker campus-ticker"><div class="marquee"><span>✦ WELCOME TO THE CAMPUS WEB ✦ PERSONAL PAGES · PROJECTS · LINKS · NOTES · UPDATED WEEKLY ✦</span></div></div>';
+  if(theme==="retro" || theme==="oldweb") return '<div class="ticker"><div class="marquee"><span>*** WELCOME *** TAKE A LOOK AROUND *** BEST VIEWED WITH CURIOSITY ***</span></div></div>';
   if(theme==="pixel") return '<div class="ticker"><div class="marquee"><span>▰▰▱▱　PLAYER 01　✦　QUEST: BUILD SOMETHING USEFUL　✦　SAVE POINT: GITHUB　　</span></div></div>';
   if(theme==="future") return '<div class="ticker"><div class="marquee"><span>SYS.STATUS: NOMINAL　/　SIGNAL: ACTIVE　/　DATA: PUBLIC　/　'+txt+'</span></div></div>';
   return '<div class="ticker"><div class="ticker-track">'+(txt+txt+txt)+'</div></div>';
@@ -215,22 +160,20 @@ function ticker(theme){
 function renderTheme(theme, restoreId){
   currentTheme = theme;
   document.documentElement.dataset.theme = theme;
-  document.documentElement.dataset.mode = currentMode;
-  $("#app").innerHTML = '<div class="site-shell '+theme+'-site">'+header(theme)+hero(theme)+signatureBand(theme)+ticker(theme)+'<main class="wrap content-flow">'+
+  $("#app").innerHTML = '<div class="site-shell '+theme+'-site">'+header(theme)+hero(theme)+ticker(theme)+'<main class="wrap content-flow">'+
     wrapSection(theme,"about","01","About","The person and interests behind the projects.",aboutBody())+
     wrapSection(theme,"repos","02","Repositories","Public repositories and their live GitHub metadata. Private projects stay private.",reposBody())+
     wrapSection(theme,"stack","03","Tech stack","Languages discovered from public repository metadata; presence, not proficiency.",stackBody())+
     wrapSection(theme,"now","04","What is going on","Recent public GitHub events and the current areas of focus.",nowBody())+
     wrapSection(theme,"done","05","What was done","Selected engineering work and project milestones.",doneBody(theme))+
     wrapSection(theme,"updates","06","Updates","Weekly snapshots plus the latest visible changes.",updatesBody())+
-    wrapSection(theme,"visuals","07","Project screenshots","Eight individual frames ready for screenshots, added one by one.",galleryBody(theme))+
+    wrapSection(theme,"visuals","07","Project screenshots","Eight individual frames ready for screenshots, added one by one.",galleryBody())+
     '</main>'+footer()+'</div>';
   bindThemeControls();
   bindRepoControls();
   bindReveal();
   paintData();
   setSceneTheme(theme);
-  if(theme==="liquid"&&!threeState)initThree();
   updateClock();
   if(restoreId){setTimeout(()=>{const el=document.getElementById(restoreId);if(el)el.scrollIntoView({behavior:"instant",block:"start"});},40);}
   else window.scrollTo({top:0,behavior:"instant"});
@@ -241,36 +184,21 @@ function activeSection(){
   return found?.id || null;
 }
 function changeTheme(theme){
-  if(!THEMES.some(t=>t.id===theme)||theme===currentTheme)return;
-  if(themeChanging){pendingTheme=theme;return;}
-  themeChanging=true;
-  const anchor=activeSection();
-  const curtain=$("#transition-curtain");
-  if(curtain)curtain.classList.add("active");
-  clearTimeout(themeChangeTimer);
-  themeChangeTimer=setTimeout(()=>{
-    try{
-      renderTheme(theme,anchor);
-      flashGlitch();
-    }catch(error){
-      console.error("Theme switch failed; restoring the current layout.",error);
-      renderTheme(currentTheme,anchor);
-    }finally{
-      themeChangeTimer=setTimeout(()=>{
-        const overlay=$("#transition-curtain");
-        if(overlay)overlay.classList.remove("active");
-        themeChanging=false;
-        const next=pendingTheme;pendingTheme=null;
-        if(next&&next!==currentTheme)changeTheme(next);
-      },360);
-    }
-  },100);
+  if(!THEMES.some(t=>t.id===theme)) return;
+  if(theme===currentTheme) return;
+  const anchor = activeSection();
+  const curtain = $("#transition-curtain");
+  if(curtain) curtain.classList.add("active");
+  setTimeout(()=>{
+    renderTheme(theme,anchor);
+    const nextCurtain=$("#transition-curtain");
+    if(nextCurtain){nextCurtain.classList.remove("active");}
+    flashGlitch();
+  },180);
 }
 function bindThemeControls(){
   const select=$("#theme-select");
   if(select)select.addEventListener("change",()=>changeTheme(select.value));
-  const mode=$("#mode-toggle");
-  if(mode)mode.addEventListener("click",()=>setAppearanceMode(currentMode==="dark"?"light":"dark"));
   const shuffle=$("#shuffle-theme");
   if(shuffle)shuffle.addEventListener("click",()=>{
     const choices=THEMES.filter(t=>t.id!==currentTheme);
@@ -285,23 +213,19 @@ function bindRepoControls(){
   if(language)language.addEventListener("change",renderRepos);
 }
 function bindReveal(){
-  if(revealObserver){revealObserver.disconnect();revealObserver=null;}
-  const nodes=$(".reveal");
+  const nodes=$$(".reveal");
   if(!("IntersectionObserver" in window)){nodes.forEach(n=>n.classList.add("in-view"));return;}
-  revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
-    if(entry.isIntersecting){entry.target.classList.add("in-view");revealObserver?.unobserve(entry.target);}
-  }),{threshold:.01,rootMargin:"0px 0px 120px 0px"});
-  nodes.forEach((node,i)=>{node.classList.toggle(i%2?"from-right":"from-left",currentTheme!=="campus"&&currentTheme!=="pixel");revealObserver.observe(node);});
+  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    if(entry.isIntersecting){entry.target.classList.add("in-view");observer.unobserve(entry.target);}
+  }),{threshold:.1});
+  nodes.forEach((node,i)=>{node.classList.toggle(i%2?"from-right":"from-left",currentTheme!=="retro"&&currentTheme!=="oldweb"&&currentTheme!=="pixel");observer.observe(node);});
 }
 function paintData(){
   if(!db.profile && !db.repos.length)return;
-  const futureCount=$("#future-repo-count");
-  if(futureCount)futureCount.textContent=fmt(db.repos.length);
   const p=db.profile||{};
   const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
   set("profile-name",(p.name||"arc")+" / @arc2898");
   const avatar=$("#avatar");if(avatar&&p.avatar_url)avatar.src=p.avatar_url;
-  const campusAvatar=$("#campus-avatar");if(campusAvatar&&p.avatar_url)campusAvatar.src=p.avatar_url;
   set("stat-repos",fmt(db.repos.length));
   set("stat-followers",fmt(p.followers));
   set("stat-stars",fmt(db.repos.reduce((sum,r)=>sum+(r.stargazers_count||0),0)));
@@ -422,45 +346,32 @@ function updateClock(){
   node.textContent=now.toLocaleTimeString("en-GB",{hour12:false});
 }
 function flashGlitch(){
-  if(document.hidden||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-  const layer=$("#glitch-layer");
-  const selectors=[".hero h1",".section-heading h2",".repo-name",".done-card h3",".bio-title",".brand > span:last-child",".shot-card b",".hud-overline"];
-  const candidates=[...new Set(selectors.flatMap(selector=> $(selector)))];
-  for(let i=candidates.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[candidates[i],candidates[j]]=[candidates[j],candidates[i]];}
-  requestAnimationFrame(()=>{
-    if(layer){layer.classList.remove("active");layer.classList.add("active");}
-    candidates.slice(0,Math.min(2,candidates.length)).forEach(target=>{
-      if(!target.isConnected)return;
-      target.dataset.glitch=target.textContent.trim().replace(/\s+/g," ").slice(0,90);
-      target.classList.remove("glitch-target");
-      requestAnimationFrame(()=>{if(target.isConnected)target.classList.add("glitch-target");});
-      setTimeout(()=>{target.classList.remove("glitch-target");delete target.dataset.glitch;},520);
-    });
-    const heading=$(".hero h1");
-    if(heading){heading.classList.remove("flash-mark");requestAnimationFrame(()=>{if(heading.isConnected)heading.classList.add("flash-mark");});}
-  });
-  setTimeout(()=>{if(layer)layer.classList.remove("active");},430);
+  const layer=$("#glitch-layer");if(!layer)return;
+  layer.classList.remove("active");void layer.offsetWidth;layer.classList.add("active");
+  const headings=$$(".hero h1");
+  if(headings.length){const target=headings[0];target.classList.remove("flash-mark");void target.offsetWidth;target.classList.add("flash-mark");}
+  setTimeout(()=>layer.classList.remove("active"),330);
 }
 function scheduleGlitches(){
   clearTimeout(glitchTimer);
-  const delay=12000+Math.random()*14000;
-  glitchTimer=setTimeout(()=>{if(!document.hidden&&Math.random()>.12)flashGlitch();scheduleGlitches();},delay);
+  const delay=6500+Math.random()*11500;
+  glitchTimer=setTimeout(()=>{if(Math.random()>.18)flashGlitch();scheduleGlitches();},delay);
 }
 function bindGlobalMotion(){
-  const updateProgress=()=>{
-    scrollFrame=0;
-    const span=document.documentElement.scrollHeight-innerHeight;
-    const progress=$("#scroll-progress");
-    if(progress)progress.style.transform="scaleX("+(span>0?Math.min(1,scrollY/span):0)+")";
-  };
-  window.addEventListener("scroll",()=>{
-    if(!scrollFrame)scrollFrame=requestAnimationFrame(updateProgress);
+  spark=document.createElement("div");spark.className="cursor-spark";document.body.appendChild(spark);
+  let lastRipple=0;
+  window.addEventListener("pointermove",event=>{
+    spark.style.left=event.clientX+"px";spark.style.top=event.clientY+"px";spark.classList.add("visible");
+    if(threeState){threeState.pointer.x=(event.clientX/innerWidth)*2-1;threeState.pointer.y=-(event.clientY/innerHeight)*2+1;}
+    if(Date.now()-lastRipple>850 && (currentTheme==="liquid"||currentTheme==="glass")){
+      lastRipple=Date.now();const ring=document.createElement("i");ring.className="ripple";ring.style.left=event.clientX+"px";ring.style.top=event.clientY+"px";document.body.appendChild(ring);setTimeout(()=>ring.remove(),800);
+    }
   },{passive:true});
-  document.addEventListener("visibilitychange",()=>{
-    document.documentElement.classList.toggle("page-hidden",document.hidden);
-    if(!document.hidden)scheduleGlitches();
-  });
-  document.documentElement.classList.toggle("page-hidden",document.hidden);
+  window.addEventListener("pointerout",()=>spark.classList.remove("visible"));
+  window.addEventListener("scroll",()=>{
+    const span=document.documentElement.scrollHeight-innerHeight;
+    $("#scroll-progress").style.width=(span>0?Math.min(100,scrollY/span*100):0)+"%";
+  },{passive:true});
   window.addEventListener("keydown",event=>{
     if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="k"){event.preventDefault();$("#theme-select")?.focus();}
     if(event.key==="Escape")$("#theme-select")?.blur();
@@ -469,14 +380,10 @@ function bindGlobalMotion(){
 function setSceneTheme(theme){
   const wrap=$("#scene-wrap"),fallback=$(".scene-fallback");
   if(!wrap)return;
-  const active=theme==="liquid";
-  wrap.style.opacity=active?"1":"0";
-  wrap.dataset.scene=theme;
-  if(fallback)fallback.style.opacity=theme==="liquid"?"1":theme==="glass"||theme==="tinted"||theme==="future"?".38":"0";
+  const active=["liquid","glass","tinted","future"].includes(theme);
+  wrap.style.opacity=theme==="liquid"?"1":theme==="glass"?".7":theme==="future"?".45":theme==="tinted"?".2":"0";
+  if(fallback)fallback.style.opacity=theme==="liquid"?"1":theme==="glass"?".5":theme==="tinted"?".3":"0";
   if(threeState){
-    threeState.active=active&&!document.hidden;
-    if(threeState.active&&threeState.frameId===null)threeState.frameId=requestAnimationFrame(threeState.tick);
-    if(!threeState.active&&threeState.frameId!==null){cancelAnimationFrame(threeState.frameId);threeState.frameId=null;}
     const map={
       liquid:["#55d8d3","#887cff"],
       glass:["#ed8ddd","#71dfe0"],
@@ -491,25 +398,17 @@ function setSceneTheme(theme){
   }
 }
 async function initThree(){
-  const canvas=$("#liquid-scene");if(!canvas||!window.WebGLRenderingContext||window.matchMedia("(prefers-reduced-motion: reduce)").matches||!window.matchMedia("(min-width: 761px)").matches)return;
+  const canvas=$("#liquid-scene");if(!canvas||!window.WebGLRenderingContext||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   try{
     const THREE=await import("https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js");
-    const {RoomEnvironment}=await import("https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/environments/RoomEnvironment.js");
-    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:false,powerPreference:"low-power"});
-    renderer.setPixelRatio(Math.min(devicePixelRatio,1.1));
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:"low-power"});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));
     renderer.setSize(innerWidth,innerHeight,false);
     renderer.outputColorSpace=THREE.SRGBColorSpace;
-    renderer.toneMapping=THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure=1.08;
     const scene=new THREE.Scene();
-    const pmrem=new THREE.PMREMGenerator(renderer);
-    const environmentScene=new RoomEnvironment();
-    scene.environment=pmrem.fromScene(environmentScene,.04).texture;
-    environmentScene.dispose();
-    pmrem.dispose();
     const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,100);camera.position.set(0,0,8.5);
     const uniforms={
-      uTime:{value:0},uResolution:{value:new THREE.Vector2(innerWidth,innerHeight)},
+      uTime:{value:0},uPointer:{value:new THREE.Vector2(0,0)},uResolution:{value:new THREE.Vector2(innerWidth,innerHeight)},
       uColorA:{value:new THREE.Color("#55d8d3")},uColorB:{value:new THREE.Color("#887cff")}
     };
     const planeMaterial=new THREE.ShaderMaterial({
@@ -517,13 +416,13 @@ async function initThree(){
       vertexShader:"varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}",
       fragmentShader:[
         "precision highp float;",
-        "uniform float uTime; uniform vec2 uResolution; uniform vec3 uColorA; uniform vec3 uColorB; varying vec2 vUv;",
+        "uniform float uTime; uniform vec2 uPointer; uniform vec2 uResolution; uniform vec3 uColorA; uniform vec3 uColorB; varying vec2 vUv;",
         "float blob(vec2 p,vec2 c,float s){return s/(dot(p-c,p-c)+0.018);}",
         "float noise(vec2 p){return sin(p.x*3.2+uTime*.27)*cos(p.y*3.6-uTime*.21);}",
         "void main(){",
         "vec2 uv=vUv; vec2 p=(uv-.5)*vec2(uResolution.x/uResolution.y,1.0);",
         "vec2 drift=vec2(sin(uTime*.19),cos(uTime*.15))*.15;",
-        "float f=blob(p,vec2(-.42,.13)+drift,.018)+blob(p,vec2(.37,-.1)-drift,.016)+blob(p,vec2(.03,.43)+drift.yx,.012);",
+        "float f=blob(p,vec2(-.42,.13)+drift,.018)+blob(p,vec2(.37,-.1)-drift,.016)+blob(p,vec2(.03,.43)+drift.yx,.012)+blob(p,uPointer*.32,.012);",
         "float n=noise(p*2.0)*.055;",
         "float liquid=smoothstep(1.08,1.9,f+n);",
         "float edge=1.0-smoothstep(.08,.5,abs(f-1.45));",
@@ -544,42 +443,31 @@ async function initThree(){
     const ambient=new THREE.AmbientLight(0x9fcfff,1.15);scene.add(ambient);
     const key=new THREE.PointLight(0x83f2e8,30,22);key.position.set(2.7,2.8,4);scene.add(key);
     const rim=new THREE.PointLight(0xa18aff,24,20);rim.position.set(-3,-2,2);scene.add(rim);
-    const knotGeometry=new THREE.IcosahedronGeometry(1.24,5);
-    const knotMaterial=new THREE.MeshPhysicalMaterial({color:0x70e4dd,metalness:.04,roughness:.035,transmission:.96,thickness:1.8,ior:1.42,clearcoat:1,clearcoatRoughness:.015,iridescence:1,iridescenceIOR:1.38,iridescenceThicknessRange:[120,720],envMapIntensity:1.55,transparent:true,opacity:.96});
-    knotMaterial.onBeforeCompile=shader=>{
-      shader.uniforms.uFluidTime=uniforms.uTime;
-      shader.vertexShader=shader.vertexShader.replace("#include <common>","#include <common>\nuniform float uFluidTime;");
-      shader.vertexShader=shader.vertexShader.replace("#include <begin_vertex>","#include <begin_vertex>\nfloat swell=sin(position.x*3.1+uFluidTime*.62)*sin(position.y*2.7-uFluidTime*.47)*.48+cos(position.z*3.4+uFluidTime*.36)*.24;\ntransformed+=objectNormal*swell*.14;");
-    };
-    knotMaterial.customProgramCacheKey=()=>"arc-liquid-sculpture-v2";
-    const knot=new THREE.Mesh(knotGeometry,knotMaterial);knot.position.set(2.15,.15,.2);knot.scale.setScalar(1.08);scene.add(knot);
-    const beadGeometry=new THREE.SphereGeometry(.34,48,32);
-    const beadMaterial=new THREE.MeshPhysicalMaterial({color:0xb7a8ff,metalness:.02,roughness:.025,transmission:.94,thickness:1.1,ior:1.38,clearcoat:1,iridescence:1,envMapIntensity:1.35});
-    const beadA=new THREE.Mesh(beadGeometry,beadMaterial);beadA.position.set(.55,1.72,.35);scene.add(beadA);
-    const beadB=new THREE.Mesh(beadGeometry,beadMaterial);beadB.scale.setScalar(.62);beadB.position.set(3.5,-1.05,.28);scene.add(beadB);
-    const beadC=new THREE.Mesh(beadGeometry,beadMaterial);beadC.scale.setScalar(.42);beadC.position.set(.95,-1.55,.42);scene.add(beadC);
+    const knotGeometry=new THREE.TorusKnotGeometry(1.05,.27,220,32,2,5);
+    const knotMaterial=new THREE.MeshPhysicalMaterial({color:0x55d8d3,metalness:.12,roughness:.06,transmission:.68,thickness:1.1,ior:1.32,clearcoat:1,clearcoatRoughness:.03,iridescence:1,iridescenceIOR:1.35,iridescenceThicknessRange:[100,650],transparent:true,opacity:.88});
+    const knot=new THREE.Mesh(knotGeometry,knotMaterial);knot.position.set(2.15,.15,.2);knot.scale.setScalar(1.05);scene.add(knot);
     const ringMaterial=new THREE.MeshPhysicalMaterial({color:0x87e8e7,metalness:.16,roughness:.09,transmission:.6,clearcoat:1,iridescence:1,transparent:true,opacity:.48});
-    const ring=new THREE.Mesh(new THREE.TorusGeometry(1.85,.018,8,96),ringMaterial);ring.position.set(2.15,.15,-.35);ring.rotation.set(1.15,.2,.35);scene.add(ring);
-    const ring2=new THREE.Mesh(new THREE.TorusGeometry(2.12,.009,6,96),new THREE.MeshBasicMaterial({color:0xc0b4ff,transparent:true,opacity:.6}));ring2.position.copy(ring.position);ring2.rotation.set(.75,-.5,.7);scene.add(ring2);
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(1.85,.018,12,180),ringMaterial);ring.position.set(2.15,.15,-.35);ring.rotation.set(1.15,.2,.35);scene.add(ring);
+    const ring2=new THREE.Mesh(new THREE.TorusGeometry(2.12,.009,8,180),new THREE.MeshBasicMaterial({color:0xc0b4ff,transparent:true,opacity:.6}));ring2.position.copy(ring.position);ring2.rotation.set(.75,-.5,.7);scene.add(ring2);
     const shardMat=new THREE.MeshPhysicalMaterial({color:0x8ceee4,metalness:.12,roughness:.04,transmission:.84,thickness:.7,clearcoat:1,iridescence:1,transparent:true,opacity:.58});
     const shard=new THREE.Mesh(new THREE.OctahedronGeometry(.5,0),shardMat);shard.position.set(-2.9,-1.3,.15);scene.add(shard);
-    threeState={THREE,renderer,scene,camera,uniforms,knot,knotMaterial,ring,ring2,shard,active:false,frameId:null,lastFrame:0,tick:null};
-    function resize(){renderer.setPixelRatio(Math.min(devicePixelRatio,1.1));renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();uniforms.uResolution.value.set(innerWidth,innerHeight);}
+    const pointer={x:0,y:0};
+    threeState={THREE,renderer,scene,camera,uniforms,knot,knotMaterial,ring,ring2,shard,pointer};
+    setSceneTheme(currentTheme);
+    function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();uniforms.uResolution.value.set(innerWidth,innerHeight);}
     window.addEventListener("resize",resize,{passive:true});
-    threeState.tick=function(t){
-      if(!threeState||!threeState.active||document.hidden){threeState.frameId=null;return;}
-      threeState.frameId=requestAnimationFrame(threeState.tick);
-      if(t-threeState.lastFrame<33)return;
-      threeState.lastFrame=t;
+    function animate(t){
+      requestAnimationFrame(animate);
+      if(document.hidden)return;
       uniforms.uTime.value=t*.001;
+      uniforms.uPointer.value.set(pointer.x,pointer.y);
       knot.rotation.x=t*.00012+.4;knot.rotation.y=t*.00025;knot.rotation.z=Math.sin(t*.00016)*.3;
       knot.position.y=.15+Math.sin(t*.0005)*.18;
       ring.rotation.z=t*.00012;ring2.rotation.x=t*.00018;
       shard.rotation.x=t*.00035;shard.rotation.y=t*.00025;shard.position.y=-1.3+Math.sin(t*.0006)*.2;
       renderer.render(scene,camera);
-    };
-    document.addEventListener("visibilitychange",()=>setSceneTheme(currentTheme));
-    setSceneTheme(currentTheme);
+    }
+    requestAnimationFrame(animate);
   }catch(error){console.info("Three.js scene unavailable; CSS atmosphere remains active.",error);}
 }
 renderTheme(currentTheme);
@@ -587,3 +475,4 @@ bindGlobalMotion();
 scheduleGlitches();
 setInterval(updateClock,1000);
 loadProfile();
+initThree();
