@@ -260,3 +260,21 @@ html[data-theme="retro"] .scanline,html[data-theme="oldweb"] .scanline{display:n
 @media(prefers-reduced-motion:reduce){
  .minimal-site .profile-section.reveal.in-view,.liquid-site .profile-section.reveal.in-view,.neo-site .profile-section.reveal.in-view,.skeuo-site .profile-section.reveal.in-view,.tinted-site .profile-section.reveal.in-view,.glass-site .profile-section.reveal.in-view,.burst-site .profile-section.reveal.in-view,.retro-site .profile-section.reveal.in-view,.pixel-site .profile-section.reveal.in-view,.oldweb-site .profile-section.reveal.in-view,.future-site .profile-section.reveal.in-view{animation:none}
 }
+
+
+/* Generated theme artwork — one sprite sheet, ten distinct theme panels */
+.site-shell .hero{isolation:isolate}
+.site-shell .hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:url("./assets/theme-art-sprite.webp");background-repeat:no-repeat;background-size:200% 500%;opacity:.34;mask-image:linear-gradient(to bottom,#000 0%,#000 62%,transparent 100%)}
+.site-shell .hero>*{position:relative;z-index:1}
+.liquid-site .hero::before{background-position:0% 0%}
+.minimal-site .hero::before{background-position:100% 0%}
+.neo-site .hero::before{background-position:0% 25%}
+.skeuo-site .hero::before{background-position:100% 25%}
+.tinted-site .hero::before{background-position:0% 50%}
+.glass-site .hero::before{background-position:0% 50%}
+.burst-site .hero::before{background-position:100% 100%}
+.retro-site .hero::before{background-position:100% 50%}
+.pixel-site .hero::before{background-position:0% 75%}
+.oldweb-site .hero::before{background-position:100% 75%}
+.future-site .hero::before{background-position:0% 100%}
+@media(prefers-reduced-motion:reduce){.site-shell .hero::before{mask-image:none}}
