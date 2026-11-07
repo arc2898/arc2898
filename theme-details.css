@@ -157,3 +157,106 @@ html[data-theme="retro"] .scanline,html[data-theme="oldweb"] .scanline{display:n
  .burst-site .paper-section{padding:20px 14px}.burst-site .paper-section:before{right:10px;width:65px}
  .pixel-site .hero h1{font-size:27px}.pixel-site .pixel-status{font-size:6px}
 }
+
+
+/* THEME-SPECIFIC COMPOSITION + MOTION — each theme gets its own page rhythm */
+.minimal-site .content-flow{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:34px}
+.minimal-site .profile-section:nth-child(1){grid-column:1/-1}
+.minimal-site .profile-section:nth-child(2){grid-column:1/9}
+.minimal-site .profile-section:nth-child(3){grid-column:9/-1}
+.minimal-site .profile-section:nth-child(4){grid-column:1/6}
+.minimal-site .profile-section:nth-child(5){grid-column:6/-1}
+.minimal-site .profile-section:nth-child(6){grid-column:1/8}
+.minimal-site .profile-section:nth-child(7){grid-column:8/-1}
+.minimal-site .profile-section{padding:52px 0;border-top:1px solid var(--line)}
+.minimal-site .minimal-section-number{font:10px var(--mono);color:var(--accent2);letter-spacing:.2em}
+.minimal-site .profile-section.reveal{clip-path:inset(0 0 0 0);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.minimal-site .profile-section:nth-child(even).reveal{transform:translateY(34px)}
+.minimal-site .profile-section:nth-child(odd).reveal{transform:translateY(-22px)}
+.minimal-site .profile-section.reveal.in-view{transform:none}
+@keyframes liquid-arrive{0%{opacity:0;transform:translateY(35px) scale(.97);filter:blur(12px)}65%{opacity:1;filter:blur(0);transform:translateY(-4px) scale(1.005)}100%{transform:none}}
+.liquid-site .profile-section.reveal.in-view{animation:liquid-arrive 1.1s cubic-bezier(.16,1,.3,1) both}
+.liquid-site .surface:hover{transform:translateY(-5px) scale(1.008);box-shadow:0 22px 55px #29d9d52a}
+.liquid-site .repo-card:nth-child(3n+1){border-radius:28px 8px 28px 8px}
+.liquid-site .repo-card:nth-child(3n+2){border-radius:8px 28px 8px 28px}
+.neo-site .content-flow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 26px}
+.neo-site .profile-section:first-child,.neo-site .profile-section:nth-child(2),.neo-site .profile-section:nth-child(5){grid-column:1/-1}
+.neo-site .profile-section{padding:36px 0}
+.neo-site .neo-section-surface{padding:28px;border-radius:28px;box-shadow:12px 12px 26px #0002,-10px -10px 24px #ffffff0a}
+.neo-site .surface,.neo-site .repo-card{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.neo-site .surface:hover,.neo-site .repo-card:hover{transform:translateY(-6px);box-shadow:16px 16px 30px #0003,-10px -10px 26px #ffffff10}
+@keyframes neo-in{from{opacity:0;transform:scale(.94) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.neo-site .profile-section.reveal.in-view{animation:neo-in .65s cubic-bezier(.2,.8,.2,1) both}
+.skeuo-site .content-flow{max-width:1180px}
+.skeuo-site .profile-section{padding:42px 0}
+.skeuo-site .metal-panel{padding:24px;border:2px solid #ffffff35;border-radius:16px;box-shadow:inset 2px 2px 5px #fff2,inset -3px -3px 8px #0005,0 16px 32px #0005}
+.skeuo-site .surface:hover,.skeuo-site .repo-card:hover{transform:translateY(2px);box-shadow:inset 3px 3px 8px #0005,inset -2px -2px 5px #fff2}
+.skeuo-site .action:active,.skeuo-site .shuffle-btn:active{transform:translateY(3px);box-shadow:inset 2px 3px 7px #0006}
+@keyframes skeuo-slide{from{opacity:0;transform:perspective(900px) rotateX(-7deg) translateY(24px)}to{opacity:1;transform:perspective(900px) rotateX(0) translateY(0)}}
+.skeuo-site .profile-section.reveal.in-view{transform-origin:top center;animation:skeuo-slide .8s ease both}
+.tinted-site .content-flow{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px 24px}
+.tinted-site .profile-section:nth-child(1),.tinted-site .profile-section:nth-child(2),.tinted-site .profile-section:nth-child(4){grid-column:1/-1}
+.tinted-site .profile-section:nth-child(3),.tinted-site .profile-section:nth-child(5){grid-column:span 6}
+.tinted-site .profile-section:nth-child(6){grid-column:1/8}
+.tinted-site .profile-section:nth-child(7){grid-column:8/-1}
+.tinted-site .profile-section{padding:34px 0}
+.tinted-site .tinted-section-surface{padding:26px;border:1px solid #ffffff35;background:linear-gradient(135deg,#ffffff18,#ffffff04);backdrop-filter:blur(18px);border-radius:22px}
+@keyframes tint-drift{from{opacity:0;transform:translateX(-24px) skewY(1deg);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
+.tinted-site .profile-section.reveal.in-view{animation:tint-drift .85s cubic-bezier(.2,.8,.2,1) both}
+.glass-site .content-flow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 28px}
+.glass-site .profile-section:first-child,.glass-site .profile-section:nth-child(2),.glass-site .profile-section:nth-child(4){grid-column:1/-1}
+.glass-site .profile-section{padding:38px 0}
+.glass-site .glass-section-pane{padding:28px;border:1px solid #ffffff35;border-radius:24px;background:linear-gradient(140deg,#ffffff20,#ffffff05);box-shadow:inset 0 1px #fff4,0 22px 60px #0003;backdrop-filter:blur(22px) saturate(160%)}
+@keyframes glass-arrive{from{opacity:0;transform:translateY(30px) scale(.96);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}
+.glass-site .profile-section.reveal.in-view{animation:glass-arrive .9s cubic-bezier(.16,1,.3,1) both}
+.glass-site .repo-card:hover{transform:translateY(-8px) rotateX(2deg);box-shadow:0 28px 65px #0005}
+.burst-site .content-flow{max-width:1240px}
+.burst-site .profile-section{padding:58px 0}
+.burst-site .paper-section{padding:clamp(18px,4vw,42px);border:2px solid var(--ink);box-shadow:9px 9px 0 var(--ink);transform:rotate(-.35deg)}
+.burst-site .profile-section:nth-child(even) .paper-section{transform:rotate(.45deg)}
+.burst-site .repo-card:nth-child(odd){transform:rotate(-.7deg)}
+.burst-site .repo-card:nth-child(even){transform:rotate(.65deg)}
+.burst-site .repo-card:hover{transform:rotate(0) translateY(-7px) scale(1.015)}
+@keyframes burst-stamp{0%{opacity:0;transform:translateY(45px) rotate(3deg) scale(.9)}70%{opacity:1;transform:translateY(-5px) rotate(-1deg) scale(1.02)}100%{transform:none}}
+.burst-site .profile-section.reveal.in-view{animation:burst-stamp .65s cubic-bezier(.2,.8,.2,1) both}
+.retro-site .content-flow{display:block;background:#f8f3df;padding:0 18px;border-inline:3px ridge #a9a08b}
+.retro-site .profile-section{padding:32px 0;border-bottom:2px dotted #9a8d6c}
+.retro-site .retro-fieldset{padding:18px;background:#fffdf5;border:3px ridge #aaa}
+.retro-site .profile-section.reveal{opacity:1;transform:none}
+.retro-site .profile-section.reveal.in-view{animation:retro-wipe .55s steps(8,end) both}
+@keyframes retro-wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.pixel-site .content-flow{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px}
+.pixel-site .profile-section:nth-child(1),.pixel-site .profile-section:nth-child(2),.pixel-site .profile-section:nth-child(4){grid-column:1/-1}
+.pixel-site .profile-section:nth-child(3){grid-column:1/6}
+.pixel-site .profile-section:nth-child(5){grid-column:6/-1}
+.pixel-site .profile-section:nth-child(6){grid-column:1/8}
+.pixel-site .profile-section:nth-child(7){grid-column:8/-1}
+.pixel-site .profile-section{padding:24px 0}
+.pixel-site .pixel-window{height:100%;transition:transform .15s steps(3,end)}
+.pixel-site .profile-section.reveal{opacity:1;transform:translateY(12px)}
+.pixel-site .profile-section.reveal.in-view{animation:pixel-pop .28s steps(4,end) both}
+@keyframes pixel-pop{0%{opacity:0;transform:translateY(18px) scale(.97)}75%{opacity:1;transform:translateY(-2px) scale(1.01)}100%{transform:none}}
+.oldweb-site .content-flow{display:block;background:#fff;padding:0 14px}
+.oldweb-site .profile-section{padding:22px 8px;border-bottom:2px dashed #777}
+.oldweb-site .profile-section.reveal{opacity:1;transform:none}
+.oldweb-site .profile-section.reveal.in-view{animation:oldweb-flash .3s steps(2,end) both}
+@keyframes oldweb-flash{from{opacity:0;filter:brightness(1.8)}to{opacity:1;filter:none}}
+.future-site .content-flow{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px}
+.future-site .profile-section:first-child,.future-site .profile-section:nth-child(2),.future-site .profile-section:nth-child(4){grid-column:1/-1}
+.future-site .profile-section:nth-child(3){grid-column:1/5}
+.future-site .profile-section:nth-child(5){grid-column:5/-1}
+.future-site .profile-section:nth-child(6){grid-column:1/8}
+.future-site .profile-section:nth-child(7){grid-column:8/-1}
+.future-site .profile-section{padding:36px 0}
+.future-site .hud-frame{padding:26px;border:1px solid #43d8ff55;background:linear-gradient(135deg,#0b2635aa,#07131c88);clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
+.future-site .profile-section.reveal{opacity:1;transform:translateY(16px)}
+.future-site .profile-section.reveal.in-view{animation:future-scan .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes future-scan{0%{opacity:0;transform:translateY(24px);filter:brightness(2)}45%{opacity:1;filter:brightness(1.4)}100%{opacity:1;transform:none;filter:none}}
+@media(max-width:760px){
+ .minimal-site .content-flow,.neo-site .content-flow,.tinted-site .content-flow,.glass-site .content-flow,.pixel-site .content-flow,.future-site .content-flow{display:block}
+ .minimal-site .profile-section,.neo-site .profile-section,.tinted-site .profile-section,.glass-site .profile-section,.pixel-site .profile-section,.future-site .profile-section{padding-block:30px}
+ .minimal-site .profile-section,.tinted-site .profile-section,.pixel-site .profile-section,.future-site .profile-section{grid-column:auto}
+}
+@media(prefers-reduced-motion:reduce){
+ .minimal-site .profile-section.reveal.in-view,.liquid-site .profile-section.reveal.in-view,.neo-site .profile-section.reveal.in-view,.skeuo-site .profile-section.reveal.in-view,.tinted-site .profile-section.reveal.in-view,.glass-site .profile-section.reveal.in-view,.burst-site .profile-section.reveal.in-view,.retro-site .profile-section.reveal.in-view,.pixel-site .profile-section.reveal.in-view,.oldweb-site .profile-section.reveal.in-view,.future-site .profile-section.reveal.in-view{animation:none}
+}
