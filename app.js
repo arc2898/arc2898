@@ -18,16 +18,16 @@ let currentTheme = THEMES[Math.floor(Math.random()*THEMES.length)].id;
 let threeState = null;
 let glitchTimer = null;
 let spark = null;
-const NAV = [["about","About"],["repos","Repos"],["stack","Stack"],["now","Now"],["done","Done"],["updates","Updates"],["visuals","Shots"]];
+const NAV = [["about","About"],["projects","Projects"],["repos","Repos"],["stack","Stack"],["now","Now"],["done","Done"],["updates","Updates"],["visuals","Shots"]];
 const SCREENSHOTS = [
-  ["Universal Package Manager","upm"],
-  ["Self-hosted dashboard","selfhost-dashboard"],
-  ["WinIsland","winisland"],
-  ["Termimg / Linux","termimg"],
-  ["Android projects","android"],
-  ["Windows projects","windows"],
-  ["rEFInd GUI","refind-gui"],
-  ["ShareXF","sharexf"]
+  ["AIOF — Explorer","aiof-explorer","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061548.png"],
+  ["AIOF — File preview","aiof-preview","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061618.png"],
+  ["AIOF — Media tools","aiof-media","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061633.png"],
+  ["AIOF — Downloads","aiof-downloads","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061646.png"],
+  ["FT-music — Player","ft-player","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/playerview.png"],
+  ["FT-music — Playlist","ft-playlist","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/playlistview.png"],
+  ["FT-music — Artist","ft-artist","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/artistview.png"],
+  ["FT-music — Lyrics","ft-lyrics","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/lyricsview1.png"]
 ];
 const PROJECTS = [
   ["Universal Package Manager","One Go interface for common package-management workflows across operating systems. Safer validation, predictable execution and automated cross-platform checks.","arc2898/Universal-Package-Manager"],
@@ -71,7 +71,7 @@ function header(theme){
   return '<header class="masthead '+theme+'-masthead">'+brand+extras+nav+controlPanel()+'</header>';
 }
 function actionLinks(){
-  return '<div class="hero-actions"><a class="action primary" href="#repos">Explore the work <span>↘</span></a><a class="action" href="https://github.com/arc2898" target="_blank" rel="noreferrer">Open GitHub ↗</a></div>';
+  return '<div class="hero-actions"><a class="action primary" href="#projects">Explore the work <span>↘</span></a><a class="action" href="https://github.com/arc2898" target="_blank" rel="noreferrer">Open GitHub ↗</a></div>';
 }
 function hero(theme){
   const tag = '<div class="eyebrow">Independent developer · systems curious · open to experiments</div>';
@@ -129,6 +129,208 @@ function wrapSection(theme,id,num,title,desc,body){
 function aboutBody(){
   return '<div class="about-layout"><article class="surface about-bio"><img class="avatar" id="avatar" src="https://avatars.githubusercontent.com/u/329584786?v=4" alt="arc GitHub avatar"><div><h3 class="bio-title" id="profile-name">arc / independent developer</h3><p class="bio-text" id="profile-bio">A solo developer interested in CLI and GUI software, Android, Windows, Linux and low-level engineering.</p><div class="bio-focus"><span class="tag">Go</span><span class="tag">Rust</span><span class="tag">Dart</span><span class="tag">JavaScript</span><span class="tag">Systems</span><span class="tag">Cross-platform</span></div><div class="social-row"><a class="social-link" href="https://github.com/arc2898" target="_blank" rel="noreferrer">GitHub ↗</a><a class="social-link" id="profile-blog-link" href="https://github.com/arc2898" target="_blank" rel="noreferrer">Website ↗</a><a class="social-link" href="mailto:rc002898@gmail.com">Gmail ↗</a><a class="social-link" href="https://x.com/arc3338" target="_blank" rel="noreferrer">X · @arc3338 ↗</a><a class="social-link" href="https://tryhackme.com/p/shikarin1113" target="_blank" rel="noreferrer">TryHackMe ↗</a></div></div></article><div class="stats-grid"><article class="surface stat-tile"><strong id="stat-repos">—</strong><span>Public repositories</span></article><article class="surface stat-tile"><strong id="stat-followers">—</strong><span>Followers</span></article><article class="surface stat-tile"><strong id="stat-following">—</strong><span>Following</span></article><article class="surface stat-tile"><strong id="stat-stars">—</strong><span>Stars earned</span></article><article class="surface stat-tile"><strong id="stat-forks">—</strong><span>Repository forks</span></article><article class="surface stat-tile"><strong id="stat-gists">—</strong><span>Public gists</span></article></div></div><div class="profile-facts surface"><div><span>LOCATION</span><b id="profile-location">Not specified</b></div><div><span>COMPANY</span><b id="profile-company">Independent</b></div><div><span>MEMBER SINCE</span><b id="profile-created">—</b></div><div><span>PROFILE</span><b id="profile-type">Public GitHub profile</b></div></div>';
 }
+function projectsBody(theme){
+  const groups = [
+    {name:"Android & music",items:[
+      {name:"FT-music",kind:"Android · Flutter + Go",desc:"An open-source music app with a Flutter client and a layered Go backend for music libraries, playlists, playback and authorized streaming integrations.",repo:"https://github.com/arc2898/Android/tree/main/FT-music",image:"https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/bloomeetunes_new_banner.png",gallery:["https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/playerview.png","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/playlistview.png"],apk:"https://github.com/arc2898/Android/releases/download/apk/FT-music-debug.apk",release:"https://github.com/arc2898/Android/releases/tag/apk",source:"https://github.com/arc2898/Android/archive/refs/heads/main.zip"}
+    ]},
+    {name:"Desktop & cross-device",items:[
+      {name:"AIOF — All-in-One File Manager",kind:"Windows · Linux · Electron",desc:"A local-first desktop workspace for files, previews, downloads, archives, media, system utilities and in-app editing.",repo:"https://github.com/arc2898/AIOF",image:"https://raw.githubusercontent.com/arc2898/AIOF/main/resources/branding/aiof-logo.png",gallery:["https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061548.png","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061618.png","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061633.png","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061646.png"]},
+      {name:"WinIsland",kind:"Windows 11 · C# / WPF",desc:"A Dynamic Island-style desktop widget with clock, system-resource, media and to-do modules.",repo:"https://github.com/arc2898/WinIsland"},
+      {name:"ShareXF",kind:"Windows · macOS · Linux · Android",desc:"A privacy-minded device connectivity suite for sharing files, screens, input, clipboard and device features across paired devices.",repo:"https://github.com/arc2898/sharexf"},
+      {name:"Self-hosted dashboard",kind:"Node.js · Self-hosted",desc:"A private server dashboard for system monitoring, file management, media streaming, process controls and a browser terminal.",repo:"https://github.com/arc2898/selfhost-dashboard"}
+    ]},
+    {name:"Developer tools & systems",items:[
+      {name:"Universal Package Manager",kind:"Go · CLI",desc:"One command-line interface for package installation, removal, search and updates across system and language package managers.",repo:"https://github.com/arc2898/Universal-Package-Manager"},
+      {name:"rEFInd-GUI",kind:"Rust · Boot tooling",desc:"A CLI-first workspace for rEFInd boot entries, Linux system inspection, kernel discovery and boot-environment management.",repo:"https://github.com/arc2898/rEFInd-GUI"},
+      {name:"arcnize",kind:"Linux · Shell tooling",desc:"A setup toolkit for GNOME extensions, Zsh and a customized Linux desktop workflow.",repo:"https://github.com/arc2898/arcnize"},
+      {name:"Tview",kind:"Linux · Terminal app",desc:"A terminal-based video player and image viewer built for lightweight media browsing.",repo:"https://github.com/arc2898/Linux/tree/main/tview"},
+      {name:"EVERLUMEN / NEUROGLASS",kind:"Linux · Hyprland / Quickshell",desc:"An experimental neon-glass desktop theme with a customization lab and distro-aware installer.",repo:"https://github.com/arc2898/Linux/tree/main/themes/everlumen"},
+      {name:"Linux Brand Modifier",kind:"Linux · Customization",desc:"Utilities for adjusting Linux distribution branding and related desktop assets.",repo:"https://github.com/arc2898/Linux/tree/main/linux-brand-modifier"}
+    ]}
+  ];
+  const card=(p,i)=>'<article class="surface project-card '+(p.apk?'project-featured':'')+'" style="--project-index:'+i+'">'+
+    '<div class="project-cover">'+(p.image?'<img src="'+p.image+'" alt="'+esc(p.name)+' preview" loading="lazy">':'<span class="project-monogram">'+esc(p.name.split(/\\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase())+'</span>')+'<span class="project-kind">'+esc(p.kind)+'</span></div>'+
+    '<div class="project-copy"><span class="project-number">PROJECT / '+String(i+1).padStart(2,"0")+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.desc)+'</p>'+
+    (p.gallery?'<div class="project-gallery">'+p.gallery.map((src,j)=>'<img src="'+src+'" alt="'+esc(p.name)+' screenshot '+(j+1)+'" loading="lazy">').join("")+'</div>':'')+
+    '<div class="project-actions">'+(p.apk?'<a class="action primary project-download" href="'+p.apk+'" download>Download APK ↓</a><a class="action project-source" href="'+p.source+'" download>Download source ↓</a>':'')+'<a class="action project-repo" href="'+p.repo+'" target="_blank" rel="noreferrer">Open project ↗</a>'+(p.release?'<a class="project-release" href="'+p.release+'" target="_blank" rel="noreferrer">All releases ↗</a>':'')+'</div></div></article>';
+  return '<div class="projects-groups">'+groups.map((g,gi)=>'<div class="project-group"><div class="project-group-heading"><span>COLLECTION / '+String(gi+1).padStart(2,"0")+'</span><h3>'+g.name+'</h3></div><div class="projects-grid">'+g.items.map((p,i)=>card(p,gi*10+i)).join("")+'</div></div>').join("")+'</div>';
+}
+function reposBody(){
+  return '<div class="repo-overview"><div><strong id="repo-total-stars">—</strong><span>STARS</span></div><div><strong id="repo-total-forks">—</strong><span>FORKS</span></div><div><strong id="repo-total-watchers">—</strong><span>WATCHERS</span></div><div><strong id="repo-total-issues">—</strong><span>OPEN ISSUES</span></div><div><strong id="repo-language-count">—</strong><span>LANGUAGES</span></div></div><div class="repo-toolbar"><input class="repo-search" id="repo-search" placeholder="Find a repository…" aria-label="Search repositories"><select class="repo-sort" id="repo-sort" aria-label="Sort repositories"><option value="updated">Recently updated</option><option value="stars">Most stars</option><option value="forks">Most forks</option><option value="issues">Most open issues</option><option value="name">Name A–Z</option></select><select class="repo-filter" id="repo-language" aria-label="Filter by language"><option value="all">All languages</option></select></div><div class="repo-grid" id="repo-grid"><div class="data-empty">Establishing GitHub connection…</div></div><p class="hero-tag" id="repo-counter" style="margin-top:16px">PUBLIC REPOSITORIES / LOADING</p>';
+}
+function stackBody(){
+  return '<div class="stack-grid" id="stack-grid"><div class="data-empty">Reading language metadata…</div></div><p class="hero-tag" style="margin-top:17px">LANGUAGE COUNTS REFLECT PUBLIC REPOSITORIES, NOT SKILL RATINGS.</p>';
+}
+function nowBody(){
+  return '<div class="live-layout"><article class="surface feed-panel"><h3 class="panel-title">Recent public activity <span class="live-badge"><i class="tick-dot"></i> LIVE FEED</span></h3><div id="activity-list"><div class="data-empty">Waiting for public GitHub events…</div></div></article><article class="surface feed-panel"><h3 class="panel-title">What is going on <span class="live-badge">CURRENT FOCUS</span></h3><div class="focus-item"><span class="focus-icon">◈</span><div><b>Building useful software</b><p>Working across CLI utilities, desktop interfaces, Android apps and systems experiments.</p></div></div><div class="focus-item"><span class="focus-icon">◈</span><div><b>Exploring the lower layers</b><p>Operating systems, developer tooling, Linux workflows and the details beneath the interface.</p></div></div><div class="focus-item"><span class="focus-icon">◈</span><div><b>Latest data sync</b><p id="last-sync">Waiting for GitHub…</p></div></div></article></div>';
+}
+function doneBody(theme){
+  return '<div class="done-grid">'+MILESTONES.map((p,i)=>'<article class="surface done-card"><span class="done-no">'+p[0]+' / '+(i+1===5?"ONGOING":"SHIPPED WORK")+'</span><h3>'+p[1]+'</h3><p>'+p[2]+'</p></article>').join("")+'</div>';
+}
+function updatesBody(){
+  return '<div class="updates-grid" id="updates-grid"><div class="data-empty">The first public snapshot will appear after the weekly refresh.</div></div><p class="hero-tag" style="margin-top:17px">WEEKLY SNAPSHOTS · PUBLIC METADATA ONLY · NO FABRICATED TRAFFIC FIGURES</p>';
+}
+function galleryBody(){
+  return '<div class="gallery-grid" id="gallery-grid">'+SCREENSHOTS.map((s,i)=>'<article class="surface shot-card"><div class="shot-preview"><img src="'+s[2]+'" alt="'+esc(s[0])+'" loading="lazy"><span>FRAME '+String(i+1).padStart(2,"0")+'</span></div><b>'+s[0]+'</b><small>Project image / GitHub</small></article>').join("")+'</div>';
+}onst THEMES = [
+  {id:"liquid",label:"Liquid glass"},
+  {id:"minimal",label:"Minimalism"},
+  {id:"neo",label:"Neomorphism"},
+  {id:"skeuo",label:"Skeuomorphism"},
+  {id:"tinted",label:"Tinted glass"},
+  {id:"glass",label:"Glassmorphism"},
+  {id:"burst",label:"Neo burst"},
+  {id:"retro",label:"Retro"},
+  {id:"pixel",label:"Pixel"},
+  {id:"oldweb",label:"90s web / old internet"},
+  {id:"future",label:"Futuristic"}
+];
+const $ = (s, root=document) => root.querySelector(s);
+const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+const db = {profile:null,repos:[],events:[],snapshots:[],loadedAt:null};
+let currentTheme = THEMES[Math.floor(Math.random()*THEMES.length)].id;
+let threeState = null;
+let glitchTimer = null;
+let spark = null;
+const NAV = [["about","About"],["projects","Projects"],["repos","Repos"],["stack","Stack"],["now","Now"],["done","Done"],["updates","Updates"],["visuals","Shots"]];
+const SCREENSHOTS = [
+  ["AIOF — Explorer","aiof-explorer","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061548.png"],
+  ["AIOF — File preview","aiof-preview","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061618.png"],
+  ["AIOF — Media tools","aiof-media","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061633.png"],
+  ["AIOF — Downloads","aiof-downloads","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061646.png"],
+  ["FT-music — Player","ft-player","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/playerview.png"],
+  ["FT-music — Playlist","ft-playlist","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/playlistview.png"],
+  ["FT-music — Artist","ft-artist","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/artistview.png"],
+  ["FT-music — Lyrics","ft-lyrics","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/lyricsview1.png"]
+];
+const PROJECTS = [
+  ["Universal Package Manager","One Go interface for common package-management workflows across operating systems. Safer validation, predictable execution and automated cross-platform checks.","arc2898/Universal-Package-Manager"],
+  ["Self-hosted server dashboard","A private Node.js dashboard for system monitoring, file management, media streaming and a browser terminal, with security hardening.","arc2898/selfhost-dashboard"],
+  ["WinIsland","An experiment in bringing a useful dynamic-island style experience to Windows.","arc2898/WinIsland"],
+  ["Termimg / Linux","Terminal-based image and video playback experiments and Linux tooling.","arc2898/Linux"]
+];
+const MILESTONES = [
+  ["01","Universal Package Manager","A Go CLI that brings multiple package managers behind one consistent interface, with validation and safer command behaviour."],
+  ["02","Security hardening","Hardened upload handling, ZIP extraction, path validation, WebSocket origin checks and process controls in the self-hosted dashboard."],
+  ["03","Cross-platform checks","Expanded automated tests, static analysis and build verification across Linux, macOS and Windows."],
+  ["04","Windows interface experiments","Exploring a useful dynamic-island experience with WinIsland."],
+  ["05","Systems curiosity","Working across Android, Windows and Linux, including low-level and operating-system projects."]
+];
+const esc = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const fmt = value => Number(value||0).toLocaleString("en-US");
+const shortDate = value => value ? new Date(value).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"}) : "—";
+const since = value => {
+  if(!value) return "date unknown";
+  const ms = Math.max(0,Date.now()-new Date(value).getTime());
+  const days = Math.floor(ms/86400000);
+  if(days===0) return "today";
+  if(days===1) return "yesterday";
+  if(days<30) return days+" days ago";
+  if(days<365) return Math.floor(days/30)+" months ago";
+  return Math.floor(days/365)+" years ago";
+};
+function themeOptions(){
+  return THEMES.map(t=>'<option value="'+t.id+'" '+(t.id===currentTheme?'selected':'')+'>'+t.label+'</option>').join("");
+}
+function controlPanel(){
+  return '<div class="head-tools"><span class="clock-readout" id="clock">--:--:--</span><select class="theme-select" id="theme-select" aria-label="Change the complete visual theme">'+themeOptions()+'</select><button class="shuffle-btn" id="shuffle-theme" type="button" title="Choose another random theme">↻ Shuffle</button></div>';
+}
+function header(theme){
+  const brand = '<a class="brand" href="#top" aria-label="arc home"><span class="brand-mark">a.</span><span>arc2898</span><small>/ profile system</small></a>';
+  const nav = '<nav class="main-nav" aria-label="Main navigation">'+NAV.map((x,i)=>'<a href="#'+x[0]+'"><span>'+String(i+1).padStart(2,"0")+'</span> '+x[1]+'</a>').join("")+'</nav>';
+  if(theme==="retro" || theme==="oldweb"){
+    return '<div class="browser-chrome"><span class="browser-lights"><i></i><i></i><i></i></span><b>'+ (theme==="retro"?"Netscape-ish Navigator 4.0":"PERSONAL HOME PAGE") +'</b><span>FILE　EDIT　VIEW　GO　BOOKMARKS　HELP</span></div><header class="masthead">'+brand+nav+controlPanel()+'</header><div class="browser-address"><span>Location:</span><code>https://arc2898.github.io/arc2898/</code><span class="address-go">GO</span></div>';
+  }
+  const extras = theme==="burst" ? '<span class="head-sticker">INDEPENDENT / EST. 2026</span>' : theme==="pixel" ? '<span class="pixel-online">● ONLINE</span>' : theme==="future" ? '<span class="telemetry-light">SYS / ACTIVE</span>' : theme==="skeuo" ? '<span class="screw-head">✣</span>' : "";
+  return '<header class="masthead '+theme+'-masthead">'+brand+extras+nav+controlPanel()+'</header>';
+}
+function actionLinks(){
+  return '<div class="hero-actions"><a class="action primary" href="#projects">Explore the work <span>↘</span></a><a class="action" href="https://github.com/arc2898" target="_blank" rel="noreferrer">Open GitHub ↗</a></div>';
+}
+function hero(theme){
+  const tag = '<div class="eyebrow">Independent developer · systems curious · open to experiments</div>';
+  const title = '<h1>Ideas into <em>systems.</em></h1>';
+  const copy = '<p class="hero-copy">I’m arc — a solo developer building applications, command-line tools and interface experiments across Android, Windows and Linux. Curious about the low-level details, serious about making useful things.</p>';
+  const art = '<div class="hero-art" aria-hidden="true"><div class="liquid-lens"></div><span class="floating-chip one">BUILD / BREAK</span><span class="floating-chip two">SYSTEMS × UI</span><span class="floating-chip three">OPEN ENDED</span><span class="art-label">ARC / 2898 — LIVE SIGNAL</span></div>';
+  if(theme==="minimal"){
+    return '<section class="hero minimal-hero" id="top"><div class="minimal-index">PERSONAL INDEX　/　2026<br>INDEPENDENT DEVELOPER</div><div>'+tag+title+copy+actionLinks()+'<div class="hero-meta"><span>BASED IN CURIOSITY</span><b>·</b><span>CODE / SYSTEMS / INTERFACES</span></div></div>'+art+'</section><aside class="minimal-rail"><span>INDEX</span>'+NAV.map(x=>'<a href="#'+x[0]+'">'+x[1]+'</a>').join("")+'</aside>';
+  }
+  if(theme==="burst"){
+    return '<section class="hero brutal-hero" id="top"><div class="brutal-stamp">THE PERSONAL<br>DEV ARCHIVE<br>№ 02898</div><div>'+tag+'<h1>MAKE<br>IT <em>WORK.</em><br>MAKE IT<br>MATTER.</h1>'+copy+actionLinks()+'</div><div class="brutal-art"><div class="paper-back">ARC<br>2898</div><div class="paper-front">IDEAS<br>→<br>TOOLS</div><span class="paper-star">✳</span><span class="paper-note">NO TEMPLATE<br>NO SHORTCUTS</span></div><span class="brutal-bottom">DIGITAL OBJECTS / HUMAN CURIOSITY / CONTINUOUS ITERATION</span></section>';
+  }
+  if(theme==="skeuo"){
+    return '<section class="hero skeuo-hero" id="top"><div class="hardware-copy">'+tag+title+copy+actionLinks()+'</div><div class="device-stage"><div class="device-screen"><div class="device-screen-top"><span>ARC INTERFACE</span><span>READY ●</span></div><div class="device-display"><span class="display-small">SYSTEM PROFILE</span><b>ARC<span>2898</span></b><i>BUILD / EXPLORE / REPEAT</i></div><div class="device-controls"><span class="knob">◉</span><span class="knob">◉</span><span class="toggle">ON</span></div></div><div class="device-foot">SOLID STATE / 001</div></div></section>';
+  }
+  if(theme==="neo"){
+    return '<section class="hero soft-hero" id="top"><div>'+tag+title+copy+actionLinks()+'</div><div class="soft-dock"><div class="soft-icon">a.</div><div class="soft-dock-label">A SPACE TO BUILD</div><div class="soft-keys"><span>◌</span><span>⌘</span><span>↗</span></div></div></section>';
+  }
+  if(theme==="tinted"){
+    return '<section class="hero tinted-hero" id="top"><div class="tinted-copy">'+tag+title+copy+actionLinks()+'</div><div class="tint-stack"><div class="tint-pane pane-a"></div><div class="tint-pane pane-b"></div><div class="tint-pane pane-c"></div><span class="tint-caption">COLOR / LIGHT / DEPTH</span></div></section>';
+  }
+  if(theme==="glass"){
+    return '<section class="hero prism-hero" id="top"><div class="prism-copy">'+tag+title+copy+actionLinks()+'</div><div class="glass-gallery"><div class="glass-card gc-one"></div><div class="glass-card gc-two"></div><div class="glass-card gc-three"></div><span class="glass-caption">REFRACTION STUDY / 01</span></div></section>';
+  }
+  if(theme==="pixel"){
+    return '<section class="hero pixel-hero" id="top"><div class="pixel-hero-copy"><div class="pixel-status">PLAYER 01　/　STATUS: BUILDING</div>'+tag+'<h1>HELLO,<br>I’M <em>ARC.</em></h1>'+copy+actionLinks()+'</div><div class="pixel-world"><div class="pixel-sun"></div><div class="pixel-mountain"></div><div class="pixel-sprite"><i></i><i></i><i></i><i></i></div><span class="pixel-world-label">WORLD 2898 · LEVEL 01</span></div><div class="pixel-bottom-line">▰▰▰▱▱ EXPERIENCE POINTS　　NEXT LEVEL: KEEP BUILDING</div></section>';
+  }
+  if(theme==="retro"){
+    return '<section class="hero retro-hero" id="top"><div class="retro-banner"><span>★ ★ ★ WELCOME TO MY HOMEPAGE ★ ★ ★</span></div><center><div class="retro-welcome">HELLO, INTERNET!</div><h1>Welcome to <em>arc’s</em> corner of the web!</h1><p class="hero-copy">A solo developer’s personal homepage. I build command-line tools, graphical apps and systems experiments. Please explore, stay curious, and enjoy the hyperlinks.</p>'+actionLinks()+'<div class="retro-under-construction">🚧 ALWAYS UNDER CONSTRUCTION 🚧</div></center></section>';
+  }
+  if(theme==="oldweb"){
+    return '<section class="hero oldweb-hero" id="top"><center><div class="oldweb-welcome">~*~ WELCOME TO MY PERSONAL WEB PAGE ~*~</div><h1>arc<span>2898</span></h1><p class="hero-copy">Hello visitor! I’m arc. This little corner of the web is where I keep my projects, experiments, notes and things I have been working on.</p><div class="oldweb-visitor">YOU ARE VISITOR № <b id="visitor-count">0002898</b></div>'+actionLinks()+'<p><blink>✦ BEST VIEWED WITH CURIOSITY ✦</blink></p></center></section>';
+  }
+  if(theme==="future"){
+    return '<section class="hero hud-hero" id="top"><div class="hud-copy">'+tag+'<div class="hud-overline">IDENTITY / ARC-2898 / NODE 01</div>'+title+copy+actionLinks()+'<div class="hero-meta"><span><i class="tick-dot"></i> PROFILE UPLINK</span><span>LATENCY <b>LIVE</b></span><span>DATA SOURCE <b>GITHUB API</b></span></div></div><div class="hud-radar"><div class="radar-rings"><i></i><i></i><i></i><b>ARC</b></div><span class="radar-coordinate">X: 28.98　Y: 01.00</span><span class="radar-mark">SIGNAL FOUND</span></div></section>';
+  }
+  return '<section class="hero liquid-hero" id="top"><div>'+tag+title+copy+actionLinks()+'<div class="hero-meta"><span><i class="tick-dot"></i> PUBLIC PROFILE / ACTIVE</span><span>BUILT WITH CURIOSITY</span></div></div>'+art+'</section>';
+}
+function sectionIntro(num,title,desc){
+  return '<div class="section-heading"><div><span class="section-kicker">'+num+' / '+title+'</span><h2>'+title+'</h2></div><p>'+desc+'</p></div>';
+}
+function wrapSection(theme,id,num,title,desc,body){
+  const intro = sectionIntro(num,title,desc);
+  if(theme==="burst") return '<section id="'+id+'" class="profile-section reveal"><div class="paper-section"><div class="paper-index">'+num+' / INDEX</div>'+intro+body+'</div></section>';
+  if(theme==="pixel") return '<section id="'+id+'" class="profile-section reveal"><div class="pixel-window"><div class="pixel-window-bar"><b>'+title.toUpperCase()+'</b><span>□　×</span></div>'+intro+body+'<div class="pixel-window-foot">END OF BLOCK // '+num+'</div></div></section>';
+  if(theme==="retro" || theme==="oldweb") return '<section id="'+id+'" class="profile-section reveal"><fieldset class="retro-fieldset"><legend> '+num+' — '+title+' </legend>'+intro+body+'</fieldset></section>';
+  if(theme==="future") return '<section id="'+id+'" class="profile-section reveal"><div class="hud-frame"><div class="hud-frame-label">MODULE '+num+' / '+title.toUpperCase()+'</div><div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div>'+intro+body+'</div></section>';
+  if(theme==="skeuo") return '<section id="'+id+'" class="profile-section reveal"><div class="metal-panel"><div class="metal-panel-top"><span>✣　MODULE '+num+'</span><span>● READY</span></div>'+intro+body+'</div></section>';
+  if(theme==="minimal") return '<section id="'+id+'" class="profile-section reveal"><div class="minimal-section-number">'+num+'</div>'+intro+body+'</section>';
+  if(theme==="neo") return '<section id="'+id+'" class="profile-section reveal"><div class="neo-section-surface">'+intro+body+'</div></section>';
+  if(theme==="tinted") return '<section id="'+id+'" class="profile-section reveal"><div class="tinted-section-surface">'+intro+body+'</div></section>';
+  if(theme==="glass") return '<section id="'+id+'" class="profile-section reveal"><div class="glass-section-pane">'+intro+body+'</div></section>';
+  return '<section id="'+id+'" class="profile-section reveal"><div class="section-inner">'+intro+body+'</div></section>';
+}
+function aboutBody(){
+  return '<div class="about-layout"><article class="surface about-bio"><img class="avatar" id="avatar" src="https://avatars.githubusercontent.com/u/329584786?v=4" alt="arc GitHub avatar"><div><h3 class="bio-title" id="profile-name">arc / independent developer</h3><p class="bio-text" id="profile-bio">A solo developer interested in CLI and GUI software, Android, Windows, Linux and low-level engineering.</p><div class="bio-focus"><span class="tag">Go</span><span class="tag">Rust</span><span class="tag">Dart</span><span class="tag">JavaScript</span><span class="tag">Systems</span><span class="tag">Cross-platform</span></div><div class="social-row"><a class="social-link" href="https://github.com/arc2898" target="_blank" rel="noreferrer">GitHub ↗</a><a class="social-link" id="profile-blog-link" href="https://github.com/arc2898" target="_blank" rel="noreferrer">Website ↗</a><a class="social-link" href="mailto:rc002898@gmail.com">Gmail ↗</a><a class="social-link" href="https://x.com/arc3338" target="_blank" rel="noreferrer">X · @arc3338 ↗</a><a class="social-link" href="https://tryhackme.com/p/shikarin1113" target="_blank" rel="noreferrer">TryHackMe ↗</a></div></div></article><div class="stats-grid"><article class="surface stat-tile"><strong id="stat-repos">—</strong><span>Public repositories</span></article><article class="surface stat-tile"><strong id="stat-followers">—</strong><span>Followers</span></article><article class="surface stat-tile"><strong id="stat-following">—</strong><span>Following</span></article><article class="surface stat-tile"><strong id="stat-stars">—</strong><span>Stars earned</span></article><article class="surface stat-tile"><strong id="stat-forks">—</strong><span>Repository forks</span></article><article class="surface stat-tile"><strong id="stat-gists">—</strong><span>Public gists</span></article></div></div><div class="profile-facts surface"><div><span>LOCATION</span><b id="profile-location">Not specified</b></div><div><span>COMPANY</span><b id="profile-company">Independent</b></div><div><span>MEMBER SINCE</span><b id="profile-created">—</b></div><div><span>PROFILE</span><b id="profile-type">Public GitHub profile</b></div></div>';
+}
+function projectsBody(theme){
+  const groups = [
+    {name:"Android & music",items:[
+      {name:"FT-music",kind:"Android · Flutter + Go",desc:"An open-source music app with a Flutter client and a layered Go backend for music libraries, playlists, playback and authorized streaming integrations.",repo:"https://github.com/arc2898/Android/tree/main/FT-music",image:"https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/bloomeetunes_new_banner.png",gallery:["https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/playerview.png","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/playlistview.png"],apk:"https://github.com/arc2898/Android/releases/download/apk/FT-music-debug.apk",release:"https://github.com/arc2898/Android/releases/tag/apk",source:"https://github.com/arc2898/Android/archive/refs/heads/main.zip"}
+    ]},
+    {name:"Desktop & cross-device",items:[
+      {name:"AIOF — All-in-One File Manager",kind:"Windows · Linux · Electron",desc:"A local-first desktop workspace for files, previews, downloads, archives, media, system utilities and in-app editing.",repo:"https://github.com/arc2898/AIOF",image:"https://raw.githubusercontent.com/arc2898/AIOF/main/resources/branding/aiof-logo.png",gallery:["https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061548.png","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061618.png","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061633.png","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061646.png"]},
+      {name:"WinIsland",kind:"Windows 11 · C# / WPF",desc:"A Dynamic Island-style desktop widget with clock, system-resource, media and to-do modules.",repo:"https://github.com/arc2898/WinIsland"},
+      {name:"ShareXF",kind:"Windows · macOS · Linux · Android",desc:"A privacy-minded device connectivity suite for sharing files, screens, input, clipboard and device features across paired devices.",repo:"https://github.com/arc2898/sharexf"},
+      {name:"Self-hosted dashboard",kind:"Node.js · Self-hosted",desc:"A private server dashboard for system monitoring, file management, media streaming, process controls and a browser terminal.",repo:"https://github.com/arc2898/selfhost-dashboard"}
+    ]},
+    {name:"Developer tools & systems",items:[
+      {name:"Universal Package Manager",kind:"Go · CLI",desc:"One command-line interface for package installation, removal, search and updates across system and language package managers.",repo:"https://github.com/arc2898/Universal-Package-Manager"},
+      {name:"rEFInd-GUI",kind:"Rust · Boot tooling",desc:"A CLI-first workspace for rEFInd boot entries, Linux system inspection, kernel discovery and boot-environment management.",repo:"https://github.com/arc2898/rEFInd-GUI"},
+      {name:"arcnize",kind:"Linux · Shell tooling",desc:"A setup toolkit for GNOME extensions, Zsh and a customized Linux desktop workflow.",repo:"https://github.com/arc2898/arcnize"},
+      {name:"Tview",kind:"Linux · Terminal app",desc:"A terminal-based video player and image viewer built for lightweight media browsing.",repo:"https://github.com/arc2898/Linux/tree/main/tview"},
+      {name:"EVERLUMEN / NEUROGLASS",kind:"Linux · Hyprland / Quickshell",desc:"An experimental neon-glass desktop theme with a customization lab and distro-aware installer.",repo:"https://github.com/arc2898/Linux/tree/main/themes/everlumen"},
+      {name:"Linux Brand Modifier",kind:"Linux · Customization",desc:"Utilities for adjusting Linux distribution branding and related desktop assets.",repo:"https://github.com/arc2898/Linux/tree/main/linux-brand-modifier"}
+    ]}
+  ];
+  const card=(p,i)=>'<article class="surface project-card '+(p.apk?'project-featured':'')+'" style="--project-index:'+i+'">'+
+    '<div class="project-cover">'+(p.image?'<img src="'+p.image+'" alt="'+esc(p.name)+' preview" loading="lazy">':'<span class="project-monogram">'+esc(p.name.split(/\\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase())+'</span>')+'<span class="project-kind">'+esc(p.kind)+'</span></div>'+
+    '<div class="project-copy"><span class="project-number">PROJECT / '+String(i+1).padStart(2,"0")+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.desc)+'</p>'+
+    (p.gallery?'<div class="project-gallery">'+p.gallery.map((src,j)=>'<img src="'+src+'" alt="'+esc(p.name)+' screenshot '+(j+1)+'" loading="lazy">').join("")+'</div>':'')+
+    '<div class="project-actions">'+(p.apk?'<a class="action primary project-download" href="'+p.apk+'" download>Download APK ↓</a><a class="action project-source" href="'+p.source+'" download>Download source ↓</a>':'')+'<a class="action project-repo" href="'+p.repo+'" target="_blank" rel="noreferrer">Open project ↗</a>'+(p.release?'<a class="project-release" href="'+p.release+'" target="_blank" rel="noreferrer">All releases ↗</a>':'')+'</div></div></article>';
+  return '<div class="projects-groups">'+groups.map((g,gi)=>'<div class="project-group"><div class="project-group-heading"><span>COLLECTION / '+String(gi+1).padStart(2,"0")+'</span><h3>'+g.name+'</h3></div><div class="projects-grid">'+g.items.map((p,i)=>card(p,gi*10+i)).join("")+'</div></div>').join("")+'</div>';
+}
 function reposBody(){
   return '<div class="repo-overview"><div><strong id="repo-total-stars">—</strong><span>STARS</span></div><div><strong id="repo-total-forks">—</strong><span>FORKS</span></div><div><strong id="repo-total-watchers">—</strong><span>WATCHERS</span></div><div><strong id="repo-total-issues">—</strong><span>OPEN ISSUES</span></div><div><strong id="repo-language-count">—</strong><span>LANGUAGES</span></div></div><div class="repo-toolbar"><input class="repo-search" id="repo-search" placeholder="Find a repository…" aria-label="Search repositories"><select class="repo-sort" id="repo-sort" aria-label="Sort repositories"><option value="updated">Recently updated</option><option value="stars">Most stars</option><option value="forks">Most forks</option><option value="issues">Most open issues</option><option value="name">Name A–Z</option></select><select class="repo-filter" id="repo-language" aria-label="Filter by language"><option value="all">All languages</option></select></div><div class="repo-grid" id="repo-grid"><div class="data-empty">Establishing GitHub connection…</div></div><p class="hero-tag" id="repo-counter" style="margin-top:16px">PUBLIC REPOSITORIES / LOADING</p>';
 }
@@ -163,11 +365,11 @@ function renderTheme(theme, restoreId){
   $("#app").innerHTML = '<div class="site-shell '+theme+'-site">'+header(theme)+hero(theme)+ticker(theme)+'<main class="wrap content-flow">'+
     wrapSection(theme,"about","01","About","The person and interests behind the projects.",aboutBody())+
     wrapSection(theme,"repos","02","Repositories","Public repositories and their live GitHub metadata. Private projects stay private.",reposBody())+
-    wrapSection(theme,"stack","03","Tech stack","Languages discovered from public repository metadata; presence, not proficiency.",stackBody())+
-    wrapSection(theme,"now","04","What is going on","Recent public GitHub events and the current areas of focus.",nowBody())+
-    wrapSection(theme,"done","05","What was done","Selected engineering work and project milestones.",doneBody(theme))+
-    wrapSection(theme,"updates","06","Updates","Weekly snapshots plus the latest visible changes.",updatesBody())+
-    wrapSection(theme,"visuals","07","Project screenshots","Eight individual frames ready for screenshots, added one by one.",galleryBody())+
+    wrapSection(theme,"stack","04","Tech stack","Languages discovered from public repository metadata; presence, not proficiency.",stackBody())+
+    wrapSection(theme,"now","05","What is going on","Recent public GitHub events and the current areas of focus.",nowBody())+
+    wrapSection(theme,"done","06","What was done","Selected engineering work and project milestones.",doneBody(theme))+
+    wrapSection(theme,"updates","07","Updates","Weekly snapshots plus the latest visible changes.",updatesBody())+
+    wrapSection(theme,"visuals","08","Project screenshots","Eight individual frames ready for screenshots, added one by one.",galleryBody())+
     '</main>'+footer()+'</div>';
   bindThemeControls();
   bindRepoControls();
