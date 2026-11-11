@@ -156,6 +156,33 @@ function projectsBody(theme){
     '<div class="project-actions">'+(p.apk?'<a class="action primary project-download" href="'+p.apk+'" download>Download APK ↓</a><a class="action project-source" href="'+p.source+'" download>Download source ↓</a>':'')+'<a class="action project-repo" href="'+p.repo+'" target="_blank" rel="noreferrer">Open project ↗</a>'+(p.release?'<a class="project-release" href="'+p.release+'" target="_blank" rel="noreferrer">All releases ↗</a>':'')+'</div></div></article>';
   return '<div class="projects-groups">'+groups.map((g,gi)=>'<div class="project-group"><div class="project-group-heading"><span>COLLECTION / '+String(gi+1).padStart(2,"0")+'</span><h3>'+g.name+'</h3></div><div class="projects-grid">'+g.items.map((p,i)=>card(p,gi*10+i)).join("")+'</div></div>').join("")+'</div>';
 }
+function projectsBody(theme){
+  const groups = [
+    {name:"Android & music",items:[
+      {name:"FT-music",kind:"Android · Flutter + Go",desc:"An open-source music app with a Flutter client and a layered Go backend for music libraries, playlists, playback and authorized streaming integrations.",repo:"https://github.com/arc2898/Android/tree/main/FT-music",image:"https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/bloomeetunes_new_banner.png",gallery:["https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/playerview.png","https://raw.githubusercontent.com/arc2898/Android/main/FT-music/app/assets/docs/playlistview.png"],apk:"https://github.com/arc2898/Android/releases/download/apk/FT-music-debug.apk",release:"https://github.com/arc2898/Android/releases/tag/apk",source:"https://github.com/arc2898/Android/archive/refs/heads/main.zip"}
+    ]},
+    {name:"Desktop & cross-device",items:[
+      {name:"AIOF — All-in-One File Manager",kind:"Windows · Linux · Electron",desc:"A local-first desktop workspace for files, previews, downloads, archives, media, system utilities and in-app editing.",repo:"https://github.com/arc2898/AIOF",image:"https://raw.githubusercontent.com/arc2898/AIOF/main/resources/branding/aiof-logo.png",gallery:["https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061548.png","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061618.png","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061633.png","https://raw.githubusercontent.com/arc2898/AIOF/main/screenshots/Screenshot%202026-11-10%20061646.png"]},
+      {name:"WinIsland",kind:"Windows 11 · C# / WPF",desc:"A Dynamic Island-style desktop widget with clock, system-resource, media and to-do modules.",repo:"https://github.com/arc2898/WinIsland"},
+      {name:"ShareXF",kind:"Windows · macOS · Linux · Android",desc:"A privacy-minded device connectivity suite for sharing files, screens, input, clipboard and device features across paired devices.",repo:"https://github.com/arc2898/sharexf"},
+      {name:"Self-hosted dashboard",kind:"Node.js · Self-hosted",desc:"A private server dashboard for system monitoring, file management, media streaming, process controls and a browser terminal.",repo:"https://github.com/arc2898/selfhost-dashboard"}
+    ]},
+    {name:"Developer tools & systems",items:[
+      {name:"Universal Package Manager",kind:"Go · CLI",desc:"One command-line interface for package installation, removal, search and updates across system and language package managers.",repo:"https://github.com/arc2898/Universal-Package-Manager"},
+      {name:"rEFInd-GUI",kind:"Rust · Boot tooling",desc:"A CLI-first workspace for rEFInd boot entries, Linux system inspection, kernel discovery and boot-environment management.",repo:"https://github.com/arc2898/rEFInd-GUI"},
+      {name:"arcnize",kind:"Linux · Shell tooling",desc:"A setup toolkit for GNOME extensions, Zsh and a customized Linux desktop workflow.",repo:"https://github.com/arc2898/arcnize"},
+      {name:"Tview",kind:"Linux · Terminal app",desc:"A terminal-based video player and image viewer built for lightweight media browsing.",repo:"https://github.com/arc2898/Linux/tree/main/tview"},
+      {name:"EVERLUMEN / NEUROGLASS",kind:"Linux · Hyprland / Quickshell",desc:"An experimental neon-glass desktop theme with a customization lab and distro-aware installer.",repo:"https://github.com/arc2898/Linux/tree/main/themes/everlumen"},
+      {name:"Linux Brand Modifier",kind:"Linux · Customization",desc:"Utilities for adjusting Linux distribution branding and related desktop assets.",repo:"https://github.com/arc2898/Linux/tree/main/linux-brand-modifier"}
+    ]}
+  ];
+  const card=(p,i)=>'<article class="surface project-card '+(p.apk?'project-featured':'')+'" style="--project-index:'+i+'">'+
+    '<div class="project-cover">'+(p.image?'<img src="'+p.image+'" alt="'+esc(p.name)+' preview" loading="lazy">':'<span class="project-monogram">'+esc(p.name.split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase())+'</span>')+'<span class="project-kind">'+esc(p.kind)+'</span></div>'+
+    '<div class="project-copy"><span class="project-number">PROJECT / '+String(i+1).padStart(2,"0")+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.desc)+'</p>'+
+    (p.gallery?'<div class="project-gallery">'+p.gallery.map((src,j)=>'<img src="'+src+'" alt="'+esc(p.name)+' screenshot '+(j+1)+'" loading="lazy">').join("")+'</div>':'')+
+    '<div class="project-actions">'+(p.apk?'<a class="action primary project-download" href="'+p.apk+'" download>Download APK ↓</a><a class="action project-source" href="'+p.source+'" download>Download source ↓</a>':'')+'<a class="action project-repo" href="'+p.repo+'" target="_blank" rel="noreferrer">Open project ↗</a>'+(p.release?'<a class="project-release" href="'+p.release+'" target="_blank" rel="noreferrer">All releases ↗</a>':'')+'</div></div></article>';
+  return '<div class="projects-groups">'+groups.map((g,gi)=>'<div class="project-group"><div class="project-group-heading"><span>COLLECTION / '+String(gi+1).padStart(2,"0")+'</span><h3>'+g.name+'</h3></div><div class="projects-grid">'+g.items.map((p,i)=>card(p,gi*10+i)).join("")+'</div></div>').join("")+'</div>';
+}
 function reposBody(){
   return '<div class="repo-overview"><div><strong id="repo-total-stars">—</strong><span>STARS</span></div><div><strong id="repo-total-forks">—</strong><span>FORKS</span></div><div><strong id="repo-total-watchers">—</strong><span>WATCHERS</span></div><div><strong id="repo-total-issues">—</strong><span>OPEN ISSUES</span></div><div><strong id="repo-language-count">—</strong><span>LANGUAGES</span></div></div><div class="repo-toolbar"><input class="repo-search" id="repo-search" placeholder="Find a repository…" aria-label="Search repositories"><select class="repo-sort" id="repo-sort" aria-label="Sort repositories"><option value="updated">Recently updated</option><option value="stars">Most stars</option><option value="forks">Most forks</option><option value="issues">Most open issues</option><option value="name">Name A–Z</option></select><select class="repo-filter" id="repo-language" aria-label="Filter by language"><option value="all">All languages</option></select></div><div class="repo-grid" id="repo-grid"><div class="data-empty">Establishing GitHub connection…</div></div><p class="hero-tag" id="repo-counter" style="margin-top:16px">PUBLIC REPOSITORIES / LOADING</p>';
 }
@@ -364,7 +391,8 @@ function renderTheme(theme, restoreId){
   document.documentElement.dataset.theme = theme;
   $("#app").innerHTML = '<div class="site-shell '+theme+'-site">'+header(theme)+hero(theme)+ticker(theme)+'<main class="wrap content-flow">'+
     wrapSection(theme,"about","01","About","The person and interests behind the projects.",aboutBody())+
-    wrapSection(theme,"repos","02","Repositories","Public repositories and their live GitHub metadata. Private projects stay private.",reposBody())+
+    wrapSection(theme,"projects","02","Projects","A project-by-project index with real screenshots, concise summaries and download links.",projectsBody(theme))+
+    wrapSection(theme,"repos","03","Repositories","Public repositories and their live GitHub metadata. Private projects stay private.",reposBody())+
     wrapSection(theme,"stack","04","Tech stack","Languages discovered from public repository metadata; presence, not proficiency.",stackBody())+
     wrapSection(theme,"now","05","What is going on","Recent public GitHub events and the current areas of focus.",nowBody())+
     wrapSection(theme,"done","06","What was done","Selected engineering work and project milestones.",doneBody(theme))+
