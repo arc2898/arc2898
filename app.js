@@ -150,7 +150,7 @@ function projectsBody(theme){
     ]}
   ];
   const card=(p,i)=>'<article class="surface project-card '+(p.apk?'project-featured':'')+'" style="--project-index:'+i+'">'+
-    '<div class="project-cover">'+(p.image?'<img src="'+p.image+'" alt="'+esc(p.name)+' preview" loading="lazy">':'<span class="project-monogram">'+esc(p.name.split(/\\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase())+'</span>')+'<span class="project-kind">'+esc(p.kind)+'</span></div>'+
+    '<div class="project-cover">'+(p.image?'<img src="'+p.image+'" alt="'+esc(p.name)+' preview" loading="lazy">':'<span class="project-monogram">'+esc(p.name.split(/\s+/).map(w=>w[0]).slice(0,2).join("").toUpperCase())+'</span>')+'<span class="project-kind">'+esc(p.kind)+'</span></div>'+
     '<div class="project-copy"><span class="project-number">PROJECT / '+String(i+1).padStart(2,"0")+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.desc)+'</p>'+
     (p.gallery?'<div class="project-gallery">'+p.gallery.map((src,j)=>'<img src="'+src+'" alt="'+esc(p.name)+' screenshot '+(j+1)+'" loading="lazy">').join("")+'</div>':'')+
     '<div class="project-actions">'+(p.apk?'<a class="action primary project-download" href="'+p.apk+'" download>Download APK ↓</a><a class="action project-source" href="'+p.source+'" download>Download source ↓</a>':'')+'<a class="action project-repo" href="'+p.repo+'" target="_blank" rel="noreferrer">Open project ↗</a>'+(p.release?'<a class="project-release" href="'+p.release+'" target="_blank" rel="noreferrer">All releases ↗</a>':'')+'</div></div></article>';
@@ -195,7 +195,7 @@ function renderTheme(theme, restoreId){
     wrapSection(theme,"now","05","What is going on","Recent public GitHub events and the current areas of focus.",nowBody())+
     wrapSection(theme,"done","06","What was done","Selected engineering work and project milestones.",doneBody(theme))+
     wrapSection(theme,"updates","07","Updates","Weekly snapshots plus the latest visible changes.",updatesBody())+
-    wrapSection(theme,"visuals","08","Project screenshots","Eight individual frames ready for screenshots, added one by one.",galleryBody())+
+    wrapSection(theme,"visuals","08","Project screenshots","Actual AIOF and FT-music screenshots pulled from their project repositories.",galleryBody())+
     '</main>'+footer()+'</div>';
   bindThemeControls();
   bindRepoControls();
