@@ -116,9 +116,6 @@ A browser-based dashboard for managing and monitoring a self-hosted server.
 [![Top Langs](https://denvercoder1-github-readme-stats.vercel.app/api/top-langs/?username=arc2898&langs_count=8&layout=compact&theme=react&hide_border=true&bg_color=1F222E&title_color=F85D7F&icon_color=F8D866&hide=Jupyter%20Notebook,Roff)](https://github.com/anuraghazra/github-readme-stats)
 <a href="https://github.com/anuraghazra/github-readme-stats"><img src="https://denvercoder1-github-readme-stats.vercel.app/api/?username=arc2898&show_icons=true&include_all_commits=true&count_private=true&theme=react&hide_border=true&bg_color=1F222E&title_color=F85D7F&icon_color=F8D866" alt="arc2898's GitHub stats" /></a>
 
-<a href="https://github.com/arc2898">
-</a>
-
 <br>
 
 <img src="https://streak-stats.demolab.com?user=arc2898&theme=github-dark-blue&hide_border=true" alt="Contribution streak" />
